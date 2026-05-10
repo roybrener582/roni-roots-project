@@ -85,3 +85,19 @@
   line-height: 1;
   pointer-events: none;
 }
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .block {
+    max-width: 100%;
+  }
+
+  .highlight {
+    padding: var(--sp-3) var(--sp-4) var(--sp-3) var(--sp-5);
+    font-size: var(--t-sm);
+  }
+
+  .body {
+    line-height: 1.85;
+  }
+}

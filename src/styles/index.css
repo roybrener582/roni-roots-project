@@ -119,11 +119,16 @@ body {
   min-height: 100svh;
 }
 
-/* ── Mobile page padding override ─────────────────────── */
+/* ── Mobile token overrides ────────────────────────────── */
 @media (max-width: 480px) {
   :root {
-    /* Tighten horizontal page padding on phones */
     --page-pad-x: clamp(1rem, 4vw, 1.5rem);
+    --page-pad-y: clamp(0.55rem, 1.4vh, 0.95rem);
+    --r-xl:       12px;
+    --r-2xl:      18px;
+    --sp-8:       1.5rem;
+    --sp-10:      2rem;
+    --sp-12:      2.5rem;
   }
 }
 

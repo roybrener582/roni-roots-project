@@ -137,6 +137,13 @@
   opacity: 0.70;
 }
 
+/* ── Mobile: tighter bottom clearance for page number ───── */
+@media (max-width: 480px) {
+  .page {
+    padding-bottom: calc(var(--page-pad-y) + var(--sp-4));
+  }
+}
+
 /* ── Very narrow screens: reduce stacked-page peek ──────── */
 @media (max-width: 420px) {
   .wrapper::before { inset: 3px -3px 0 3px; }

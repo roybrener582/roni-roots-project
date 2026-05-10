@@ -167,3 +167,48 @@
 .compact .header::after {
   display: none;
 }
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 480px — tighter header, smaller title, less gap
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .header {
+    gap: 0.20rem;
+    padding-top: 0.40rem;
+    padding-bottom: 0.22rem;
+  }
+
+  .ornament {
+    letter-spacing: 0.28rem;
+  }
+
+  .title {
+    font-size: clamp(1.20rem, 5.5vw, 1.55rem);
+    line-height: 1.30;
+  }
+
+  .titleLarge {
+    font-size: clamp(1.40rem, 6.5vw, 1.90rem);
+    line-height: 1.22;
+  }
+
+  .subtitle {
+    font-size: var(--t-sm);
+    line-height: 1.70;
+  }
+
+  .main {
+    gap: clamp(0.42rem, 1.1vh, 0.80rem);
+    padding-top: 0.22rem;
+    padding-bottom: 0.10rem;
+  }
+
+  .footer {
+    padding-bottom: 0.18rem;
+    letter-spacing: 0.38rem;
+  }
+
+  .header::after {
+    margin-top: 0.10rem;
+  }
+}

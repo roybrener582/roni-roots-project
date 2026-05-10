@@ -83,3 +83,16 @@
   text-align: center;
   line-height: 1.5;
 }
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card {
+    padding: var(--sp-3) var(--sp-4);
+    min-width: 0;
+    border-radius: var(--r-lg);
+  }
+
+  .icon {
+    font-size: var(--t-xl);
+  }
+}

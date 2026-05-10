@@ -199,7 +199,7 @@
   .reversed {
     flex-direction: column;
     text-align:     center;
-    padding: var(--sp-4) var(--sp-4) var(--sp-3);
+    padding: var(--sp-3) var(--sp-4) var(--sp-3);
   }
 
   .text       { align-items: center; }
@@ -207,6 +207,6 @@
   .rule       { margin: 0 auto; }
 
   .illustration {
-    width: clamp(64px, 22vw, 88px);
+    width: clamp(56px, 18vw, 80px);
   }
 }
