@@ -8,6 +8,8 @@
   justify-content: center;
   align-items: center;
   padding: 8px 16px 14px;
+  /* Safe area on iPhones with home indicator */
+  padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
 }
 
 /* ── Floating pill ──────────────────────────────────────── */
@@ -37,7 +39,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  min-height: 36px;
+  min-height: 44px;
   min-width: 44px;
   padding: 6px 14px;
   border-radius: 999px;
@@ -127,13 +129,13 @@
 
 .jumpInput {
   width: 52px;
-  height: 30px;
+  height: 40px;
   background: rgba(255, 255, 255, 0.07);
   border: 1px solid rgba(196, 169, 110, 0.22);
   border-radius: 8px;
   color: rgba(196, 169, 110, 0.9);
   font-family: var(--f-body);
-  font-size: 13px;
+  font-size: 16px; /* 16px minimum prevents iOS auto-zoom */
   text-align: center;
   padding: 0 4px;
   direction: ltr;
@@ -182,8 +184,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
   background: rgba(196, 169, 110, 0.12);
   border: 1px solid rgba(196, 169, 110, 0.26);
   border-radius: 50%;
@@ -227,15 +229,16 @@
 /* ── Mobile: tighten up, hide labels ───────────────────── */
 @media (max-width: 480px) {
   .btnLabel   { display: none; }
-  .btn        { min-width: 36px; padding: 6px 10px; }
-  .jumpInput  { width: 44px; font-size: 12px; }
-  .jumpGroup  { padding: 0 5px; gap: 4px; }
-  .pageIndicator { font-size: 12px; padding: 0 8px; }
+  .btn        { min-width: 44px; min-height: 44px; padding: 6px 8px; }
+  .jumpInput  { width: 44px; font-size: 16px; height: 38px; }
+  .jumpGroup  { padding: 0 4px; gap: 4px; }
+  .pageIndicator { font-size: 12px; padding: 0 6px; }
 }
 
 @media (max-width: 360px) {
-  .pageIndicator { font-size: 11px; padding: 0 6px; }
-  .jumpInput  { width: 38px; }
-  .jumpBtn    { width: 24px; height: 24px; }
-  .jumpBtn svg { width: 11px; height: 11px; }
+  /* On very small phones, hide the jump-to-page group and the
+     separator after it so the pill stays: prev | indicator | next */
+  .jumpGroup       { display: none; }
+  .jumpGroup ~ .sep { display: none; }
+  .pageIndicator   { font-size: 11px; padding: 0 5px; }
 }

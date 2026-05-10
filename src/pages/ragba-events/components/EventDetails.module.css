@@ -142,6 +142,7 @@
   display: flex;
   flex-direction: column;
   gap: 11px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
 }
 
 /* ── Confirm banner ────────────────────────────────── */

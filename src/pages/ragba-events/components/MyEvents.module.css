@@ -14,6 +14,7 @@
 
 .content {
   padding: 20px;
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
   max-width: 640px;
   margin: 0 auto;
 }

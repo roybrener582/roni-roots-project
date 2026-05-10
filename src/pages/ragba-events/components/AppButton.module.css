@@ -51,10 +51,10 @@
   cursor: not-allowed;
 }
 
-/* sizes */
-.sm   { padding: 9px 18px;  font-size: 0.83rem; border-radius: 11px; }
-.md   { padding: 13px 24px; font-size: 0.90rem; }
-.lg   { padding: 15px 30px; font-size: 1.00rem; border-radius: 16px; }
+/* sizes — all variants meet the 44px minimum touch target */
+.sm   { padding: 11px 18px; font-size: 0.83rem; border-radius: 11px; min-height: 44px; }
+.md   { padding: 13px 24px; font-size: 0.90rem; min-height: 44px; }
+.lg   { padding: 15px 30px; font-size: 1.00rem; border-radius: 16px; min-height: 48px; }
 .full { width: 100%; }
 
 /* variants */

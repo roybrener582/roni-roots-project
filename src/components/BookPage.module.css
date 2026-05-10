@@ -45,6 +45,8 @@
   padding: var(--page-pad-y) var(--page-pad-x) calc(var(--page-pad-y) + var(--sp-6));
 
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* momentum scrolling on iOS */
+  overscroll-behavior-y: contain;    /* prevent pull-to-refresh from triggering */
   scrollbar-width: thin;
   scrollbar-color: rgba(139, 105, 20, 0.16) transparent;
 
@@ -122,8 +124,10 @@
 .pageNumber {
   position: absolute;
   bottom: var(--sp-3);
-  left: 50%;
-  transform: translateX(-50%);
+  /* Safe centering without transform that can clip on narrow screens */
+  left: 0;
+  right: 0;
+  text-align: center;
   font-family: var(--f-heading);
   font-size: var(--t-xs);
   color: var(--c-text-3);

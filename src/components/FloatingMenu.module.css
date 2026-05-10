@@ -23,10 +23,12 @@
 /* ── Panel ───────────────────────────────────────────────── */
 .panel {
   position: fixed;
-  top: 68px;
-  right: clamp(16px, 2.5vw, 32px);
+  /* Align below the hamburger button; accounts for notched iPhones */
+  top: max(68px, calc(env(safe-area-inset-top, 0px) + 58px));
+  right: max(clamp(16px, 2.5vw, 32px), calc(env(safe-area-inset-right, 0px) + 8px));
   z-index: 1001;
   width: 230px;
+  max-width: calc(100vw - 32px);
 
   display: flex;
   flex-direction: column;
@@ -97,10 +99,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 26px;
-  height: 26px;
+  width: 36px;
+  height: 36px;
   border: 1px solid transparent;
   border-radius: var(--r-md);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   background: transparent;
   color: var(--c-text-3);
   font-size: 0.72rem;

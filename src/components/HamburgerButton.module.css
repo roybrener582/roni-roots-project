@@ -4,8 +4,8 @@
 
 .btn {
   position: fixed;
-  top: 18px;
-  right: clamp(16px, 2.5vw, 32px);
+  top: max(18px, calc(env(safe-area-inset-top, 0px) + 8px));
+  right: max(clamp(16px, 2.5vw, 32px), calc(env(safe-area-inset-right, 0px) + 8px));
   z-index: 1000;
 
   display: flex;
@@ -14,8 +14,8 @@
   align-items: center;
   justify-content: center;
 
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 1px solid rgba(196, 169, 110, 0.48);
   border-radius: var(--r-xl);
@@ -31,6 +31,8 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.07);
 
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition:
     background    var(--dur-fast, 0.15s) ease,
     border-color  var(--dur-fast, 0.15s) ease,

@@ -39,6 +39,8 @@
     0 8px 24px  rgba(20, 10, 2, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.90);
   min-width: 260px;
+  max-width: min(340px, calc(100vw - 40px));
+  width: 100%;
   text-align: center;
   animation: boxIn 0.35s var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1));
 }
