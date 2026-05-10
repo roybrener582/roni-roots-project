@@ -137,6 +137,17 @@
   line-height: 1.78;
 }
 
+/* ── Mobile: single-column info grid on phones ─────── */
+@media (max-width: 480px) {
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .infoFull {
+    grid-column: auto;
+  }
+}
+
 /* ── Actions ───────────────────────────────────────── */
 .actions {
   display: flex;

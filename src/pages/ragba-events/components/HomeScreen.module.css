@@ -192,6 +192,23 @@
   font-weight: 600;
 }
 
+/* ── Very narrow phones: wrap feature pills ──────── */
+@media (max-width: 360px) {
+  .features {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .feature {
+    flex: 1 1 calc(50% - 6px);
+    min-width: calc(50% - 6px);
+  }
+
+  .statsRow {
+    flex-direction: column;
+  }
+}
+
 /* ── Footer ──────────────────────────────────────── */
 .footer {
   text-align: center;

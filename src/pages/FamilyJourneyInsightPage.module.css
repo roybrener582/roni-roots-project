@@ -137,8 +137,8 @@
 @media (max-width: 768px) {
   .wrapper {
     padding:
-      clamp(2.5rem, 6.5vh, 4.5rem)
-      clamp(1.4rem, 4.5vw, 2.4rem);
+      clamp(0.75rem, 2vh, 1.2rem)
+      clamp(0.9rem, 3.5vw, 1.4rem);
   }
 
   .reflection {

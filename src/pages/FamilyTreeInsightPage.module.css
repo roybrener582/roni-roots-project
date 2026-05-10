@@ -207,8 +207,8 @@
 @media (max-width: 768px) {
   .wrapper {
     padding:
-      clamp(2rem, 5.5vh, 3.5rem)
-      clamp(1.2rem, 4.5vw, 2rem);
+      clamp(0.75rem, 2vh, 1.2rem)
+      clamp(0.9rem, 3.5vw, 1.4rem);
   }
 
   .para {

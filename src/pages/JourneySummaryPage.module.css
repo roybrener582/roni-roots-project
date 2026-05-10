@@ -122,9 +122,9 @@
   .card {
     max-width: 100%;
     padding:
-      clamp(1.5rem, 4vh, 2.2rem)
-      clamp(1.1rem, 5vw, 1.7rem);
-    gap: clamp(0.9rem, 2.2vh, 1.4rem);
+      clamp(0.75rem, 2.2vh, 1.1rem)
+      clamp(0.9rem, 4vw, 1.4rem);
+    gap: clamp(0.65rem, 1.8vh, 1rem);
   }
 
   .para {

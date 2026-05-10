@@ -364,7 +364,12 @@
 
 /* ── Responsive tweaks ───────────────────────────────────── */
 @media (max-width: 768px) {
-  .header      { padding: 0.75rem 1rem 0.65rem; }
+  .header {
+    padding: 0.75rem 1rem 0.65rem;
+    /* Reserve space for hamburger button + safe area at top-right */
+    padding-right: max(1rem, calc(68px + env(safe-area-inset-right, 0px)));
+    padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
+  }
   .headerTitle { font-size: 1.02rem; }
   .bubble      { font-size: 0.90rem; max-width: 85%; }
   .chip        { font-size: 0.80rem; padding: 0.42rem 0.90rem; }

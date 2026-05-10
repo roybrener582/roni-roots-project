@@ -289,38 +289,166 @@
   font-weight: 500;
 }
 
-/* ── Mobile: title → image → content stack ─────────────── */
+/* ── Mobile: stacked, airy, readable ───────────────────── */
 @media (max-width: 768px) {
+  .wrapper {
+    padding-inline: 1rem;
+  }
+
+  /* Stack vertically; image floats to top via order */
   .pageRow {
     flex-direction: column;
-    gap: clamp(1.0rem, 3vw, 1.4rem);
+    gap: 1.75rem;
     align-items: stretch;
   }
 
+  /* Image column → appears first on mobile */
   .leftCol {
+    order: -1;
     width: 100%;
     max-width: none;
   }
 
+  /* Let the image breathe — no height cap */
   .imageWrap {
-    max-height: clamp(180px, 52vw, 260px);
-    overflow: hidden;
+    max-height: none;
+    overflow: visible;
+    padding: 0.6rem;
   }
 
   .img {
-    max-height: clamp(180px, 52vw, 260px);
-    object-fit: contain;
+    max-height: none;
+    width: 100%;
   }
 
+  /* Content column */
   .rightCol {
     padding-inline-start: 0;
+    gap: 1.5rem;
   }
 
+  /* Section headings — slightly larger, more air below */
+  .sectionHeading {
+    font-size: 0.98rem;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.1rem;
+  }
+
+  /* Intro block */
+  .introGroup {
+    gap: 0.8rem;
+    padding-bottom: 1.1rem;
+  }
+
+  .introText {
+    font-size: 0.93rem;
+    line-height: 1.95;
+  }
+
+  .idiomList {
+    gap: 0.4rem;
+  }
+
+  .idiomEntry {
+    flex-wrap: wrap;
+    gap: 0.3em;
+    line-height: 1.7;
+  }
+
+  .idiomPhrase {
+    font-size: 0.87rem;
+  }
+
+  .idiomDef {
+    font-size: 0.79rem;
+  }
+
+  /* Info grid — single column, generous gap */
   .infoGrid {
     grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .infoCol {
+    gap: 0.55rem;
+  }
+
+  /* Source entries — icon on top, stacked, 2-up card grid */
+  .sourceList {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.65rem;
+  }
+
+  .sourceEntry {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.18rem;
+    padding: 0.55rem 0.4rem;
+    background: var(--c-paper-s1);
+    border-radius: var(--r-md);
+    border: 1px solid var(--c-page-accent-border);
+  }
+
+  .srcIcon {
+    font-size: 1.35rem;
+    line-height: 1.2;
+  }
+
+  .srcLabel {
+    font-size: 0.80rem;
+  }
+
+  .srcItems {
+    font-size: 0.70rem;
+    color: var(--c-text-3);
+    line-height: 1.5;
+  }
+
+  /* Keyword entries — term on its own line */
+  .kwList {
+    gap: 0.55rem;
+  }
+
+  .kwEntry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.08rem;
+  }
+
+  .kwTerm {
+    font-size: 0.85rem;
+    white-space: normal;
+  }
+
+  .kwDef {
+    font-size: 0.77rem;
+    line-height: 1.6;
+    padding-inline-start: 0.5rem;
+  }
+
+  /* Control comparison */
+  .controlGroup {
+    gap: 0.6rem;
   }
 
   .controlCols {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .controlSideTitle {
+    font-size: 0.88rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .controlList li {
+    font-size: 0.83rem;
+    line-height: 1.65;
+  }
+
+  .controlList {
+    gap: 0.3rem;
   }
 }

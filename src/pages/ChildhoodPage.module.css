@@ -105,8 +105,8 @@
   }
 }
 
-/* Very narrow screens: single column */
-@media (max-width: 360px) {
+/* Single column on phones — keeps cards readable */
+@media (max-width: 480px) {
   .grid {
     grid-template-columns: 1fr;
   }

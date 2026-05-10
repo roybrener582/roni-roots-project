@@ -11,6 +11,8 @@ export default function Book() {
   // flipState: null when idle, { index, direction } during animation
   const [flipState, setFlipState] = useState(null);
   const locked = useRef(false);
+  const touchStartX = useRef(null);
+  const touchStartY = useRef(null);
 
   const navigate = (to, direction) => {
     if (locked.current || to === currentIndex) return;
@@ -37,36 +39,65 @@ export default function Book() {
 
   usePageNavigationControls({ onNext: goToNext, onPrev: goToPrev });
 
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e) => {
+    if (touchStartX.current === null) return;
+    const dx = e.changedTouches[0].clientX - touchStartX.current;
+    const dy = e.changedTouches[0].clientY - touchStartY.current;
+    touchStartX.current = null;
+    touchStartY.current = null;
+    // Require a dominant horizontal gesture (≥50px, at least 1.5× the vertical delta)
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    if (dx < 0) goToNext();
+    else goToPrev();
+  };
+
+  const handleTouchCancel = () => {
+    touchStartX.current = null;
+    touchStartY.current = null;
+  };
+
   const { component: CurrentPage, hebrewNumber } = pages[currentIndex];
 
   return (
-    <BookLayout
-      nav={
-        <Navigation
-          current={currentIndex}
-          total={pages.length}
-          onNext={goToNext}
-          onPrev={goToPrev}
-          onGoTo={goToPage}
-          disabled={!!flipState}
-        />
-      }
+    <div
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchCancel}
+      style={{ touchAction: 'pan-y' }}
     >
-      <PageTurnTransition
-        isFlipping={!!flipState}
-        direction={flipState?.direction ?? 'next'}
-        outgoing={
-          flipState && (
-            <BookPage pageNumber={pages[flipState.index].hebrewNumber}>
-              {createElement(pages[flipState.index].component)}
-            </BookPage>
-          )
+      <BookLayout
+        nav={
+          <Navigation
+            current={currentIndex}
+            total={pages.length}
+            onNext={goToNext}
+            onPrev={goToPrev}
+            onGoTo={goToPage}
+            disabled={!!flipState}
+          />
         }
       >
-        <BookPage key={currentIndex} pageNumber={hebrewNumber}>
-          <CurrentPage />
-        </BookPage>
-      </PageTurnTransition>
-    </BookLayout>
+        <PageTurnTransition
+          isFlipping={!!flipState}
+          direction={flipState?.direction ?? 'next'}
+          outgoing={
+            flipState && (
+              <BookPage pageNumber={pages[flipState.index].hebrewNumber}>
+                {createElement(pages[flipState.index].component)}
+              </BookPage>
+            )
+          }
+        >
+          <BookPage key={currentIndex} pageNumber={hebrewNumber}>
+            <CurrentPage />
+          </BookPage>
+        </PageTurnTransition>
+      </BookLayout>
+    </div>
   );
 }

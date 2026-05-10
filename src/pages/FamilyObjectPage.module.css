@@ -171,6 +171,11 @@
    Guitar gets order: -1 to float above text in column flow.
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  /* Remove wrapper's own padding — BookPage already provides page-level padding */
+  .wrapper {
+    padding: 0;
+  }
+
   .layout {
     flex-direction: column;
     gap:            clamp(1.2rem, 4vw, 2rem);
