@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PageLayout from '../components/PageLayout';
 import styles from './BelongingPage.module.css';
 
-const PHOTO = 'public/shihot.png';
+const PHOTO = '/shihot.png';
 
 const RINGS = [
   {
