@@ -1,0 +1,288 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyMapPage — "מפת המשפחה שלי"  ·  פרק 6
+
+   Three soft pastel cards in a row (desktop) / stacked (mobile).
+   Each card has its own color identity while sharing the same
+   structure — "these are my people" at a glance.
+
+   Color registers:
+     עמית  → warm sunny amber  (energy / humor)
+     עינת  → blush pink/gold   (warmth / wisdom)
+     רועי  → calm sky blue     (strength / humor)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(0.6rem, 2vh,  1.6rem)
+    clamp(0.8rem, 3vw,  2.4rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT AURA — warm rose glow behind all three cards,
+   reinforcing the "one family" feeling.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(680px, 102%);
+  height:    min(340px, 90%);
+
+  border-radius: 50% 48% 52% 46% / 46% 54% 44% 56%;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(192, 136, 136, 0.07) 0%,
+    rgba(196, 169, 110, 0.05) 45%,
+    transparent 72%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 14s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 50% 48% 52% 46% / 46% 54% 44% 56%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 48% 52% / 54% 44% 56% 42%;
+    transform:     translate(-50%, -50%) scale(1.04);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   AMBIENT CORNER STARS
+   ══════════════════════════════════════════════════════════ */
+.iconStar1,
+.iconStar2 {
+  position:       absolute;
+  font-size:      clamp(0.6rem, 1.2vw, 0.9rem);
+  color:          var(--c-page-accent);
+  opacity:        0.22;
+  pointer-events: none;
+  user-select:    none;
+}
+
+.iconStar1 {
+  top:   clamp(0.4rem, 1.2vh, 0.9rem);
+  left:  clamp(0.6rem, 2vw,   1.6rem);
+  animation: floatA 9s ease-in-out infinite alternate;
+}
+
+.iconStar2 {
+  bottom: clamp(0.4rem, 1.2vh, 0.9rem);
+  right:  clamp(0.6rem, 2vw,   1.6rem);
+  animation: floatA 12s 2s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatA {
+  from { transform: translateY(0);    opacity: 0.22; }
+  to   { transform: translateY(-6px); opacity: 0.14; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   GRID — 3 columns on desktop, 1 column stacked on mobile
+   ══════════════════════════════════════════════════════════ */
+.grid {
+  position:             relative;
+  z-index:              1;
+  display:              grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:                  clamp(0.7rem, 2vw, 1.4rem);
+  width:                min(780px, 98%);
+  animation:            gridRise 0.65s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes gridRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   CARD — shared base
+   ══════════════════════════════════════════════════════════ */
+.card {
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  text-align:      center;
+  padding:
+    clamp(1.1rem, 3vh, 1.8rem)
+    clamp(0.9rem, 2.5vw, 1.4rem);
+
+  border-radius:  clamp(14px, 2.5vw, 22px);
+  border:         1px solid transparent;
+
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.055),
+    0 6px 24px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.70);
+
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.card:hover {
+  transform:  translateY(-4px);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.09),
+    0 10px 32px rgba(0, 0, 0, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.80);
+}
+
+/* ── Card color variants ─────────────────────────────────── */
+
+/* עמית — warm amber/sunny yellow: energy, humor */
+.cardAmit {
+  background: linear-gradient(155deg, #fffae8 0%, #fff3cc 60%, #fde9a0 100%);
+  border-color: rgba(230, 170, 40, 0.22);
+}
+
+/* עינת — blush rose/gold: warmth, wisdom */
+.cardEinat {
+  background: linear-gradient(155deg, #fff4f6 0%, #ffe9ee 60%, #fdd8e0 100%);
+  border-color: rgba(210, 120, 140, 0.20);
+}
+
+/* רועי — calm sky/periwinkle: steadiness, humor */
+.cardRoi {
+  background: linear-gradient(155deg, #f0f6ff 0%, #e3eeff 60%, #cfe0fb 100%);
+  border-color: rgba(100, 150, 220, 0.20);
+}
+
+/* ══════════════════════════════════════════════════════════
+   CARD INNER ELEMENTS
+   ══════════════════════════════════════════════════════════ */
+
+/* Large emoji at top — personality anchor */
+.cardEmoji {
+  font-size:      clamp(1.8rem, 4vw, 2.6rem);
+  line-height:    1;
+  margin-bottom:  clamp(0.4rem, 1.2vh, 0.8rem);
+  user-select:    none;
+  filter:         drop-shadow(0 1px 3px rgba(0,0,0,0.12));
+  animation:      emojiFloat 6s ease-in-out infinite alternate;
+}
+
+@keyframes emojiFloat {
+  from { transform: translateY(0) rotate(0deg);   }
+  to   { transform: translateY(-4px) rotate(3deg); }
+}
+
+/* Each card's emoji floats at a slightly different phase */
+.cardAmit .cardEmoji  { animation-duration: 5.5s; animation-delay: 0s;   }
+.cardEinat .cardEmoji { animation-duration: 7s;   animation-delay: 0.8s; }
+.cardRoi .cardEmoji   { animation-duration: 6.2s; animation-delay: 1.6s; }
+
+/* Name — bold, prominent */
+.cardName {
+  font-family:    var(--f-heading);
+  font-size:      clamp(1.15rem, 2.4vw, 1.55rem);
+  font-weight:    700;
+  color:          var(--c-text-1);
+  margin:         0 0 clamp(0.15rem, 0.5vh, 0.3rem);
+  letter-spacing: 0.02em;
+  line-height:    1.3;
+}
+
+/* Relationship subtitle */
+.cardRelation {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.72rem, 1.5vw, 0.92rem);
+  font-weight:    500;
+  letter-spacing: 0.10em;
+  color:          var(--c-text-3);
+  margin:         0;
+  text-transform: none;
+}
+
+/* Thin divider between subtitle and description */
+.cardDivider {
+  width:         clamp(28px, 40%, 56px);
+  height:        1.5px;
+  border-radius: 1px;
+  margin:        clamp(0.55rem, 1.4vh, 0.9rem) 0;
+  flex-shrink:   0;
+}
+
+.cardAmit  .cardDivider { background: linear-gradient(to left, transparent, rgba(210,155,30,0.50), transparent); }
+.cardEinat .cardDivider { background: linear-gradient(to left, transparent, rgba(210,110,130,0.46), transparent); }
+.cardRoi   .cardDivider { background: linear-gradient(to left, transparent, rgba(90,140,215,0.46), transparent); }
+
+/* Description paragraph */
+.cardDesc {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.85rem, 1.8vw, 1.06rem);
+  font-weight:    350;
+  color:          var(--c-text-2);
+  line-height:    1.85;
+  margin:         0;
+  letter-spacing: 0.012em;
+}
+
+/* Small inline emoji inside description */
+.inlineEmoji {
+  font-size:   1.0em;
+  line-height: 1;
+}
+
+/* ══════════════════════════════════════════════════════════
+   TABLET  ≤ 680px  — 2 + 1 layout or tighten spacing
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 680px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    width: min(520px, 100%);
+  }
+
+  /* Mom's card spans full width as the "center" of the family */
+  .cardEinat {
+    grid-column: 1 / -1;
+    max-width: clamp(200px, 60%, 320px);
+    justify-self: center;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 480px  — single column stack
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    width: min(340px, 98%);
+  }
+
+  .cardEinat {
+    grid-column: auto;
+    max-width: none;
+    justify-self: stretch;
+  }
+
+  .card {
+    padding: 1.1rem 1.2rem;
+  }
+
+  .cardEmoji {
+    font-size: clamp(1.6rem, 8vw, 2.1rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .cardName {
+    font-size: clamp(1.05rem, 5vw, 1.25rem);
+  }
+
+  .cardDesc {
+    font-size: clamp(0.80rem, 3.8vw, 0.95rem);
+    line-height: 1.75;
+  }
+}

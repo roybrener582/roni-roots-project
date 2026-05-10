@@ -1,0 +1,138 @@
+/* ══════════════════════════════════════════════════════════
+   JourneySummaryPage — "סיכום המסע"  ·  עמוד אחרון
+   Tone: soft, personal, meaningful, closing.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Canvas ──────────────────────────────────────────────── */
+.canvas {
+  position:        relative;
+  width:           100%;
+  height:          100%;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  overflow:        hidden;
+}
+
+/* ── Warm background glow ────────────────────────────────── */
+.glow {
+  position:       absolute;
+  inset:          0;
+  background: radial-gradient(
+    ellipse 70% 60% at 50% 48%,
+    rgba(196, 169, 110, 0.13) 0%,
+    rgba(196, 169, 110, 0.05) 55%,
+    transparent 80%
+  );
+  pointer-events: none;
+  animation:      glowPulse 14s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { opacity: 0.75; transform: scale(1);    }
+  to   { opacity: 1;    transform: scale(1.05); }
+}
+
+/* ── Card ────────────────────────────────────────────────── */
+.card {
+  position:        relative;
+  z-index:         1;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             clamp(1.2rem, 2.8vh, 2.0rem);
+  width:           100%;
+  max-width:       clamp(320px, 72%, 620px);
+  padding:
+    clamp(2.0rem, 5vh, 3.4rem)
+    clamp(1.8rem, 5.5vw, 3.2rem);
+
+  background:    var(--c-page-accent-faint);
+  border:        1px solid var(--c-page-accent-border);
+  border-radius: var(--r-2xl, 20px);
+  box-shadow:
+    0 6px 44px rgba(196, 169, 110, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.60);
+
+  animation: rise 0.65s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Sparkle icon ────────────────────────────────────────── */
+.icon {
+  font-size:   clamp(1.5rem, 3.5vw, 2.1rem);
+  opacity:     0.70;
+  user-select: none;
+  line-height: 1;
+  filter:      drop-shadow(0 0 6px rgba(196, 169, 110, 0.45));
+}
+
+/* ── Text body ───────────────────────────────────────────── */
+.textBody {
+  display:        flex;
+  flex-direction: column;
+  gap:            clamp(0.9rem, 2.2vh, 1.5rem);
+  width:          100%;
+}
+
+/* ── Paragraph ───────────────────────────────────────────── */
+.para {
+  font-family:    var(--f-heading);
+  font-size:      clamp(1.04rem, 2.5vw, 1.34rem);
+  font-weight:    400;
+  color:          var(--c-text-1);
+  line-height:    2.05;
+  text-align:     center;
+  margin:         0;
+  letter-spacing: 0.014em;
+}
+
+/* ── Divider rule ────────────────────────────────────────── */
+.rule {
+  width:         42%;
+  height:        2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+}
+
+/* ── Closing label ───────────────────────────────────────── */
+.closing {
+  font-family:    var(--f-heading);
+  font-size:      clamp(0.78rem, 1.8vw, 0.94rem);
+  font-weight:    500;
+  letter-spacing: 0.12em;
+  color:          var(--c-page-accent);
+  opacity:        0.70;
+  user-select:    none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .card {
+    max-width: 100%;
+    padding:
+      clamp(1.5rem, 4vh, 2.2rem)
+      clamp(1.1rem, 5vw, 1.7rem);
+    gap: clamp(0.9rem, 2.2vh, 1.4rem);
+  }
+
+  .para {
+    font-size:   clamp(0.98rem, 4vw, 1.10rem);
+    line-height: 1.95;
+  }
+
+  .rule {
+    width: 58%;
+  }
+}

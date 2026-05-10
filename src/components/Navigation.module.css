@@ -1,0 +1,241 @@
+/* ══════════════════════════════════════════════════════════
+   Navigation — floating pill at the bottom of the book
+   ══════════════════════════════════════════════════════════ */
+
+/* Outer wrapper — centers the pill */
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px 14px;
+}
+
+/* ── Floating pill ──────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  direction: rtl;
+  gap: 0;
+  background: rgba(10, 6, 2, 0.88);
+  border: 1px solid rgba(196, 169, 110, 0.32);
+  border-radius: 999px;
+  padding: 5px 7px;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.62),
+    0 2px 8px  rgba(0, 0, 0, 0.40),
+    0 0 0 1px rgba(196, 169, 110, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  max-width: calc(100vw - 24px);
+  transition: box-shadow var(--dur-md, 0.24s) var(--ease-io, cubic-bezier(0.4,0,0.2,1));
+}
+
+/* ── Prev / Next buttons ───────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 36px;
+  min-width: 44px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: rgba(196, 169, 110, 0.72);
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition:
+    background var(--dur-fast, 0.15s) var(--ease-io, cubic-bezier(0.4,0,0.2,1)),
+    color     var(--dur-fast, 0.15s) var(--ease-io, cubic-bezier(0.4,0,0.2,1)),
+    transform var(--dur-fast, 0.15s) var(--ease-io, cubic-bezier(0.4,0,0.2,1));
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
+
+.btn:hover:not(:disabled) {
+  background: rgba(196, 169, 110, 0.16);
+  color: rgba(196, 169, 110, 1);
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.90);
+  transition-duration: 0.07s;
+}
+
+.btn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* ── Chevron icon ───────────────────────────────────────── */
+.chevron {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.chevronFlip {
+  transform: scaleX(-1);
+}
+
+/* ── Thin separator ─────────────────────────────────────── */
+.sep {
+  width: 1px;
+  height: 22px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(196, 169, 110, 0.25),
+    transparent
+  );
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+/* ── Page indicator: "עמוד X מתוך Y" ────────────────────── */
+.pageIndicator {
+  font-family: var(--f-body);
+  font-size: 13px;
+  color: rgba(196, 169, 110, 0.60);
+  white-space: nowrap;
+  padding: 0 12px;
+  direction: rtl;
+  user-select: none;
+}
+
+.pageIndicator strong {
+  color: rgba(220, 195, 130, 1);
+  font-weight: 700;
+}
+
+/* ── Jump-to-page group ─────────────────────────────────── */
+.jumpGroup {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0 8px;
+  direction: ltr;
+}
+
+.jumpInput {
+  width: 52px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(196, 169, 110, 0.22);
+  border-radius: 8px;
+  color: rgba(196, 169, 110, 0.9);
+  font-family: var(--f-body);
+  font-size: 13px;
+  text-align: center;
+  padding: 0 4px;
+  direction: ltr;
+  transition:
+    border-color var(--dur-fast, 0.15s) ease,
+    background   var(--dur-fast, 0.15s) ease,
+    box-shadow   var(--dur-fast, 0.15s) ease;
+  -moz-appearance: textfield;
+}
+
+.jumpInput::-webkit-inner-spin-button,
+.jumpInput::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.jumpInput::placeholder {
+  color: rgba(196, 169, 110, 0.28);
+  font-size: 11px;
+  direction: rtl;
+}
+
+.jumpInput:focus {
+  outline: none;
+  border-color: rgba(196, 169, 110, 0.60);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 2px rgba(196, 169, 110, 0.14);
+}
+
+.jumpInput:disabled {
+  opacity: 0.32;
+}
+
+.jumpShake {
+  border-color: rgba(220, 80, 70, 0.7) !important;
+  animation: shake 0.35s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-4px); }
+  60%       { transform: translateX(4px); }
+}
+
+.jumpBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: rgba(196, 169, 110, 0.12);
+  border: 1px solid rgba(196, 169, 110, 0.26);
+  border-radius: 50%;
+  color: rgba(196, 169, 110, 0.78);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    background var(--dur-fast, 0.15s) ease,
+    color      var(--dur-fast, 0.15s) ease,
+    transform  var(--dur-fast, 0.15s) ease,
+    box-shadow var(--dur-fast, 0.15s) ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.jumpBtn svg {
+  width: 13px;
+  height: 13px;
+}
+
+.jumpBtn:hover:not(:disabled) {
+  background: rgba(196, 169, 110, 0.24);
+  color: rgba(220, 195, 130, 1);
+  box-shadow: 0 0 0 2px rgba(196, 169, 110, 0.12);
+}
+
+.jumpBtn:active:not(:disabled) {
+  transform: scale(0.86);
+}
+
+.jumpBtn:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* ── Button label text ──────────────────────────────────── */
+.btnLabel {
+  font-size: 13px;
+}
+
+/* ── Mobile: tighten up, hide labels ───────────────────── */
+@media (max-width: 480px) {
+  .btnLabel   { display: none; }
+  .btn        { min-width: 36px; padding: 6px 10px; }
+  .jumpInput  { width: 44px; font-size: 12px; }
+  .jumpGroup  { padding: 0 5px; gap: 4px; }
+  .pageIndicator { font-size: 12px; padding: 0 8px; }
+}
+
+@media (max-width: 360px) {
+  .pageIndicator { font-size: 11px; padding: 0 6px; }
+  .jumpInput  { width: 38px; }
+  .jumpBtn    { width: 24px; height: 24px; }
+  .jumpBtn svg { width: 11px; height: 11px; }
+}

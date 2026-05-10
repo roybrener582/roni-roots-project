@@ -1,0 +1,117 @@
+/* ══════════════════════════════════════════════════════════
+   TraitSelectionPage — "תכונות שמאפיינות אותי"
+   Five compact personal-trait blocks, vertical stack.
+   Each block carries its own pastel tint via --blk-* vars.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Stack container ───────────────────────────────────── */
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 1.3vh, 0.75rem);
+  padding-inline: clamp(0.5rem, 2vw, 1.1rem);
+}
+
+/* ── Single trait block ────────────────────────────────── */
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.18rem, 0.5vh, 0.32rem);
+  padding:
+    clamp(0.55rem, 1.4vh, 0.9rem)
+    clamp(0.85rem, 2.2vw, 1.35rem);
+
+  background:    var(--blk-bg);
+  border:        1px solid var(--blk-border);
+  border-radius: var(--r-xl);
+  box-shadow:    0 2px 8px rgba(0, 0, 0, 0.04);
+
+  animation: blockIn 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.block:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+  transform:  translateY(-1px);
+}
+
+@keyframes blockIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Icon + trait name row ─────────────────────────────── */
+.header {
+  display:     flex;
+  align-items: center;
+  gap:         0.45rem;
+}
+
+.icon {
+  font-size:   var(--t-lg);
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.name {
+  font-family: var(--f-heading);
+  font-size:   var(--t-xl);
+  font-weight: 700;
+  color:       var(--c-text-1);
+  line-height: 1.2;
+  margin:      0;
+}
+
+/* ── Short accent rule between name and label ──────────── */
+.divider {
+  width:         2rem;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--blk-accent);
+  opacity:       0.50;
+  margin-block:  clamp(0.05rem, 0.2vh, 0.12rem);
+}
+
+/* ── "איך זה בא לידי ביטוי" label ─────────────────────── */
+.label {
+  font-family:    var(--f-body);
+  font-size:      var(--t-xs);
+  font-weight:    600;
+  letter-spacing: 0.08em;
+  color:          var(--blk-accent);
+  opacity:        0.78;
+  margin:         0;
+}
+
+/* ── Description text ──────────────────────────────────── */
+.desc {
+  font-family: var(--f-body);
+  font-size:   var(--t-sm);
+  font-weight: 300;
+  font-style:  italic;
+  color:       var(--c-text-2);
+  line-height: 1.78;
+  margin:      0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .list {
+    padding-inline: 0;
+    gap: clamp(0.38rem, 1.1vh, 0.58rem);
+  }
+
+  .block {
+    padding:
+      clamp(0.5rem, 1.3vh, 0.75rem)
+      clamp(0.75rem, 4.5vw, 1.1rem);
+  }
+
+  .name {
+    font-size: var(--t-lg);
+  }
+}

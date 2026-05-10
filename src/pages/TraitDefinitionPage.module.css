@@ -1,0 +1,186 @@
+/* ══════════════════════════════════════════════════════════
+   TraitDefinitionPage — "מהי תכונה בעיניי?"
+   Desktop:  centered column — three soft section cards
+   Mobile:   stacked full-width
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Stack container ──────────────────────────────────── */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.65rem, 2.0vh, 1.1rem);
+  width: 100%;
+  max-width: clamp(300px, 68%, 560px);
+  padding-inline: clamp(0.4rem, 1.5vw, 0.8rem);
+}
+
+/* ── Shared card shell ────────────────────────────────── */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.35rem, 1.0vh, 0.6rem);
+  padding:
+    clamp(0.85rem, 2.4vh, 1.4rem)
+    clamp(1.1rem, 3.2vw, 1.9rem);
+  border-radius: var(--r-2xl);
+  background: var(--c-page-accent-faint);
+  border: 1px solid var(--c-page-accent-border);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Soft inner shimmer */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-2xl);
+  background: radial-gradient(
+    ellipse 85% 55% at 50% 10%,
+    rgba(138, 112, 192, 0.08),
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+/* Staggered entrance */
+.card:nth-child(1) { animation: cardUp 0.48s 0.14s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.card:nth-child(2) { animation: cardUp 0.48s 0.27s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.card:nth-child(3) { animation: cardUp 0.48s 0.40s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── First card: definition statement ─────────────────── */
+.cardFirst {
+  padding-block: clamp(1.0rem, 2.8vh, 1.7rem);
+}
+
+.cardFirst .mainSentence {
+  font-size: clamp(1.15rem, 2.9vw, 1.52rem);
+}
+
+/* ── Card header (icon + label) ───────────────────────── */
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  justify-content: center;
+}
+
+.icon {
+  font-size: clamp(1.1rem, 2.8vw, 1.45rem);
+  line-height: 1;
+  user-select: none;
+  opacity: 0.88;
+}
+
+.cardLabel {
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--c-page-accent);
+  opacity: 0.78;
+  text-transform: uppercase;
+}
+
+/* ── Main sentence ─────────────────────────────────────── */
+.mainSentence {
+  font-family: var(--f-heading);
+  font-size: clamp(1.02rem, 2.5vw, 1.30rem);
+  font-weight: 700;
+  color: var(--c-text-1);
+  line-height: 1.78;
+  margin: 0;
+}
+
+/* ── Supporting text ───────────────────────────────────── */
+.support {
+  font-family: var(--f-body);
+  font-size: clamp(0.86rem, 1.9vw, 1.00rem);
+  color: var(--c-text-2);
+  line-height: 1.90;
+  margin: 0;
+}
+
+/* ── Emphasis ─────────────────────────────────────────── */
+.em {
+  color: var(--c-page-accent);
+  font-weight: 900;
+  position: relative;
+}
+
+.em::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-page-accent);
+  opacity: 0.28;
+}
+
+/* Detective word — extra flair */
+.emDetective {
+  font-style: italic;
+  font-size: 1.07em;
+  letter-spacing: 0.03em;
+}
+
+/* ── Clue trail dots (section 2 decoration) ────────────── */
+.clueTrail {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.35rem, 1.1vw, 0.55rem);
+  margin-top: clamp(0.1rem, 0.4vh, 0.25rem);
+  opacity: 0.32;
+}
+
+.clueTrail span {
+  display: block;
+  border-radius: 50%;
+  background: var(--c-page-accent);
+}
+
+/* Graduated sizes: small → large → small (like footprints) */
+.clueTrail span:nth-child(1) { width: 4px; height: 4px; }
+.clueTrail span:nth-child(2) { width: 5px; height: 5px; }
+.clueTrail span:nth-child(3) { width: 7px; height: 7px; }
+.clueTrail span:nth-child(4) { width: 5px; height: 5px; }
+.clueTrail span:nth-child(5) { width: 4px; height: 4px; }
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .stack {
+    max-width: 100%;
+    padding-inline: 0;
+    gap: clamp(0.55rem, 1.8vh, 0.85rem);
+  }
+
+  .card {
+    padding:
+      clamp(0.7rem, 2.0vh, 1.0rem)
+      clamp(0.9rem, 4.5vw, 1.3rem);
+  }
+
+  .cardFirst .mainSentence {
+    font-size: clamp(1.02rem, 4.5vw, 1.22rem);
+  }
+
+  .mainSentence {
+    font-size: clamp(0.94rem, 4.2vw, 1.10rem);
+  }
+
+  .support {
+    font-size: clamp(0.82rem, 3.6vw, 0.96rem);
+  }
+}

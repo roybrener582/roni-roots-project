@@ -1,0 +1,156 @@
+/* ══════════════════════════════════════════════════════════
+   LogoPage — פרק 2: הלוגו שלי
+   Design showcase: logo is the single dominant focus.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Outer wrapper ──────────────────────────────────────── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.2rem, 3.2vh, 2rem);
+  width: 100%;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+/* ── Stage: positions blobs + frame together ────────────── */
+.stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* ── Decorative background blobs ────────────────────────── */
+.blob1,
+.blob2,
+.blob3 {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.blob1 {
+  width: clamp(260px, 60%, 460px);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    rgba(192, 136, 136, 0.22) 0%,
+    transparent 68%
+  );
+  filter: blur(32px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.blob2 {
+  width: clamp(140px, 28%, 220px);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    rgba(138, 112, 192, 0.18) 0%,
+    transparent 70%
+  );
+  filter: blur(24px);
+  top: -5%;
+  right: 10%;
+}
+
+.blob3 {
+  width: clamp(100px, 20%, 180px);
+  aspect-ratio: 1;
+  background: radial-gradient(
+    circle,
+    rgba(196, 169, 110, 0.16) 0%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  bottom: 0%;
+  left: 8%;
+}
+
+/* ── Logo frame ─────────────────────────────────────────── */
+.frame {
+  position: relative;
+  /* Large and dominant — the star of the page */
+  width: clamp(260px, 62%, 460px);
+  padding: clamp(1.0rem, 2.2vw, 1.6rem);
+  border-radius: var(--r-2xl);
+  border: 1.5px solid var(--c-page-accent-border);
+  background: var(--c-paper);
+
+  /* Multi-layer shadow: deep lift + accent glow + soft halo */
+  box-shadow:
+    0 12px 48px rgba(192, 136, 136, 0.28),
+    0 4px 16px rgba(0, 0, 0, 0.10),
+    0 0 0 8px rgba(192, 136, 136, 0.07),
+    0 0 0 16px rgba(192, 136, 136, 0.03);
+
+  animation: logoReveal 0.65s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes logoReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ── Logo image ─────────────────────────────────────────── */
+.logo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: calc(var(--r-2xl) - 6px);
+}
+
+.fallback {
+  font-size: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(160px, 30vh, 260px);
+  color: var(--c-page-accent);
+}
+
+/* ── Description ────────────────────────────────────────── */
+.description {
+  font-family: var(--f-body);
+  font-size: var(--t-base);
+  color: var(--c-text-2);
+  line-height: 1.95;
+  text-align: center;
+  max-width: 48ch;
+  margin: 0;
+  animation: fadeUp 0.5s 0.40s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Mobile: title → logo → description ─────────────────── */
+@media (max-width: 600px) {
+  .wrapper {
+    padding-inline: clamp(0.75rem, 4vw, 1.2rem);
+    gap: clamp(1rem, 3vh, 1.5rem);
+  }
+
+  .frame {
+    width: calc(100% - 1rem);
+    padding: clamp(0.7rem, 3vw, 1rem);
+  }
+
+  .description {
+    font-size: var(--t-sm);
+    max-width: 100%;
+  }
+}

@@ -1,0 +1,260 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyComicPage — "קומיקס – אז והיום"  ·  פרק 6
+
+   Comic-panel concept:
+     ┌────────────────────────┐
+     │  [speech bubble]        │  ← "היום" floating right (RTL)
+     │  ┌──────────────────┐   │
+     │  │                  │   │  ← hero image in comic frame
+     │  │   /nz.jpg        │   │
+     │  │            [אז]  │   │  ← vintage stamp badge
+     │  └──────────────────┘   │
+     │  [caption strip]        │
+     └────────────────────────┘
+
+   Visual language: halftone dots + hard offset shadows = comic print.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding:
+    clamp(0.35rem, 1.0vh, 0.8rem)
+    clamp(0.75rem, 3vw, 2.5rem);
+  overflow: hidden;
+}
+
+/* ── Halftone dot texture ─────────────────────────────────── */
+.halftone {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(138, 112, 192, 0.13) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Floating decorations ─────────────────────────────────── */
+.deco {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  color: var(--c-page-accent);
+}
+
+.decoA {
+  top: 7%;
+  right: 6%;
+  font-size: clamp(0.75rem, 1.5vw, 1.05rem);
+  opacity: 0.28;
+  transform: rotate(-18deg);
+}
+
+.decoB {
+  top: 5%;
+  left: 8%;
+  font-size: clamp(0.9rem, 1.8vw, 1.3rem);
+  opacity: 0.20;
+  transform: rotate(14deg);
+}
+
+.decoC {
+  bottom: 15%;
+  left: 5%;
+  font-size: clamp(0.7rem, 1.4vw, 1.0rem);
+  opacity: 0.24;
+  transform: rotate(-9deg);
+}
+
+/* ══════════════════════════════════════════════════════════
+   STAGE — vertical stack, centered
+   ══════════════════════════════════════════════════════════ */
+.stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: min(480px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(0.55rem, 1.4vh, 0.9rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SPEECH BUBBLE
+   Cut-corner style: bottom-right corner is 4px (sharp) in
+   RTL layout → the "tail" points toward the image below.
+   Hard 3px offset shadow = classic comic print shadow.
+   ══════════════════════════════════════════════════════════ */
+.bubble {
+  align-self: flex-start; /* RTL: flex-start = visual right */
+  max-width: 76%;
+  background: #ffffff;
+  border: 2px solid var(--c-page-accent);
+
+  /* sharp corner bottom-right = implied tail toward image (RTL flow) */
+  border-radius: 16px 16px 4px 16px;
+
+  padding:
+    clamp(0.38rem, 0.9vh, 0.58rem)
+    clamp(0.65rem, 1.6vw, 1.0rem);
+
+  box-shadow:
+    3px 3px 0 var(--c-page-accent-border),
+    0 4px 14px rgba(138, 112, 192, 0.12);
+
+  text-align: right;
+}
+
+/* ── "היום" micro-tag inside bubble ──────────────────────── */
+.bubbleTag {
+  display: block;
+  font-family: var(--f-body);
+  font-size: clamp(0.57rem, 1.0vw, 0.67rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--c-page-accent);
+  background: var(--c-page-accent-faint);
+  padding: 0.06rem 0.38rem;
+  border-radius: var(--r-sm);
+  margin-bottom: 0.22rem;
+  width: fit-content;
+}
+
+.bubbleText {
+  font-family: var(--f-body);
+  font-size: clamp(0.82rem, 1.5vw, 0.95rem);
+  color: var(--c-text-1);
+  line-height: 1.45;
+}
+
+/* ══════════════════════════════════════════════════════════
+   PANEL WRAP — relative container for image + badge
+   ══════════════════════════════════════════════════════════ */
+.panelWrap {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Comic panel frame ──────────────────────────────────── */
+.panel {
+  width: 100%;
+  border-radius: var(--r-2xl);
+  overflow: hidden;
+  background: var(--c-page-accent-faint);
+
+  /* 2.5px border + 5px hard offset shadow = comic panel look */
+  border: 2.5px solid var(--c-page-accent);
+  box-shadow:
+    5px 5px 0 rgba(138, 112, 192, 0.24),
+    0 8px 30px rgba(138, 112, 192, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+
+  transition:
+    box-shadow 0.38s ease,
+    transform   0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.panel:hover {
+  box-shadow:
+    5px 5px 0 rgba(138, 112, 192, 0.30),
+    0 14px 40px rgba(138, 112, 192, 0.22);
+  transform: translateY(-4px);
+}
+
+/* ── Hero photo — natural proportions, full width ────────── */
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ── "אז" stamp badge ──────────────────────────────────── */
+.stampAz {
+  position: absolute;
+  bottom: -11px;
+  right: clamp(14px, 3.5vw, 22px); /* RTL: right = visual right corner */
+  background: var(--c-page-accent);
+  color: #ffffff;
+  font-family: var(--f-heading);
+  font-size: clamp(0.78rem, 1.5vw, 0.96rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 0.28rem 0.72rem;
+  border-radius: var(--r-lg);
+  border: 2px solid #ffffff;
+  box-shadow:
+    2px 2px 0 rgba(138, 112, 192, 0.28),
+    0 2px 8px rgba(138, 112, 192, 0.18);
+  transform: rotate(-2.5deg);
+  user-select: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CAPTION STRIP
+   ══════════════════════════════════════════════════════════ */
+.caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.35rem, 0.8vw, 0.55rem);
+  padding:
+    clamp(0.36rem, 0.8vh, 0.52rem)
+    clamp(0.7rem, 2vw, 1.2rem);
+  background: var(--c-page-accent-faint);
+  border: 1.5px solid var(--c-page-accent-border);
+  border-radius: var(--r-xl);
+  text-align: center;
+}
+
+.captionMark {
+  color: var(--c-page-accent);
+  font-size: 0.42em;
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+.captionText {
+  font-family: var(--f-body);
+  font-size: clamp(0.78rem, 1.4vw, 0.90rem);
+  color: var(--c-text-2);
+  line-height: 1.5;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE ≤ 600px — full-width image, adjusted bubble
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .stage {
+    max-width: 100%;
+    gap: clamp(0.45rem, 1.1vh, 0.7rem);
+  }
+
+  .bubble {
+    max-width: 92%;
+  }
+
+  .stampAz {
+    right: 12px;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   NARROW DESKTOP 601–800px
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 601px) and (max-width: 800px) {
+  .stage {
+    max-width: min(400px, 100%);
+  }
+}

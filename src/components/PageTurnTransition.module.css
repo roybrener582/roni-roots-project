@@ -1,0 +1,217 @@
+/* ══════════════════════════════════════════════════════════
+   PageTurnTransition — two-layer book-page flip
+
+   Why perspective() lives inside the keyframe transform values:
+     The stage and all ancestors use overflow:hidden (or have other
+     stacking-context-forming properties). overflow:hidden flattens
+     any preserve-3d context and can suppress a parent `perspective`
+     property. Embedding perspective() directly in the transform chain
+     guarantees the 3-D projection is always applied.
+
+   Why no preserve-3d / backface-visibility:
+     We don't need a card-flip with two faces. The outgoing page
+     simply rotates from rotateY(0) to rotateY(±90deg) — at 90° it
+     is perfectly edge-on and invisible, revealing the incoming page
+     underneath. Simple, reliable, visually correct.
+
+   RTL note (spine on RIGHT):
+     NEXT: outgoing page pivots at RIGHT edge → left edge sweeps back
+           transform-origin: right center; rotateY(0 → -90deg)
+     PREV: outgoing page pivots at LEFT edge → right edge sweeps back
+           transform-origin: left center;  rotateY(0 →  90deg)
+
+   Speed:  change FLIP_MS in PageTurnTransition.jsx (one number).
+   Depth:  change the perspective() values in @keyframes below.
+   Shadow: adjust opacity stops in pageDarken / castShadow keyframes.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Stage ──────────────────────────────────────────────── */
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* overflow intentionally omitted — let BookPage content clip itself */
+}
+
+/* ── Incoming: new page, always visible beneath ─────────── */
+.incoming {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ── Outgoing: old page that rotates away ───────────────── */
+.outgoing {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/*
+  NEXT — spine on RIGHT (RTL book).
+  The page is held at the right spine; the free left edge sweeps
+  backward into the screen. rotateY(-90deg) takes the left edge
+  away from the viewer while the right edge stays in place.
+*/
+.outgoingNext {
+  transform-origin: right center;
+  animation: flipOutNext var(--flip-ms, 800ms) cubic-bezier(0.4, 0, 0.55, 1) forwards;
+}
+
+/*
+  PREV — pivot at LEFT edge.
+  The right edge sweeps backward to reveal the previous page.
+*/
+.outgoingPrev {
+  transform-origin: left center;
+  animation: flipOutPrev var(--flip-ms, 800ms) cubic-bezier(0.4, 0, 0.55, 1) forwards;
+}
+
+/*
+  perspective() is embedded in the transform, not on a parent element.
+  This guarantees the 3-D projection even inside overflow:hidden ancestors.
+
+  1800px = fairly deep perspective — feels like a large A4 book.
+  Lower values (e.g. 900px) give a more dramatic, exaggerated flip.
+*/
+@keyframes flipOutNext {
+  from { transform: perspective(1800px) rotateY(0deg);   }
+  to   { transform: perspective(1800px) rotateY(-90deg); }
+}
+
+@keyframes flipOutPrev {
+  from { transform: perspective(1800px) rotateY(0deg);  }
+  to   { transform: perspective(1800px) rotateY(90deg); }
+}
+
+/* ── Page surface darkening ─────────────────────────────── */
+/*
+  This overlay sits on top of the outgoing page and rotates with it.
+  It darkens the page surface toward the fold line (spine side),
+  simulating the shadow that forms where paper bends around the binding.
+  Because it is inside the rotating .outgoing div, it foreshortens
+  correctly in perspective just like the page content does.
+*/
+.pageDarken {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  animation: pageDarkenFade var(--flip-ms, 800ms) cubic-bezier(0.4, 0, 0.55, 1) forwards;
+}
+
+/* For NEXT: spine is on the right — darken toward the right edge */
+.pageDarkenNext {
+  background: linear-gradient(
+    to right,
+    transparent            15%,
+    rgba(0, 0, 0, 0.20)   60%,
+    rgba(0, 0, 0, 0.55)  100%
+  );
+}
+
+/* For PREV: pivot is on the left — darken toward the left edge */
+.pageDarkenPrev {
+  background: linear-gradient(
+    to left,
+    transparent            15%,
+    rgba(0, 0, 0, 0.20)   60%,
+    rgba(0, 0, 0, 0.55)  100%
+  );
+}
+
+@keyframes pageDarkenFade {
+  0%   { opacity: 0; }
+  /* Shadow intensifies as the page bends toward 90° */
+  65%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* ── Cast shadow on the incoming page ───────────────────── */
+/*
+  Simulates the shadow the flipping outgoing page casts onto the
+  incoming page below it. Does NOT rotate — it stays flat on the
+  incoming layer and pulses in/out with the flip timing.
+*/
+.castShadow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  animation: castShadowPulse var(--flip-ms, 800ms) ease-in-out forwards;
+}
+
+/* Shadow is concentrated near the spine (RIGHT) for NEXT */
+.castShadowNext {
+  background: linear-gradient(
+    to right,
+    transparent          10%,
+    rgba(0, 0, 0, 0.06) 45%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+}
+
+/* Shadow is concentrated near the LEFT for PREV */
+.castShadowPrev {
+  background: linear-gradient(
+    to left,
+    transparent          10%,
+    rgba(0, 0, 0, 0.06) 45%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+}
+
+@keyframes castShadowPulse {
+  0%        { opacity: 0; }
+  /* Peak at roughly mid-flip when the page is most edge-on */
+  20%, 80%  { opacity: 1; }
+  100%      { opacity: 0; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE (< 768px) — shorter duration for snappier swipes.
+   Tighter perspective makes the 3-D arc more compact on a
+   small screen where the full 1800px depth feels flat.
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .outgoingNext {
+    animation-name: flipOutNextMobile;
+    animation-duration: var(--flip-ms-mobile, 520ms);
+  }
+
+  .outgoingPrev {
+    animation-name: flipOutPrevMobile;
+    animation-duration: var(--flip-ms-mobile, 520ms);
+  }
+
+  @keyframes flipOutNextMobile {
+    from { transform: perspective(900px) rotateY(0deg);   }
+    to   { transform: perspective(900px) rotateY(-90deg); }
+  }
+
+  @keyframes flipOutPrevMobile {
+    from { transform: perspective(900px) rotateY(0deg);  }
+    to   { transform: perspective(900px) rotateY(90deg); }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Reduced-motion: simple fade instead of 3-D flip
+   ══════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .outgoing {
+    /* Override both next and prev animations */
+    animation: outgoingFade var(--flip-ms, 800ms) ease forwards !important;
+    transform-origin: center center !important;
+  }
+
+  @keyframes outgoingFade {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+  }
+
+  .pageDarken,
+  .castShadow {
+    display: none;
+  }
+}

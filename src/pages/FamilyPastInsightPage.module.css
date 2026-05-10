@@ -1,0 +1,165 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyPastInsightPage — "תובנה אישית"  ·  פרק 6
+   Tone: calm, reflective, nostalgic — a small moment of
+   understanding about the family's past.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper: generous breathing room ── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(3.5rem, 10vh, 7rem)
+    clamp(2rem,   7vw,  5.5rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT SEPIA AURA — warm amber glow, like aged paper.
+   Evokes old photos and family memories.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -52%);
+  width:     min(540px, 96%);
+  height:    min(310px, 70%);
+
+  border-radius: 50% 50% 55% 45% / 48% 52% 48% 52%;
+
+  background: radial-gradient(
+    ellipse at 50% 48%,
+    rgba(178, 148, 102, 0.15) 0%,
+    rgba(214, 188, 148, 0.08) 52%,
+    transparent 72%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 12s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 50% 50% 55% 45% / 48% 52% 48% 52%;
+    transform:     translate(-50%, -52%) scale(1);
+  }
+  to {
+    border-radius: 45% 55% 48% 52% / 54% 46% 54% 46%;
+    transform:     translate(-50%, -52%) scale(1.06);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOATING ICONS — barely-there, like objects in a memory
+   ══════════════════════════════════════════════════════════ */
+.iconClock,
+.iconBook {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 🕰️  top-left (RTL: visual right) */
+.iconClock {
+  top:       clamp(0.8rem, 2.2vh, 1.5rem);
+  left:      clamp(1rem,   3.5vw, 2.4rem);
+  font-size: clamp(1.4rem, 3.2vw, 2.1rem);
+  opacity:   0.42;
+  animation: floatDrift 7s ease-in-out infinite alternate;
+}
+
+/* 📖  bottom-right (RTL: visual left) */
+.iconBook {
+  bottom:    clamp(0.8rem, 2.5vh, 1.8rem);
+  right:     clamp(1rem,   3.8vw, 2.6rem);
+  font-size: clamp(1.15rem, 2.7vw, 1.75rem);
+  opacity:   0.36;
+  animation: floatDrift 9s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatDrift {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEXT BLOCK — centered narrow column
+   ══════════════════════════════════════════════════════════ */
+.textBlock {
+  position:   relative;
+  z-index:    1;
+  max-width:  min(480px, 92%);
+  text-align: center;
+  animation:  textRise 0.9s 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   MAIN REFLECTION PARAGRAPH
+   Slightly larger, comfortable spacing, RTL Hebrew
+   ══════════════════════════════════════════════════════════ */
+.reflection {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.22rem, 3.0vw, 1.55rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.3;
+  margin:         0;
+  letter-spacing: 0.016em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   "פעם" and "עבר" — the past made visible.
+   Warm sepia-amber: the color of old photographs.
+   ══════════════════════════════════════════════════════════ */
+.pastWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.1em;
+  font-weight:    700;
+  color:          #9e7040;
+  letter-spacing: 0.024em;
+  position:       relative;
+}
+
+/* Sepia underline — like fading ink on aged paper */
+.pastWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    #b08850;
+  opacity:       0.44;
+  box-shadow:    0 0 5px rgba(178, 136, 80, 0.50);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px — full width, slightly smaller text
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(2.5rem, 6.5vh, 4.5rem)
+      clamp(1.4rem, 4.5vw, 2.4rem);
+  }
+
+  .reflection {
+    font-size:   clamp(1.08rem, 4.8vw, 1.28rem);
+    line-height: 2.15;
+  }
+
+  .iconClock { opacity: 0.30; }
+  .iconBook  { opacity: 0.26; }
+}

@@ -1,0 +1,89 @@
+/* ══════════════════════════════════════════════════════════
+   HamburgerButton — fixed top-right menu trigger
+   ══════════════════════════════════════════════════════════ */
+
+.btn {
+  position: fixed;
+  top: 18px;
+  right: clamp(16px, 2.5vw, 32px);
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5.5px;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid rgba(196, 169, 110, 0.48);
+  border-radius: var(--r-xl);
+
+  /* Dark leather tone — blends with the amber shell and the book cover */
+  background: rgba(36, 20, 5, 0.72);
+  backdrop-filter: blur(14px) saturate(1.1);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+
+  box-shadow:
+    0 3px 14px rgba(0, 0, 0, 0.35),
+    0 1px 4px  rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+
+  cursor: pointer;
+  transition:
+    background    var(--dur-fast, 0.15s) ease,
+    border-color  var(--dur-fast, 0.15s) ease,
+    transform     var(--dur-fast, 0.15s) ease,
+    box-shadow    var(--dur-fast, 0.15s) ease;
+}
+
+.btn:hover {
+  background: rgba(55, 33, 8, 0.86);
+  border-color: rgba(196, 169, 110, 0.78);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.40),
+    0 1px 5px  rgba(0, 0, 0, 0.25),
+    0 0 0 3px rgba(196, 169, 110, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.09);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: scale(0.90);
+  transition-duration: 0.08s;
+}
+
+/* Gold bars */
+.bar {
+  display: block;
+  width: 17px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: rgba(210, 182, 118, 0.92);
+  transition:
+    transform var(--dur-md, 0.24s) var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1)),
+    opacity   var(--dur-fast, 0.15s) ease,
+    width     var(--dur-md, 0.24s) var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1));
+  transform-origin: center;
+}
+
+/* Middle bar slightly shorter — creates a stepped look */
+.bar:nth-child(2) {
+  width: 13px;
+  opacity: 0.72;
+}
+
+/* Morph to × when open */
+.active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); width: 17px; }
+.active .bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Glow ring when active / menu open */
+.active {
+  border-color: rgba(196, 169, 110, 0.70);
+  box-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.38),
+    0 0 0 3px rgba(196, 169, 110, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}

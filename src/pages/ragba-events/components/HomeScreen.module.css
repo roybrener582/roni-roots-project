@@ -1,0 +1,202 @@
+/* ══════════════════════════════════════════════════════════
+   HomeScreen — landing / welcome screen of the events app
+   ══════════════════════════════════════════════════════════ */
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.screen {
+  padding: 52px 20px 60px;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: screenIn 0.40s var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+/* ── Hero card ───────────────────────────────────── */
+.hero {
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  box-shadow:
+    0 6px 32px rgba(0, 0, 0, 0.09),
+    0 2px 8px  rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top sheen */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.60) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.heroEmoji {
+  font-size: 4.2rem;
+  line-height: 1;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.12));
+  position: relative;
+}
+
+.heroTitle {
+  font-family: var(--f-heading, 'Frank Ruhl Libre', serif);
+  font-size: clamp(2rem, 6vw, 2.65rem);
+  font-weight: 700;
+  color: #1c1917;
+  margin: 0;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+}
+
+.heroSubtitle {
+  font-size: 0.93rem;
+  color: #6b7280;
+  line-height: 1.68;
+  max-width: 300px;
+  margin: 0;
+}
+
+.heroCtas {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-top: 6px;
+}
+
+/* ── Feature pills ───────────────────────────────── */
+.features {
+  display: flex;
+  gap: 12px;
+  justify-content: stretch;
+}
+
+.feature {
+  flex: 1;
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.06),
+    0 1px 3px  rgba(0, 0, 0, 0.03);
+  transition:
+    transform   0.20s var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1)),
+    box-shadow  0.20s ease;
+}
+
+.feature:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 6px 20px rgba(0, 0, 0, 0.10),
+    0 2px 6px  rgba(0, 0, 0, 0.05);
+}
+
+.featureIcon  {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.08));
+}
+.featureLabel {
+  font-size: 0.75rem;
+  color: #374151;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+/* ── Stats row ───────────────────────────────────── */
+.statsRow {
+  display: flex;
+  gap: 14px;
+}
+
+.statCard {
+  flex: 1;
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  border: 1.5px solid #86efac;
+  border-radius: 18px;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition:
+    transform   0.18s var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1)),
+    box-shadow  0.18s ease;
+  font-family: var(--f-body, 'Heebo', sans-serif);
+  box-shadow:
+    0 2px 10px rgba(34, 197, 94, 0.15),
+    0 1px 3px  rgba(34, 197, 94, 0.08);
+}
+
+.statCard:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 8px 24px rgba(34, 197, 94, 0.22),
+    0 3px 8px  rgba(34, 197, 94, 0.12);
+}
+
+.statCardVolunteer {
+  background: linear-gradient(135deg, #ffedd5, #fed7aa);
+  border-color: #fdba74;
+  box-shadow:
+    0 2px 10px rgba(249, 115, 22, 0.15),
+    0 1px 3px  rgba(249, 115, 22, 0.08);
+}
+
+.statCardVolunteer:hover {
+  box-shadow:
+    0 8px 24px rgba(249, 115, 22, 0.22),
+    0 3px 8px  rgba(249, 115, 22, 0.12);
+}
+
+.statNum {
+  font-family: var(--f-heading, 'Frank Ruhl Libre', serif);
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: #15803d;
+  line-height: 1;
+}
+
+.statCardVolunteer .statNum { color: #c2410c; }
+
+.statLabel {
+  font-size: 0.76rem;
+  color: #4b5563;
+  font-weight: 600;
+}
+
+/* ── Footer ──────────────────────────────────────── */
+.footer {
+  text-align: center;
+  font-size: 0.78rem;
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding-bottom: 8px;
+}

@@ -1,0 +1,343 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyGeminiPage — "עיבוד בעזרת ג'מיני"  ·  פרק 6
+
+   Tone: personal narrative, emotionally present, mature.
+   Four sections expand the family text into readable depth.
+   The siren / loss moment is held with calm restraint —
+   soft lavender inset, dove icon, no dramatic flourishes.
+
+   Color registers:
+     warmWord    — rose accent        (love / belonging)
+     softWord    — warm sand italic   (honest, not harsh)
+     keyWord     — rose bold          (insight / hope)
+     memoryBlock — soft lavender      (respectful stillness)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: flex-start;
+  width:           100%;
+  padding:
+    clamp(0.4rem, 1.2vh, 0.9rem)
+    clamp(1.0rem, 3.5vw, 2.8rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT AURA — rose + lavender two-tone warmth
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(600px, 98%);
+  height:    min(520px, 92%);
+
+  border-radius: 50% 48% 52% 46% / 48% 54% 44% 56%;
+
+  background: radial-gradient(
+    ellipse at 48% 46%,
+    rgba(192, 136, 136, 0.08) 0%,
+    rgba(176, 152, 200, 0.05) 42%,
+    rgba(196, 169, 110, 0.03) 66%,
+    transparent 80%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 15s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 50% 48% 52% 46% / 48% 54% 44% 56%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 48% 52% / 54% 44% 56% 42%;
+    transform:     translate(-50%, -50%) scale(1.04);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   AMBIENT ICONS — quiet at the edges
+   ══════════════════════════════════════════════════════════ */
+.iconFamily,
+.iconMom,
+.iconGrowth {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 💛  top-left */
+.iconFamily {
+  top:       clamp(0.5rem, 1.8vh, 1.2rem);
+  left:      clamp(0.8rem, 3vw,   2.0rem);
+  font-size: clamp(1.0rem, 2.2vw, 1.5rem);
+  opacity:   0.32;
+  animation: floatA 9s ease-in-out infinite alternate;
+}
+
+/* 🌸  mid-right edge */
+.iconMom {
+  top:       46%;
+  right:     clamp(0.5rem, 2.2vw, 1.6rem);
+  transform: translateY(-50%);
+  font-size: clamp(0.9rem, 1.9vw, 1.35rem);
+  opacity:   0.28;
+  animation: floatB 11s ease-in-out infinite alternate-reverse;
+}
+
+/* 🌱  bottom-left */
+.iconGrowth {
+  bottom:    clamp(0.5rem, 1.8vh, 1.2rem);
+  left:      clamp(0.8rem, 3vw,   2.0rem);
+  font-size: clamp(0.9rem, 1.9vw, 1.35rem);
+  opacity:   0.28;
+  animation: floatA 10s 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes floatA {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-6px); }
+}
+
+@keyframes floatB {
+  from { transform: translateY(-50%) translateX(0);    }
+  to   { transform: translateY(-50%) translateX(-5px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOW — vertical column, centered
+   ══════════════════════════════════════════════════════════ */
+.flow {
+  position:       relative;
+  z-index:        1;
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            0;
+  max-width:      min(520px, 94%);
+  text-align:     center;
+  animation:      textRise 0.75s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION — each thematic block
+   ══════════════════════════════════════════════════════════ */
+.section {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  padding:
+    clamp(0.4rem, 1.2vh, 0.75rem)
+    0;
+  width: 100%;
+}
+
+/* Small section label — chapter-marker style */
+.sectionLabel {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.62rem, 1.2vw, 0.76rem);
+  font-weight:    500;
+  letter-spacing: 0.14em;
+  color:          var(--c-page-accent);
+  opacity:        0.70;
+  margin-bottom:  clamp(0.28rem, 0.8vh, 0.50rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   PARAGRAPHS
+   ══════════════════════════════════════════════════════════ */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.93rem, 2.0vw, 1.12rem);
+  font-weight:    350;
+  color:          var(--c-text-2);
+  line-height:    1.85;
+  margin:         0;
+  letter-spacing: 0.012em;
+}
+
+/* Second paragraph in a section — small top gap */
+.paraSecondary {
+  margin-top: clamp(0.3rem, 0.9vh, 0.55rem);
+  opacity:    0.90;
+}
+
+/* Closing section */
+.sectionClosing {
+  padding-top: clamp(0.6rem, 1.6vh, 1.1rem);
+}
+
+/* Closing paragraph — italic grace */
+.paraClosing {
+  font-style: italic;
+  color:      var(--c-text-1, #3a3a3a);
+}
+
+/* ══════════════════════════════════════════════════════════
+   WARM WORD — rose accent highlight (love / belonging)
+   ══════════════════════════════════════════════════════════ */
+.warmWord {
+  display:        inline;
+  font-weight:    600;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.016em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT WORD — warm sand italic (honest, not harsh)
+   ══════════════════════════════════════════════════════════ */
+.softWord {
+  display:        inline;
+  font-style:     italic;
+  font-weight:    400;
+  color:          #9a8070;
+  letter-spacing: 0.010em;
+  position:       relative;
+}
+
+.softWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        1.5px;
+  border-radius: 1px;
+  background: repeating-linear-gradient(
+    to left,
+    #9a8070 0px,
+    #9a8070 3px,
+    transparent 3px,
+    transparent 6px
+  );
+  opacity: 0.42;
+}
+
+/* ══════════════════════════════════════════════════════════
+   KEY WORD — rose accent bold (insight / hope)
+   ══════════════════════════════════════════════════════════ */
+.keyWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.06em;
+  font-weight:    700;
+  font-style:     normal;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.020em;
+  position:       relative;
+}
+
+.keyWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--c-page-accent);
+  opacity:       0.28;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MEMORY BLOCK — the siren / loss moment.
+
+   Deliberately restrained:
+   - Soft lavender background, no heavy shadows
+   - A single accent border-right in muted rose-lavender
+   - Italic text, slightly smaller — a whispered memory
+   - Dove icon quiet above the text
+   ══════════════════════════════════════════════════════════ */
+.memoryBlock {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  margin-top:     clamp(0.5rem, 1.2vh, 0.85rem);
+  padding:
+    clamp(0.55rem, 1.3vh, 0.85rem)
+    clamp(1.0rem,  2.5vw, 1.6rem);
+  width: min(420px, 96%);
+
+  background:    rgba(176, 152, 210, 0.07);
+  border-radius: clamp(10px, 2vw, 16px);
+  border:        1px solid rgba(176, 152, 210, 0.18);
+  border-right:  3px solid rgba(192, 136, 136, 0.28);
+
+  box-shadow:
+    0 1px 8px rgba(176, 152, 210, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.50);
+}
+
+.memoryDove {
+  font-size:     clamp(0.90rem, 1.7vw, 1.15rem);
+  opacity:       0.50;
+  margin-bottom: clamp(0.35rem, 0.9vh, 0.55rem);
+  user-select:   none;
+  line-height:   1;
+}
+
+.memoryText {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.82rem, 1.7vw, 0.98rem);
+  font-weight:    350;
+  font-style:     italic;
+  color:          var(--c-text-2);
+  line-height:    1.80;
+  margin:         0;
+  letter-spacing: 0.010em;
+  opacity:        0.86;
+}
+
+/* ══════════════════════════════════════════════════════════
+   THIN RULES — a breath between sections
+   ══════════════════════════════════════════════════════════ */
+.rule {
+  width:         clamp(28px, 10%, 60px);
+  height:        1px;
+  border-radius: 1px;
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(0.3rem, 1.2vh, 0.6rem)
+      clamp(0.8rem, 3.5vw, 1.4rem);
+  }
+
+  .para {
+    font-size:   clamp(0.88rem, 3.6vw, 1.02rem);
+    line-height: 1.75;
+  }
+
+  .memoryText {
+    font-size:   clamp(0.78rem, 3.2vw, 0.90rem);
+    line-height: 1.70;
+  }
+
+  .iconFamily { opacity: 0.22; }
+  .iconMom    { opacity: 0.20; }
+  .iconGrowth { opacity: 0.20; }
+}

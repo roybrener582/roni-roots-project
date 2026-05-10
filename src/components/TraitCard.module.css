@@ -1,0 +1,212 @@
+/* ══════════════════════════════════════════════════════════
+   TraitCard — two-zone card: [text | illustration] in RTL.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Shell ──────────────────────────────────────────────── */
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(0.75rem, 2.5vw, 1.4rem);
+  padding: clamp(0.70rem, 1.6vh, 1.1rem) clamp(0.95rem, 2.2vw, 1.4rem);
+
+  background:    var(--tc-faint);
+  border:        1px solid var(--tc-border);
+  border-radius: var(--r-xl);
+
+  /* Staggered reveal — delay injected via inline style */
+  animation: traitIn 0.55s var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1)) both;
+  transition:
+    box-shadow var(--dur-md, 0.24s) ease,
+    transform  var(--dur-md, 0.24s) ease,
+    border-color var(--dur-md, 0.24s) ease;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* Inner shine on hover (pseudo-element sweep) */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.14) 50%,
+    transparent 100%
+  );
+  transform: skewX(-15deg);
+  transition: right var(--dur-slow, 0.40s) ease;
+  pointer-events: none;
+}
+
+.card:hover {
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.12),
+    0 3px 8px  rgba(0, 0, 0, 0.07);
+  transform: translateY(-3px);
+  border-color: var(--tc);
+}
+
+.card:hover::after {
+  right: 120%;
+}
+
+/* Swap sides — illustration on right (reading-start in RTL) */
+.reversed { flex-direction: row-reverse; }
+
+@keyframes traitIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEXT ZONE
+   ══════════════════════════════════════════════════════════ */
+.text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  text-align: start;
+}
+
+/* Icon + trait name on one row */
+.heading {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.icon {
+  font-size: var(--t-lg);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.traitName {
+  font-family: var(--f-heading);
+  font-size: var(--t-xl);
+  font-weight: 700;
+  color: var(--c-text-1);
+  line-height: 1.22;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* Short accent underline beneath the name */
+.rule {
+  width: 1.8rem;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--tc);
+  opacity: 0.72;
+  transition: width var(--dur-md, 0.24s) ease;
+}
+
+.card:hover .rule {
+  width: 2.8rem;
+  opacity: 0.92;
+}
+
+.description {
+  font-family:  var(--f-body);
+  font-size:    var(--t-sm);
+  font-weight:  300;
+  color:        var(--c-text-2);
+  line-height:  1.88;
+  margin:       0;
+  font-style:   italic;
+}
+
+/* ══════════════════════════════════════════════════════════
+   ILLUSTRATION ZONE
+   ══════════════════════════════════════════════════════════ */
+.illustration {
+  flex-shrink: 0;
+  width:        clamp(74px, 18%, 112px);
+  aspect-ratio: 1;
+  border-radius: var(--r-xl);
+  background:   var(--tc-grad);
+  display:      flex;
+  align-items:  center;
+  justify-content: center;
+  position:     relative;
+  overflow:     hidden;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  transition:
+    box-shadow var(--dur-md, 0.24s) ease,
+    transform  var(--dur-md, 0.24s) ease;
+}
+
+.card:hover .illustration {
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  transform: scale(1.04);
+}
+
+/* Soft glow circle behind the emoji */
+.illustration::before {
+  content: '';
+  position:      absolute;
+  width:         70%;
+  aspect-ratio:  1;
+  border-radius: 50%;
+  background:    rgba(255, 255, 255, 0.26);
+}
+
+/* Main focal emoji */
+.mainEmoji {
+  font-size: clamp(1.85rem, 4.5vw, 2.45rem);
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12));
+  transition: transform var(--dur-md, 0.24s) var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.card:hover .mainEmoji {
+  transform: scale(1.08) rotate(3deg);
+}
+
+/* Floating accent decorations */
+.deco1,
+.deco2 {
+  position:  absolute;
+  font-size: 0.82rem;
+  opacity:   0.52;
+  z-index:   1;
+}
+
+.deco1 { top: 10%; inset-inline-start: 10%; }
+.deco2 { bottom: 10%; inset-inline-end: 10%; }
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .card,
+  .reversed {
+    flex-direction: column;
+    text-align:     center;
+    padding: var(--sp-4) var(--sp-4) var(--sp-3);
+  }
+
+  .text       { align-items: center; }
+  .heading    { justify-content: center; }
+  .rule       { margin: 0 auto; }
+
+  .illustration {
+    width: clamp(64px, 22vw, 88px);
+  }
+}

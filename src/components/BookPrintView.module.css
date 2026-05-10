@@ -1,0 +1,32 @@
+/* Hidden host — never visible to the user */
+.host {
+  display: flex;
+  flex-direction: column;
+}
+
+/* One slot per book page — fixed A4 dimensions, clipped */
+.pageSlot {
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #faf7f0;
+}
+
+/* Kill all CSS animations and transitions so html2canvas
+   always captures the final, fully-visible render state. */
+.pageSlot *,
+.pageSlot *::before,
+.pageSlot *::after {
+  animation-duration:   0ms !important;
+  animation-delay:      0ms !important;
+  transition-duration:  0ms !important;
+  transition-delay:     0ms !important;
+}
+
+/* BookPage.page has overflow-y: auto so content scrolls in the app.
+   In the print view we want all content visible — no clipping. */
+.pageSlot article {
+  overflow: visible !important;
+}

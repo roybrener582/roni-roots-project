@@ -1,0 +1,89 @@
+/* ══════════════════════════════════════════════════════════
+   NavigationItem — menu list item
+   ══════════════════════════════════════════════════════════ */
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.65rem 0.80rem;
+  border: none;
+  border-radius: var(--r-lg);
+  background: transparent;
+  color: var(--c-text-2);
+  font-family: var(--f-body);
+  font-size: var(--t-sm);
+  font-weight: 400;
+  text-align: right;
+  cursor: pointer;
+  transition:
+    background var(--dur-fast, 0.15s) ease,
+    color      var(--dur-fast, 0.15s) ease,
+    transform  var(--dur-fast, 0.15s) ease;
+  direction: rtl;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover: warm amber background with gentle slide */
+.item:hover {
+  background: rgba(196, 169, 110, 0.14);
+  color: var(--c-text-1);
+  transform: translateX(-2px);
+}
+
+.item:active {
+  transform: scale(0.97);
+}
+
+/* Active: warm parchment tint with subtle left accent */
+.active {
+  background: linear-gradient(
+    to left,
+    rgba(139, 105, 20, 0.08),
+    rgba(139, 105, 20, 0.14)
+  );
+  color: var(--c-cover);
+  font-weight: 600;
+}
+
+.active::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  right: 0;
+  width: 2.5px;
+  height: 60%;
+  border-radius: 2px;
+  background: var(--c-spine-hi);
+  opacity: 0.90;
+}
+
+/* Dot: small ornamental marker */
+.dot {
+  flex-shrink: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(196, 169, 110, 0.38);
+  transition:
+    background var(--dur-fast, 0.15s) ease,
+    transform  var(--dur-fast, 0.15s) ease;
+}
+
+.item:hover .dot {
+  background: rgba(196, 169, 110, 0.72);
+}
+
+.active .dot {
+  background: var(--c-spine-hi);
+  transform: scale(1.6);
+  box-shadow: 0 0 0 2px rgba(196, 169, 110, 0.22);
+}
+
+.label {
+  flex: 1;
+  line-height: 1.35;
+}

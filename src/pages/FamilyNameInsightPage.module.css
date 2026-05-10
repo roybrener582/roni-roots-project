@@ -1,0 +1,191 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyNameInsightPage — "מהו שם משפחה בשבילי?"  ·  פרק 5
+   Tone: calm, personal, simple, honest.
+   Three short paragraphs separated by thin rules — like
+   a journal entry where each thought gets its own breath.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(2.6rem, 6.5vh, 4.8rem)
+    clamp(1.8rem, 6vw,   5rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT AURA — a quiet mint glow that holds the text gently.
+   Low opacity so it feels atmospheric, not decorative.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(580px, 98%);
+  height:    min(380px, 80%);
+
+  border-radius: 50% 48% 52% 46% / 46% 54% 44% 56%;
+
+  background: radial-gradient(
+    ellipse at 50% 48%,
+    rgba(94, 172, 146, 0.11) 0%,
+    rgba(94, 172, 146, 0.06) 45%,
+    transparent 72%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 11s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 50% 48% 52% 46% / 46% 54% 44% 56%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 44% 56% 46% 54% / 54% 44% 58% 42%;
+    transform:     translate(-50%, -50%) scale(1.06);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOATING ICONS — present but quiet, never competing
+   ══════════════════════════════════════════════════════════ */
+.iconSpark,
+.iconThought {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* ✨  top-right corner (RTL: visual right = CSS left) */
+.iconSpark {
+  top:       clamp(0.6rem, 2vh,   1.4rem);
+  left:      clamp(0.9rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.2rem, 2.8vw, 1.85rem);
+  opacity:   0.44;
+  animation: floatDrift 7s ease-in-out infinite alternate;
+}
+
+/* 💭  bottom-left corner (RTL: visual left = CSS right) */
+.iconThought {
+  bottom:    clamp(0.7rem, 2vh,   1.6rem);
+  right:     clamp(1rem,   4vw,   2.8rem);
+  font-size: clamp(1.05rem, 2.4vw, 1.6rem);
+  opacity:   0.38;
+  animation: floatDrift 9s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatDrift {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEXT BLOCK — narrow centered column, above the aura
+   ══════════════════════════════════════════════════════════ */
+.textBlock {
+  position:        relative;
+  z-index:         1;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             0;
+  max-width:       min(480px, 91%);
+  text-align:      center;
+  animation:       textRise 0.72s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PARAGRAPHS — flowing, open, comfortable to read
+   ══════════════════════════════════════════════════════════ */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.12rem, 2.7vw, 1.44rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.15;
+  margin:         0;
+  letter-spacing: 0.013em;
+  padding:
+    clamp(1.2rem, 3.2vh, 2rem)
+    0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   KEY WORDS — "אנרגיה", "חיבור", "חלק ממני"
+   Mint accent with a soft glow underline — felt, not shouted.
+   ══════════════════════════════════════════════════════════ */
+.keyWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.10em;
+  font-weight:    700;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.022em;
+  position:       relative;
+}
+
+.keyWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--c-page-accent);
+  opacity:       0.36;
+  box-shadow:    0 0 5px var(--c-page-accent);
+}
+
+/* ══════════════════════════════════════════════════════════
+   THIN RULES — a breath between thoughts.
+   Short, centered, low contrast — a pause, not a barrier.
+   ══════════════════════════════════════════════════════════ */
+.rule {
+  width:         clamp(40px, 18%, 90px);
+  height:        1px;
+  border-radius: 1px;
+  background:    linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+  flex-shrink:   0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(1.8rem, 5vh, 3rem)
+      clamp(1.1rem, 4vw, 1.8rem);
+  }
+
+  .para {
+    font-size:   clamp(1.0rem, 4.3vw, 1.18rem);
+    line-height: 2.05;
+    padding:
+      clamp(0.9rem, 2.5vh, 1.4rem)
+      0;
+  }
+
+  .iconSpark  { opacity: 0.33; }
+  .iconThought { opacity: 0.28; }
+}

@@ -1,0 +1,175 @@
+/* ══════════════════════════════════════════════════════════
+   NameMeaningPage — soft personal reflection
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Outer canvas: fills main zone, centers everything ─── */
+.canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ── Soft ambient blobs in the background ─────────────── */
+.blob1,
+.blob2 {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+}
+
+.blob1 {
+  width: clamp(240px, 50vw, 420px);
+  height: clamp(240px, 50vw, 420px);
+  top: -12%;
+  inset-inline-end: -10%;
+  background: radial-gradient(
+    circle,
+    rgba(192, 136, 136, 0.14) 0%,
+    transparent 70%
+  );
+}
+
+.blob2 {
+  width: clamp(200px, 42vw, 360px);
+  height: clamp(200px, 42vw, 360px);
+  bottom: -10%;
+  inset-inline-start: -8%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 200, 200, 0.12) 0%,
+    transparent 70%
+  );
+}
+
+/* ── Centered reflection column ───────────────────────── */
+.reflections {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.9rem, 2.8vh, 1.6rem);
+  width: 100%;
+  max-width: clamp(320px, 68%, 620px);
+  padding-inline: clamp(0.8rem, 3vw, 2.5rem);
+  animation: fadeUp 0.55s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Each paragraph block ──────────────────────────────── */
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.3rem, 0.8vh, 0.55rem);
+  text-align: center;
+  width: 100%;
+}
+
+/* ── Small sparkle above each paragraph ──────────────── */
+.deco {
+  font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+  opacity: 0.65;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── Paragraph text ────────────────────────────────────── */
+.para {
+  font-family: var(--f-heading);
+  font-size: clamp(1.08rem, 2.6vw, 1.40rem);
+  line-height: 1.82;
+  color: var(--c-text-1);
+  letter-spacing: 0.01em;
+  margin: 0;
+  padding:
+    clamp(0.85rem, 2.2vh, 1.3rem)
+    clamp(1.1rem, 3.5vw, 2rem);
+  background: var(--c-page-accent-faint);
+  border: 1px solid var(--c-page-accent-border);
+  border-radius: var(--r-2xl);
+  box-shadow:
+    0 4px 22px rgba(192, 136, 136, 0.09),
+    inset 0 1px 0 rgba(255, 255, 255, 0.60);
+  transition: box-shadow 0.25s ease;
+}
+
+.para:hover {
+  box-shadow:
+    0 6px 32px rgba(192, 136, 136, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+}
+
+/* ── Highlighted keywords ──────────────────────────────── */
+.highlight {
+  color: var(--c-page-accent);
+  font-weight: 700;
+  position: relative;
+}
+
+/* Soft underline glow beneath each keyword */
+.highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-page-accent);
+  opacity: 0.38;
+}
+
+/* ── Decorative separator ──────────────────────────────── */
+.sep {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.8vw, 1.1rem);
+  width: 55%;
+}
+
+.sep span:first-child,
+.sep span:last-child {
+  flex: 1;
+  height: 1px;
+  background: var(--c-page-accent-border);
+  border-radius: 1px;
+}
+
+.sepHeart {
+  font-size: clamp(0.85rem, 2.0vw, 1.05rem);
+  opacity: 0.70;
+  user-select: none;
+  flex: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .reflections {
+    max-width: 100%;
+    padding-inline: clamp(0.6rem, 4vw, 1.2rem);
+    gap: clamp(0.7rem, 2.5vh, 1.1rem);
+  }
+
+  .para {
+    font-size: clamp(0.96rem, 4.0vw, 1.14rem);
+    padding:
+      clamp(0.75rem, 2.2vh, 1.0rem)
+      clamp(0.85rem, 4vw, 1.3rem);
+  }
+
+  .sep {
+    width: 75%;
+  }
+}

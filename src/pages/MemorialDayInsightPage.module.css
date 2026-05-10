@@ -1,0 +1,170 @@
+/* ══════════════════════════════════════════════════════════
+   MemorialDayInsightPage — "טקסים ומשמעותם"  ·  פרק 10
+   Personal reflection on Yom HaZikaron.
+   Tone: quiet, solemn, deeply personal — never crowded.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(1.6rem, 4.5vh, 3.5rem)
+    clamp(1.8rem, 7vw,   5rem);
+}
+
+/* ── Soft aura — cool silver-blue, like a held breath ────── */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(580px, 97%);
+  height:    min(420px, 85%);
+
+  border-radius: 54% 46% 48% 52% / 50% 54% 46% 50%;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(122, 170, 192, 0.12) 0%,
+    rgba(160, 195, 215, 0.07) 42%,
+    rgba(200, 220, 235, 0.04) 65%,
+    transparent 82%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 14s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 54% 46% 48% 52% / 50% 54% 46% 50%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 52% 48% / 54% 46% 50% 54%;
+    transform:     translate(-50%, -50%) scale(1.04);
+  }
+}
+
+/* ── Ambient icons ───────────────────────────────────────── */
+.iconCandle,
+.iconDove {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 🕯️  top visual-right (RTL: CSS left) */
+.iconCandle {
+  top:       clamp(0.5rem, 1.8vh, 1.2rem);
+  left:      clamp(0.8rem, 3vw,   2rem);
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  opacity:   0.38;
+  animation: flicker 6s ease-in-out infinite alternate;
+}
+
+/* 🕊️  bottom visual-left (RTL: CSS right) */
+.iconDove {
+  bottom:    clamp(0.5rem, 1.8vh, 1.2rem);
+  right:     clamp(0.8rem, 3vw,   2rem);
+  font-size: clamp(1.0rem, 2.1vw, 1.45rem);
+  opacity:   0.30;
+  animation: floatUp 9s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes flicker {
+  0%   { opacity: 0.38; transform: translateY(0)    scale(1);    }
+  30%  { opacity: 0.42; transform: translateY(-2px) scale(1.02); }
+  60%  { opacity: 0.36; transform: translateY(1px)  scale(0.98); }
+  100% { opacity: 0.40; transform: translateY(-3px) scale(1.01); }
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-6px); }
+}
+
+/* ── Flow — the two paragraphs ───────────────────────────── */
+.flow {
+  position:       relative;
+  z-index:        1;
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            0;
+  max-width:      min(520px, 93%);
+  text-align:     center;
+  direction:      rtl;
+
+  animation: textRise 0.9s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Paragraphs ──────────────────────────────────────────── */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.06rem, 2.5vw, 1.34rem);
+  font-weight:    350;
+  color:          var(--c-text-2);
+  line-height:    2.15;
+  margin:         0;
+  letter-spacing: 0.013em;
+  padding:
+    clamp(0.7rem, 1.8vh, 1.2rem)
+    0;
+}
+
+.paraSecond {
+  font-style: italic;
+  color:      var(--c-text-1, #3a3a3a);
+  font-style: normal;
+}
+
+/* ── Accent spans — named, key words ─────────────────────── */
+.accent {
+  font-weight:   550;
+  color:         var(--c-page-accent);
+  border-radius: 4px;
+  padding:       0 2px;
+}
+
+/* ── Thin rule between paragraphs ────────────────────────── */
+.rule {
+  width:         clamp(28px, 10%, 56px);
+  height:        1px;
+  border-radius: 1px;
+  flex-shrink:   0;
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+}
+
+/* ── Mobile ≤ 540px ──────────────────────────────────────── */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(1.2rem, 3.5vh, 2.2rem)
+      clamp(1.1rem, 4vw,   1.8rem);
+  }
+
+  .para {
+    font-size:   clamp(0.98rem, 4.2vw, 1.14rem);
+    line-height: 2.05;
+  }
+
+  .iconCandle { opacity: 0.28; }
+  .iconDove   { opacity: 0.22; }
+}

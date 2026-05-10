@@ -1,0 +1,21 @@
+/* ══════════════════════════════════════════════════════════
+   EventsApp — shell wrapper for the Ragba events section
+   ══════════════════════════════════════════════════════════ */
+
+.app {
+  width: 100%;
+  min-height: 100svh;
+  background:
+    linear-gradient(
+      158deg,
+      #f0fdf6 0%,
+      #fefce8 40%,
+      #eff9ff 75%,
+      #f5f0ff 100%
+    );
+  background-attachment: fixed;
+  direction: rtl;
+  font-family: var(--f-body, 'Heebo', sans-serif);
+  color: #1c1917;
+  overflow-x: hidden;
+}

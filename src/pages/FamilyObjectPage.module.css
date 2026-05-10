@@ -1,0 +1,195 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyObjectPage — "חפץ משפחתי עם משמעות"  ·  פרק 8
+   Tone: warm, gentle, memorial — a memory held in an object.
+   Desktop: guitar (visual LEFT) | story text (visual RIGHT).
+   In RTL flex-row the first DOM child lands on the right,
+   so text comes first in the markup, guitar comes second.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Outer wrapper ───────────────────────────────────────── */
+.wrapper {
+  position: relative;
+  width:    100%;
+  padding:  var(--page-pad-y) var(--page-pad-x);
+  overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════
+   AURA — rose warmth, barely visible.
+   Keeps the page feeling like a memory, not a document.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:      absolute;
+  top:           48%;
+  left:          50%;
+  transform:     translate(-50%, -50%);
+  width:         min(560px, 95%);
+  height:        min(380px, 80%);
+  border-radius: 48% 52% 50% 50% / 46% 54% 48% 52%;
+  background:    radial-gradient(
+    ellipse at 50% 50%,
+    rgba(192, 136, 136, 0.09) 0%,
+    rgba(192, 136, 136, 0.04) 52%,
+    transparent 74%
+  );
+  pointer-events: none;
+  animation: auraBreath 14s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 48% 52% 50% 50% / 46% 54% 48% 52%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 54% 46% 48% 52% / 52% 46% 54% 44%;
+    transform:     translate(-50%, -50%) scale(1.04);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TWO-COLUMN LAYOUT
+   RTL flex-row: first child → right, second child → left.
+   ══════════════════════════════════════════════════════════ */
+.layout {
+  position:        relative;
+  z-index:         1;
+  display:         flex;
+  flex-direction:  row;
+  align-items:     center;
+  justify-content: center;
+  gap:             clamp(2rem, 5vw, 4rem);
+  width:           100%;
+}
+
+/* ── Text column (visual RIGHT on desktop) ───────────────── */
+.textCol {
+  flex:           1;
+  display:        flex;
+  flex-direction: column;
+  max-width:      400px;
+  text-align:     start;
+  animation:      rise 0.65s 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Guitar column (visual LEFT on desktop) ──────────────── */
+.guitarCol {
+  flex:            0 0 auto;
+  position:        relative;
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  width:           clamp(130px, 20vw, 205px);
+  animation:       rise 0.65s 0.10s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Warm amber glow behind the guitar */
+.guitarGlow {
+  position:      absolute;
+  top:           50%;
+  left:          50%;
+  transform:     translate(-50%, -50%);
+  width:         140%;
+  height:        140%;
+  border-radius: 50%;
+  background:    radial-gradient(
+    ellipse at 50% 55%,
+    rgba(190, 120, 45, 0.13) 0%,
+    rgba(190, 120, 45, 0.06) 45%,
+    transparent 68%
+  );
+  pointer-events: none;
+  animation:      guitarGlow 7s ease-in-out infinite alternate;
+}
+
+@keyframes guitarGlow {
+  from { opacity: 0.7; transform: translate(-50%, -50%) scale(1);    }
+  to   { opacity: 1;   transform: translate(-50%, -50%) scale(1.07); }
+}
+
+/* The SVG itself */
+.guitarSvg {
+  width:      100%;
+  height:     auto;
+  max-height: clamp(280px, 52vh, 410px);
+  filter:     drop-shadow(0 5px 18px rgba(80, 38, 8, 0.18));
+  animation:  guitarFloat 9s ease-in-out infinite alternate;
+}
+
+@keyframes guitarFloat {
+  from { transform: translateY(0px);  }
+  to   { transform: translateY(-7px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   STORY PARAGRAPHS
+   Short, breathing, diary-like. Space is the separator.
+   ══════════════════════════════════════════════════════════ */
+.para {
+  font-family:     var(--f-body);
+  font-size:       clamp(0.96rem, 1.85vw, 1.13rem);
+  font-weight:     300;
+  color:           var(--c-text-2);
+  line-height:     2.05;
+  letter-spacing:  0.014em;
+  padding:         clamp(0.65rem, 1.6vh, 1.1rem) 0;
+  border-bottom:   1px solid var(--c-page-accent-border);
+  margin:          0;
+}
+
+.para:last-child {
+  border-bottom: none;
+}
+
+/* The final paragraph carries the lesson — slightly richer */
+.paraClosing {
+  font-weight: 400;
+  color:       var(--c-text-1);
+  margin-top:  clamp(0.25rem, 0.8vh, 0.5rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   HIGHLIGHTED WORDS
+   גיטרה · זיכרונות · סיפורים מהעבר
+   Color + weight only. Nothing loud.
+   ══════════════════════════════════════════════════════════ */
+.highlight {
+  font-family: var(--f-heading);
+  font-size:   1.06em;
+  font-weight: 700;
+  color:       var(--c-page-accent);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 620px
+   Stack: title (header) → guitar → text
+   Guitar gets order: -1 to float above text in column flow.
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 620px) {
+  .layout {
+    flex-direction: column;
+    gap:            clamp(1.2rem, 4vw, 2rem);
+  }
+
+  /* Guitar rises above text on mobile */
+  .guitarCol {
+    width: clamp(110px, 46vw, 170px);
+    order: -1;
+  }
+
+  .textCol {
+    max-width:  100%;
+    text-align: start;
+  }
+
+  .para {
+    font-size:   clamp(0.90rem, 3.8vw, 1.04rem);
+    line-height: 2.0;
+    padding:     clamp(0.55rem, 1.4vh, 0.9rem) 0;
+  }
+}

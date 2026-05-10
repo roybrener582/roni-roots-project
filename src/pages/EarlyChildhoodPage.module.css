@@ -1,0 +1,299 @@
+/* ══════════════════════════════════════════════════════════
+   EarlyChildhoodPage — "הגיל הרך – הגן"  ·  פרק 4
+   Tone: playful, nostalgic, light — childhood memories
+   told with a smile.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Page wrapper ───────────────────────────────────────── */
+.wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 1.3vh, 0.8rem);
+  padding-inline: clamp(0.4rem, 1.8vw, 1.2rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOATING DECORATIVE ICONS
+   Subtle, corner-hugging — add childhood personality
+   without crowding the content blocks.
+   ══════════════════════════════════════════════════════════ */
+.floatFlower,
+.floatBalloon {
+  position: absolute;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* 🌻 top-right (RTL: visual right = CSS left) */
+.floatFlower {
+  top: clamp(0.2rem, 0.8vh, 0.5rem);
+  left: clamp(0.4rem, 1.5vw, 1rem);
+  font-size: clamp(1.2rem, 2.8vw, 1.7rem);
+  opacity: 0.4;
+  animation: floatBounce 5s ease-in-out infinite alternate;
+}
+
+/* 🎈 bottom-left (RTL: visual left = CSS right) */
+.floatBalloon {
+  bottom: clamp(0.2rem, 0.8vh, 0.5rem);
+  right: clamp(0.4rem, 1.5vw, 1rem);
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  opacity: 0.35;
+  animation: floatBounce 6.5s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatBounce {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-6px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TOP ROW — two blocks side by side
+   ══════════════════════════════════════════════════════════ */
+.topRow {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: clamp(0.4rem, 1.2vw, 0.7rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SHARED BLOCK BASE
+   Rounded pastel card — consistent structure, unique color
+   per section via modifier classes.
+   ══════════════════════════════════════════════════════════ */
+.block {
+  border-radius: var(--r-xl);
+  padding: clamp(0.45rem, 1.2vh, 0.75rem) clamp(0.55rem, 1.4vw, 0.9rem);
+  text-align: start;
+  animation: blockIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+}
+
+@keyframes blockIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Gardens: soft mint ─────────────────────────────────── */
+.blockGardens {
+  background: rgba(94, 172, 146, 0.11);
+  border: 1.5px solid rgba(94, 172, 146, 0.32);
+  animation-delay: 0.08s;
+}
+
+/* ── Book: soft lavender ────────────────────────────────── */
+.blockBook {
+  background: rgba(144, 128, 196, 0.11);
+  border: 1.5px solid rgba(144, 128, 196, 0.30);
+  animation-delay: 0.16s;
+}
+
+/* ── Vacations: soft sky ────────────────────────────────── */
+.blockVacations {
+  background: rgba(106, 156, 196, 0.11);
+  border: 1.5px solid rgba(106, 156, 196, 0.30);
+  animation-delay: 0.24s;
+}
+
+/* ── Block header: icon + label ─────────────────────────── */
+.blockHead {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-bottom: clamp(0.28rem, 0.75vh, 0.45rem);
+}
+
+.blockIcon {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.blockLabel {
+  font-family: var(--f-heading);
+  font-size: var(--t-sm);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.blockGardens .blockLabel { color: #3d8a70; }
+.blockBook    .blockLabel { color: #7060a0; }
+.blockVacations .blockLabel { color: #3d78a8; }
+
+/* ── Block body text ────────────────────────────────────── */
+.blockBody {
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  font-weight: 300;
+  color: var(--c-text-2);
+  line-height: 1.72;
+  margin: 0;
+}
+
+.blockBody strong {
+  font-weight: 600;
+  color: var(--c-text-1);
+}
+
+/* ══════════════════════════════════════════════════════════
+   GARDEN TAGS
+   The five kindergartens shown as little name-bubbles —
+   reads like a journey, not a list.
+   ══════════════════════════════════════════════════════════ */
+.gardenTags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: clamp(0.12rem, 0.4vw, 0.22rem);
+}
+
+.gardenGroup {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.12rem, 0.4vw, 0.22rem);
+}
+
+.gardenTag {
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  color: #2d7a62;
+  background: rgba(94, 172, 146, 0.20);
+  border-radius: 20px;
+  padding: 0.08em 0.52em;
+  white-space: nowrap;
+}
+
+.gardenSep {
+  font-size: 0.65em;
+  color: var(--c-text-3);
+  user-select: none;
+}
+
+/* ── Book name ──────────────────────────────────────────── */
+.bookName {
+  font-family: var(--f-heading);
+  font-size: var(--t-md);
+  font-weight: 700;
+  color: #6050a0;
+  margin: 0 0 var(--sp-1) 0;
+  letter-spacing: 0.015em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   FUNNY MEMORY BLOCK
+   The standout section — warm amber glow, dashed border,
+   badge label. Feels like a sticky note you pinned on the
+   fridge that everyone keeps reading and laughing at.
+   ══════════════════════════════════════════════════════════ */
+.blockFunny {
+  position: relative;
+  border-radius: var(--r-xl);
+  padding: clamp(0.55rem, 1.4vh, 0.85rem) clamp(0.65rem, 1.8vw, 1.1rem);
+  background: linear-gradient(
+    135deg,
+    rgba(240, 195, 65, 0.17) 0%,
+    rgba(255, 225, 110, 0.11) 100%
+  );
+  border: 2px dashed rgba(200, 155, 35, 0.40);
+  text-align: center;
+  animation: blockIn 0.5s 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blockFunny:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 22px rgba(200, 155, 35, 0.13);
+}
+
+/* Warm radial glow behind the funny block */
+.blockFunny::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 38%,
+    rgba(255, 220, 80, 0.18) 0%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+/* ── Funny badge — "sticker" label ─────────────────────── */
+.funnyBadge {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  font-family: var(--f-heading);
+  font-size: var(--t-xs);
+  font-weight: 800;
+  color: #8a6010;
+  background: rgba(240, 195, 65, 0.30);
+  border-radius: 20px;
+  padding: 0.15em 0.75em;
+  margin-bottom: clamp(0.28rem, 0.75vh, 0.45rem);
+  letter-spacing: 0.04em;
+  animation: badgePop 0.5s 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes badgePop {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Funny text ─────────────────────────────────────────── */
+.funnyText {
+  position: relative;
+  z-index: 1;
+  font-family: var(--f-body);
+  font-size: var(--t-sm);
+  font-weight: 400;
+  color: var(--c-text-2);
+  line-height: 1.78;
+  margin: 0;
+}
+
+.funnyPunchline {
+  margin-top: var(--sp-1);
+  font-weight: 600;
+  color: var(--c-text-1);
+}
+
+.funnyPunchline em {
+  font-style: normal;
+  color: #8a5e08;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 520px — stack everything vertically
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 520px) {
+  .topRow {
+    grid-template-columns: 1fr;
+  }
+
+  .gardenTags {
+    justify-content: center;
+  }
+
+  .blockBody,
+  .bookName {
+    text-align: center;
+  }
+
+  .blockHead {
+    justify-content: center;
+  }
+
+  .floatFlower { opacity: 0.28; }
+  .floatBalloon { opacity: 0.22; }
+}

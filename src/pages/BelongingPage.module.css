@@ -1,0 +1,220 @@
+/* ══════════════════════════════════════════════════════════
+   BelongingPage — circles of belonging
+   Desktop: two-column grid (rings 62% | image 38%, RTL order)
+   Mobile:  single column — image first, rings below
+
+   Badge position math (RTL):
+     inline-start = physical RIGHT
+     badge center from stack's outer-right edge
+       = stack padding-inline-start (0.5rem)
+       + ring padding-inline-start  (0.25rem, fixed for all sizes)
+       + badge radius               (1.0rem)
+       = 1.75rem  →  line: right: 1.75rem
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Two-column layout ──────────────────────────────────── */
+/*   RTL grid: column 1 → physical right (rings), column 2 → left (image) */
+.layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 62fr 38fr;
+  gap: clamp(0.7rem, 2vw, 1.2rem);
+  align-items: stretch;
+}
+
+/* ── Image frame (left column, RTL) ────────────────────── */
+.imageFrame {
+  position: relative;
+  border-radius: var(--r-2xl);
+  overflow: hidden;
+  border: 1px solid rgba(196, 169, 110, 0.28);
+  box-shadow: 0 4px 22px rgba(44, 31, 14, 0.11);
+  /* Warm paper fallback visible before image loads or as placeholder bg */
+  background: var(--c-paper-s1);
+  /* Guarantee a minimum height in case the rings stack is very short */
+  min-height: clamp(140px, 26vh, 220px);
+  animation: frameIn 0.6s 0.20s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes frameIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* Photo fills the frame via absolute positioning so it
+   always covers 100% of the frame regardless of grid height */
+.photo {
+  position: absolute;
+  inset: 0.5rem;                 /* breathing room inside the frame       */
+  width: calc(100% - 1rem);
+  height: calc(100% - 1rem);
+  object-fit: contain;           /* show full diagram — no cropping        */
+  object-position: center;
+  display: block;
+  mix-blend-mode: multiply;      /* white PNG background → warm paper tone */
+}
+
+/* Placeholder shown when image fails to load */
+.placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  color: var(--c-text-3);
+  background: var(--c-paper-s1);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   Single column: image first (order 1), rings below (order 2)
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .imageFrame {
+    order: 1;
+    /* Fixed responsive height replaces the grid-stretch height */
+    height: clamp(180px, 48vw, 260px);
+    min-height: unset;
+  }
+
+  .stack {
+    order: 2;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   RINGS STACK
+   ══════════════════════════════════════════════════════════ */
+
+.stack {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.28rem, 0.8vh, 0.5rem);
+  /* inline-start (right in RTL): fixed 0.5rem — used in badge center calc  */
+  /* inline-end  (left in RTL):   responsive                                */
+  padding-inline: 0.5rem clamp(0.3rem, 1vw, 0.6rem);
+}
+
+/* Gradient line running through all badge circle centers */
+.stack::before {
+  content: '';
+  position: absolute;
+  right: 1.75rem;   /* badge center: stack-pad(0.5) + ring-pad(0.25) + radius(1.0) */
+  top: 1.8rem;      /* trims near first badge center */
+  bottom: 1.8rem;   /* trims near last badge center  */
+  width: 1.5px;
+  border-radius: 1px;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(196, 114, 138, 0.45),
+    rgba(196, 149,  74, 0.45),
+    rgba(144, 128, 196, 0.45),
+    rgba( 90, 158, 120, 0.45),
+    rgba( 80, 136, 180, 0.45)
+  );
+}
+
+/* ── Ring card ──────────────────────────────────────────── */
+.ring {
+  position: relative;             /* paints on top of the ::before line */
+  display: flex;
+  flex-direction: row;            /* RTL: badge→right, body→left        */
+  align-items: center;
+  gap: clamp(0.5rem, 1.4vw, 0.8rem);
+  border-radius: var(--r-2xl);
+  background: var(--rc-faint);
+  border: 1px solid var(--rc-border);
+  /* Fixed inline-start (right) padding keeps all badges at the same x   */
+  padding-inline-start: 0.25rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  animation: ringIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ring:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  transform: translateY(-1px);
+}
+
+@keyframes ringIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Size variants — only block and inline-end (left) padding varies */
+.lead {
+  padding-block: clamp(0.55rem, 1.3vh, 0.75rem);
+  padding-inline-end: clamp(0.7rem, 1.8vw, 1rem);
+  border-width: 1.5px;
+}
+
+.mid {
+  padding-block: clamp(0.4rem, 1vh, 0.58rem);
+  padding-inline-end: clamp(0.55rem, 1.4vw, 0.8rem);
+}
+
+.sm {
+  padding-block: clamp(0.3rem, 0.75vh, 0.44rem);
+  padding-inline-end: clamp(0.45rem, 1.1vw, 0.65rem);
+}
+
+/* ── Badge (icon circle) ────────────────────────────────── */
+/*   background: var(--c-paper) is opaque — visually covers the line    */
+.badge {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--c-paper);
+  border: 1.5px solid var(--rc-border);
+  /* Soft paper halo cleanly separates badge edge from the gradient line */
+  box-shadow: 0 0 0 2px var(--c-paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--t-base);
+  line-height: 1;
+}
+
+.lead .badge { font-size: var(--t-lg); }
+
+/* ── Text body ──────────────────────────────────────────── */
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  text-align: start;
+}
+
+.heading {
+  font-family: var(--f-heading);
+  font-weight: 700;
+  color: var(--rc);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.lead .heading { font-size: var(--t-md);  font-weight: 800; }
+.mid  .heading { font-size: var(--t-sm); }
+.sm   .heading { font-size: var(--t-xs); }
+
+.text {
+  font-family: var(--f-body);
+  font-weight: 300;
+  color: var(--c-text-2);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.lead .text { font-size: var(--t-sm); }
+.mid  .text { font-size: var(--t-xs); line-height: 1.60; }
+.sm   .text { font-size: var(--t-xs); line-height: 1.55; }

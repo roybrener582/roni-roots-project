@@ -1,0 +1,191 @@
+/* ══════════════════════════════════════════════════════════
+   CommunityVisitPage — "באיזה קהילות כבר ביקרנו?"  ·  פרק 9
+   Tone: personal, warm, curious — a 12-year-old reflecting
+   on three community visits. Five questions, airy spacing.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ──────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  flex:            1;
+  min-height:      0;
+  width:           100%;
+  padding:
+    clamp(0.4rem, 1.2vh, 0.9rem)
+    clamp(1.2rem, 4vw, 3.0rem);
+}
+
+/* ── Soft aura ────────────────────────────────────────── */
+.aura {
+  position:      absolute;
+  top:           42%;
+  left:          50%;
+  transform:     translate(-50%, -50%);
+  width:         min(560px, 96%);
+  height:        min(440px, 78%);
+  border-radius: 50% 46% 54% 48% / 48% 52% 46% 54%;
+  background:    radial-gradient(
+    ellipse at 48% 46%,
+    rgba(122, 149, 110, 0.10) 0%,
+    rgba(94,  172, 146, 0.06) 44%,
+    rgba(196, 220, 160, 0.04) 66%,
+    transparent 80%
+  );
+  pointer-events: none;
+  animation:      auraBreath 14s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 50% 46% 54% 48% / 48% 52% 46% 54%;
+    transform:     translate(-50%, -50%) scale(1.00);
+  }
+  to {
+    border-radius: 46% 54% 48% 52% / 52% 46% 54% 46%;
+    transform:     translate(-50%, -50%) scale(1.06);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   AMBIENT ICONS — gentle floating, never intrusive
+   ══════════════════════════════════════════════════════════ */
+.iconMap,
+.iconHands,
+.iconLeaf {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+.iconMap {
+  top:       clamp(0.5rem, 1.8vh, 1.1rem);
+  left:      clamp(0.8rem, 3vw,   1.8rem);
+  font-size: clamp(1.0rem, 2.2vw, 1.5rem);
+  opacity:   0.32;
+  animation: floatA 9s ease-in-out infinite alternate;
+}
+
+.iconHands {
+  top:       46%;
+  right:     clamp(0.5rem, 2vw, 1.4rem);
+  transform: translateY(-50%);
+  font-size: clamp(0.9rem, 1.9vw, 1.3rem);
+  opacity:   0.25;
+  animation: floatB 11s ease-in-out infinite alternate-reverse;
+}
+
+.iconLeaf {
+  bottom:    clamp(0.5rem, 1.8vh, 1.1rem);
+  left:      clamp(0.8rem, 3vw,   1.8rem);
+  font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+  opacity:   0.28;
+  animation: floatA 10s 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatA {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+@keyframes floatB {
+  from { transform: translateY(-50%) translateX(0);    }
+  to   { transform: translateY(-50%) translateX(-5px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   CONTENT COLUMN
+   ══════════════════════════════════════════════════════════ */
+.content {
+  position:       relative;
+  z-index:        1;
+  display:        flex;
+  flex-direction: column;
+  gap:            clamp(0.42rem, 1.1vh, 0.78rem);
+  animation:      rise 0.65s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Q&A CARD — right-border block, RTL
+   ══════════════════════════════════════════════════════════ */
+.qaCard {
+  display:        flex;
+  flex-direction: column;
+  gap:            0.20rem;
+  padding:
+    clamp(0.42rem, 1.0vh, 0.65rem)
+    clamp(0.80rem, 2.2vw, 1.25rem);
+  border-right:   3px solid var(--c-page-accent-border);
+  background:     var(--c-page-accent-faint);
+  border-radius:  0 clamp(8px, 1.4vw, 12px) clamp(8px, 1.4vw, 12px) 0;
+  text-align:     right;
+}
+
+/* Question label */
+.qLabel {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.60rem, 1.12vw, 0.72rem);
+  font-weight:    600;
+  letter-spacing: 0.10em;
+  color:          var(--c-page-accent);
+  opacity:        0.80;
+}
+
+/* Answer text */
+.answer {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.88rem, 1.9vw, 1.05rem);
+  font-weight:    350;
+  color:          var(--c-text-2);
+  line-height:    1.72;
+  margin:         0;
+  letter-spacing: 0.010em;
+}
+
+.answerClosing {
+  font-style: italic;
+  color:      var(--c-text-1, #3a3a3a);
+}
+
+/* Highlighted words */
+.keyword {
+  color:       var(--c-page-accent);
+  font-weight: 700;
+  font-family: var(--f-heading);
+  font-style:  normal;
+}
+
+/* ══════════════════════════════════════════════════════════
+   THIN RULE — breath between Q&A blocks
+   ══════════════════════════════════════════════════════════ */
+.rule {
+  width:         min(72px, 22%);
+  height:        1px;
+  border-radius: 1px;
+  align-self:    center;
+  flex-shrink:   0;
+  background:    linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper   { padding: 0.50rem 0.85rem; }
+  .answer    { font-size: clamp(0.84rem, 3.8vw, 0.96rem); }
+  .iconMap   { opacity: 0.22; }
+  .iconHands { opacity: 0.18; }
+  .iconLeaf  { opacity: 0.20; }
+}

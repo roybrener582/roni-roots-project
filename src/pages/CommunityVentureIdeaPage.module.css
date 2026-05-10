@@ -1,0 +1,256 @@
+/* ══════════════════════════════════════════════════════════
+   CommunityVentureIdeaPage — "רעיון למיזם קהילתי קטן"  ·  פרק 9
+   Tone: creative, positive, innovative — a 12-year-old girl
+   pitching her app idea for community event management.
+   Palette: mint (soft, clean, slightly techy, playful)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  flex:            1;
+  width:           100%;
+  padding:
+    clamp(0.5rem, 1.5vh, 1.0rem)
+    clamp(1.2rem, 4vw,  3.0rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT MINT AURA — fresh, optimistic
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(580px, 98%);
+  height:    min(480px, 90%);
+
+  border-radius: 52% 46% 50% 48% / 46% 54% 48% 52%;
+
+  background: radial-gradient(
+    ellipse at 50% 48%,
+    rgba(94, 172, 146, 0.12) 0%,
+    rgba(94, 172, 146, 0.07) 38%,
+    rgba(122, 192, 170, 0.04) 62%,
+    transparent 80%
+  );
+
+  pointer-events: none;
+  animation:      auraBreath 13s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 52% 46% 50% 48% / 46% 54% 48% 52%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 48% 52% / 54% 44% 52% 46%;
+    transform:     translate(-50%, -50%) scale(1.06);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   AMBIENT ICONS — gentle, decorative, never intrusive
+   ══════════════════════════════════════════════════════════ */
+.iconPhone,
+.iconCelebrate,
+.iconPeople {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 📱  top-left */
+.iconPhone {
+  top:       clamp(0.5rem, 1.8vh, 1.1rem);
+  left:      clamp(0.8rem, 3vw,   1.8rem);
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  opacity:   0.28;
+  animation: floatA 8s ease-in-out infinite alternate;
+}
+
+/* 🎉  mid-right edge */
+.iconCelebrate {
+  top:       42%;
+  right:     clamp(0.5rem, 2vw, 1.5rem);
+  transform: translateY(-50%);
+  font-size: clamp(1.0rem, 2.0vw, 1.4rem);
+  opacity:   0.24;
+  animation: floatB 10s ease-in-out infinite alternate-reverse;
+}
+
+/* 👥  bottom-right */
+.iconPeople {
+  bottom:    clamp(0.4rem, 1.6vh, 1.0rem);
+  left:      clamp(0.8rem, 3vw,   1.8rem);
+  font-size: clamp(1.0rem, 2.0vw, 1.4rem);
+  opacity:   0.26;
+  animation: floatA 11s 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatA {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+@keyframes floatB {
+  from { transform: translateY(-50%) translateX(0);    }
+  to   { transform: translateY(-50%) translateX(-5px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOW — centered vertical column
+   ══════════════════════════════════════════════════════════ */
+.flow {
+  position:        relative;
+  z-index:         1;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             clamp(0.55rem, 1.4vh, 0.90rem);
+  max-width:       min(520px, 94%);
+  text-align:      center;
+  animation:       rise 0.70s 0.12s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   ILLUSTRATION BLOCK — playful phone + side icons
+   ══════════════════════════════════════════════════════════ */
+.illustrationBlock {
+  display:     flex;
+  align-items: center;
+  gap:         clamp(0.5rem, 1.2vw, 0.8rem);
+}
+
+.mainIcon {
+  font-size:  clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1;
+  filter:     drop-shadow(0 2px 8px rgba(94, 172, 146, 0.25));
+  animation:  phoneBounce 3.5s ease-in-out infinite;
+}
+
+@keyframes phoneBounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-5px) rotate(2deg); }
+}
+
+.sideIcons {
+  display:        flex;
+  flex-direction: column;
+  gap:            clamp(0.2rem, 0.6vh, 0.4rem);
+  font-size:      clamp(1.1rem, 2.2vw, 1.5rem);
+  line-height:    1;
+  opacity:        0.70;
+}
+
+/* ══════════════════════════════════════════════════════════
+   IDEA TAG — small label above the card
+   ══════════════════════════════════════════════════════════ */
+.ideaTag {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.60rem, 1.1vw, 0.72rem);
+  font-weight:    600;
+  letter-spacing: 0.16em;
+  color:          var(--c-page-accent);
+  opacity:        0.72;
+  text-transform: uppercase;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MAIN CARD — the idea paragraph
+   ══════════════════════════════════════════════════════════ */
+.card {
+  width:         100%;
+  padding:
+    clamp(0.9rem, 2.2vh, 1.5rem)
+    clamp(1.2rem, 3.5vw, 2.0rem);
+  background:    rgba(94, 172, 146, 0.07);
+  border:        1px solid rgba(94, 172, 146, 0.18);
+  border-radius: clamp(12px, 2.5vw, 18px);
+  box-shadow:
+    0 2px 16px rgba(94, 172, 146, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+/* ══════════════════════════════════════════════════════════
+   PARAGRAPH — warm, personal, RTL
+   ══════════════════════════════════════════════════════════ */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.96rem, 2.2vw, 1.16rem);
+  font-weight:    350;
+  color:          var(--c-text-2);
+  line-height:    1.90;
+  margin:         0;
+  letter-spacing: 0.012em;
+  text-align:     center;
+  direction:      rtl;
+}
+
+/* ══════════════════════════════════════════════════════════
+   HIGHLIGHT — key phrases in mint accent
+   ══════════════════════════════════════════════════════════ */
+.highlight {
+  font-family:    var(--f-heading);
+  font-weight:    700;
+  font-style:     normal;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.015em;
+  position:       relative;
+}
+
+.highlight::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -1px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--c-page-accent);
+  opacity:       0.22;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CLOSING TAGLINE — uplifting, small
+   ══════════════════════════════════════════════════════════ */
+.tagline {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.76rem, 1.5vw, 0.90rem);
+  font-weight:    400;
+  font-style:     italic;
+  color:          var(--c-page-accent);
+  opacity:        0.68;
+  margin:         0;
+  letter-spacing: 0.018em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(0.6rem, 2vh, 1.0rem)
+      clamp(0.9rem, 3.5vw, 1.4rem);
+  }
+
+  .para      { font-size: clamp(0.90rem, 4.0vw, 1.04rem); line-height: 2.0; }
+  .mainIcon  { font-size: clamp(1.8rem,  8vw,  2.4rem); }
+
+  .iconPhone     { opacity: 0.20; }
+  .iconCelebrate { opacity: 0.18; }
+  .iconPeople    { opacity: 0.20; }
+}

@@ -1,0 +1,196 @@
+/* ══════════════════════════════════════════════════════════
+   FloatingMenu — floating panel anchored top-right.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Soft backdrop ───────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 990;
+  background: rgba(14, 7, 2, 0.44);
+  backdrop-filter: blur(4px) saturate(0.9);
+  -webkit-backdrop-filter: blur(4px) saturate(0.9);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-md, 0.24s) ease;
+}
+
+.overlayVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Panel ───────────────────────────────────────────────── */
+.panel {
+  position: fixed;
+  top: 68px;
+  right: clamp(16px, 2.5vw, 32px);
+  z-index: 1001;
+  width: 230px;
+
+  display: flex;
+  flex-direction: column;
+  padding: 0 0.45rem 0.7rem;
+
+  /* Parchment paper surface with subtle warm gradient */
+  background:
+    linear-gradient(to bottom, rgba(255,255,255,0.60) 0%, transparent 22%),
+    linear-gradient(160deg, #fdf9f0 0%, #f5ecda 55%, #ede0c5 100%);
+
+  /* Gold top accent */
+  border-top: 2px solid rgba(196, 169, 110, 0.70);
+  border-right: 1px solid rgba(196, 169, 110, 0.30);
+  border-bottom: 1px solid rgba(196, 169, 110, 0.22);
+  border-left: 1px solid rgba(196, 169, 110, 0.22);
+  border-radius: 0 0 var(--r-xl) var(--r-xl);
+
+  box-shadow:
+    0 20px 52px rgba(20, 10, 2, 0.30),
+    0 6px 18px  rgba(20, 10, 2, 0.16),
+    0 2px 6px   rgba(20, 10, 2, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.90);
+
+  /* Hidden state */
+  opacity: 0;
+  transform: translateY(-10px) scaleY(0.92);
+  transform-origin: top center;
+  pointer-events: none;
+  transition:
+    opacity   var(--dur-md, 0.24s) var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1)),
+    transform var(--dur-md, 0.24s) var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.panelOpen {
+  opacity: 1;
+  transform: translateY(0) scaleY(1);
+  pointer-events: auto;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.70rem 0.65rem 0.35rem;
+  direction: rtl;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--f-heading);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  color: var(--c-text-3);
+  letter-spacing: 0.14em;
+  user-select: none;
+}
+
+.ornament {
+  color: var(--c-spine-hi);
+  font-size: 0.65rem;
+  opacity: 0.80;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--c-text-3);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition:
+    background    var(--dur-fast, 0.15s) ease,
+    border-color  var(--dur-fast, 0.15s) ease,
+    color         var(--dur-fast, 0.15s) ease,
+    transform     var(--dur-fast, 0.15s) ease;
+}
+
+.closeBtn:hover {
+  background: rgba(196, 169, 110, 0.18);
+  border-color: rgba(196, 169, 110, 0.32);
+  color: var(--c-text-1);
+  transform: scale(1.05);
+}
+
+/* ── Divider ─────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  margin: 0.12rem 0.25rem 0.55rem;
+  background: linear-gradient(
+    to left,
+    transparent,
+    rgba(196, 169, 110, 0.50) 22%,
+    rgba(196, 169, 110, 0.50) 78%,
+    transparent
+  );
+}
+
+/* ── Nav list ────────────────────────────────────────────── */
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+/* ── Separator before action items ──────────────────────── */
+.actionDivider {
+  height: 1px;
+  margin: 0.38rem 0.25rem 0.28rem;
+  background: linear-gradient(
+    to left,
+    transparent,
+    rgba(196, 169, 110, 0.38) 22%,
+    rgba(196, 169, 110, 0.38) 78%,
+    transparent
+  );
+}
+
+/* ── PDF download button ─────────────────────────────────── */
+.downloadBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.65rem 0.80rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-lg);
+  background: transparent;
+  color: var(--c-text-2);
+  font-family: var(--f-body);
+  font-size: var(--t-sm);
+  font-weight: 400;
+  text-align: right;
+  cursor: pointer;
+  direction: rtl;
+  transition:
+    background    var(--dur-fast, 0.15s) ease,
+    color         var(--dur-fast, 0.15s) ease,
+    border-color  var(--dur-fast, 0.15s) ease,
+    transform     var(--dur-fast, 0.15s) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.downloadBtn:hover {
+  background: rgba(196, 169, 110, 0.14);
+  border-color: rgba(196, 169, 110, 0.28);
+  color: var(--c-text-1);
+  transform: translateX(-2px);
+}
+
+.downloadBtn:active {
+  transform: scale(0.97);
+}
+
+.downloadIcon {
+  font-size: 0.78rem;
+  opacity: 0.65;
+  flex-shrink: 0;
+}

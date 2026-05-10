@@ -1,0 +1,256 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyNamePersonalPage — "שם המשפחה ואני"  ·  פרק 5
+   Tone: honest, balanced, gently mature — a journal thought,
+   not a verdict. Four short blocks breathe between thin rules.
+
+   Two emphasis registers:
+     keyWord   — mint accent  →  "סבבה", "הייתי רוצה"  (comfortable / hopeful)
+     softWord  — warm sand    →  "לא בטוחה", "לא מרגישה" (honest, not harsh)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(2.4rem, 6vh,  4.4rem)
+    clamp(1.6rem, 6vw,  4.8rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT AURA — two-tone: mint + a whisper of warm sand,
+   mirroring both emotional registers on the page.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(600px, 98%);
+  height:    min(400px, 82%);
+
+  border-radius: 52% 46% 48% 54% / 48% 56% 42% 58%;
+
+  background: radial-gradient(
+    ellipse at 46% 50%,
+    rgba(94, 172, 146, 0.09) 0%,
+    rgba(94, 172, 146, 0.05) 38%,
+    rgba(176, 140, 100, 0.04) 62%,
+    transparent 76%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 13s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 52% 46% 48% 54% / 48% 56% 42% 58%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 52% 46% / 56% 44% 58% 42%;
+    transform:     translate(-50%, -50%) scale(1.055);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   AMBIENT ICONS — three icons, quiet at the edges.
+   💭 top-right  ·  ⚖️ center-left  ·  🤍 bottom-right
+   ══════════════════════════════════════════════════════════ */
+.iconThought,
+.iconBalance,
+.iconHeart {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 💭  top-right corner (RTL: visual right = CSS left) */
+.iconThought {
+  top:       clamp(0.5rem, 1.8vh, 1.2rem);
+  left:      clamp(0.8rem, 3vw,   2.2rem);
+  font-size: clamp(1.15rem, 2.6vw, 1.80rem);
+  opacity:   0.38;
+  animation: floatA 8s ease-in-out infinite alternate;
+}
+
+/* ⚖️  vertically centered, far left edge */
+.iconBalance {
+  top:       50%;
+  right:     clamp(0.6rem, 2.5vw, 1.8rem);
+  transform: translateY(-50%);
+  font-size: clamp(1.0rem, 2.2vw, 1.55rem);
+  opacity:   0.28;
+  animation: floatB 11s ease-in-out infinite alternate-reverse;
+}
+
+/* 🤍  bottom-left corner */
+.iconHeart {
+  bottom:    clamp(0.5rem, 1.8vh, 1.2rem);
+  left:      clamp(0.8rem, 3vw,   2.2rem);
+  font-size: clamp(1.0rem, 2.2vw, 1.55rem);
+  opacity:   0.34;
+  animation: floatA 10s 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes floatA {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+@keyframes floatB {
+  from { transform: translateY(-50%) translateX(0);    }
+  to   { transform: translateY(-50%) translateX(-5px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOW — the four-block journal column
+   ══════════════════════════════════════════════════════════ */
+.flow {
+  position:        relative;
+  z-index:         1;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             0;
+  max-width:       min(490px, 92%);
+  text-align:      center;
+  animation:       textRise 0.75s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PARAGRAPHS — open, comfortable, slightly mature weight
+   ══════════════════════════════════════════════════════════ */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.10rem, 2.65vw, 1.42rem);
+  font-weight:    350;
+  color:          var(--c-text-2);
+  line-height:    2.2;
+  margin:         0;
+  letter-spacing: 0.015em;
+  padding:
+    clamp(1.1rem, 3vh, 1.85rem)
+    0;
+}
+
+/* The closing hope-block gets a touch of italic grace */
+.paraHope {
+  font-style:  italic;
+  color:       var(--c-text-1, #3a3a3a);
+}
+
+/* ══════════════════════════════════════════════════════════
+   KEY WORD — "סבבה", "הייתי רוצה"
+   Mint accent: the comfortable, hopeful register.
+   ══════════════════════════════════════════════════════════ */
+.keyWord {
+  display:         inline;
+  font-family:     var(--f-heading);
+  font-size:       1.08em;
+  font-weight:     700;
+  font-style:      normal;
+  color:           var(--c-page-accent);
+  letter-spacing:  0.022em;
+  position:        relative;
+}
+
+.keyWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--c-page-accent);
+  opacity:       0.34;
+  box-shadow:    0 0 5px var(--c-page-accent);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT WORD — "לא בטוחה", "לא מרגישה"
+   Warm sand: the honest, non-judgemental register.
+   Italic + muted color reads as "a genuine thought"
+   rather than negativity or self-criticism.
+   ══════════════════════════════════════════════════════════ */
+.softWord {
+  display:         inline;
+  font-family:     var(--f-body);
+  font-size:       1.0em;
+  font-weight:     500;
+  font-style:      italic;
+  color:           #9a8070;
+  letter-spacing:  0.010em;
+  position:        relative;
+}
+
+/* A faint dotted underline — pencil-mark, not ink. */
+.softWord::after {
+  content:          '';
+  position:         absolute;
+  bottom:           -2px;
+  left:             0;
+  right:            0;
+  height:           1.5px;
+  border-radius:    1px;
+  background:       repeating-linear-gradient(
+    to left,
+    #9a8070 0px,
+    #9a8070 3px,
+    transparent 3px,
+    transparent 6px
+  );
+  opacity:          0.48;
+}
+
+/* ══════════════════════════════════════════════════════════
+   THIN RULES — a breath between thoughts, not a wall.
+   Short, centered, fades to nothing at both ends.
+   ══════════════════════════════════════════════════════════ */
+.rule {
+  width:         clamp(36px, 16%, 80px);
+  height:        1px;
+  border-radius: 1px;
+  background:    linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+  flex-shrink:   0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(1.6rem, 5vh, 2.8rem)
+      clamp(1.0rem, 4vw, 1.6rem);
+  }
+
+  .para {
+    font-size:   clamp(1.0rem, 4.2vw, 1.15rem);
+    line-height: 2.1;
+    padding:
+      clamp(0.85rem, 2.6vh, 1.3rem)
+      0;
+  }
+
+  .iconThought { opacity: 0.28; }
+  .iconBalance { opacity: 0.20; }
+  .iconHeart   { opacity: 0.25; }
+}

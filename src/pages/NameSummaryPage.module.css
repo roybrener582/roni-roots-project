@@ -1,0 +1,165 @@
+/* ══════════════════════════════════════════════════════════
+   NameSummaryPage — closing personal statement
+   ══════════════════════════════════════════════════════════ */
+
+.canvas {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Warm radial glow behind the card */
+.glow {
+  position: absolute;
+  width: clamp(300px, 70%, 520px);
+  height: clamp(260px, 55%, 420px);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse,
+    rgba(196, 169, 110, 0.13) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  filter: blur(48px);
+}
+
+/* ── The single quote card ─────────────────────────────── */
+.quoteCard {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.0rem, 2.8vh, 1.7rem);
+  width: 100%;
+  max-width: clamp(320px, 64%, 575px);
+  padding:
+    clamp(2.0rem, 5.5vh, 3.8rem)
+    clamp(1.8rem, 5.5vw, 3.5rem);
+  background: var(--c-page-accent-faint);
+  border: 1px solid var(--c-page-accent-border);
+  border-radius: var(--r-2xl);
+  box-shadow:
+    0 6px 40px rgba(196, 169, 110, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  animation: rise 0.55s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Opening sparkle ──────────────────────────────────── */
+.topDeco {
+  font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+  opacity: 0.68;
+  user-select: none;
+  line-height: 1;
+}
+
+/* ── Paragraph text ────────────────────────────────────── */
+.para {
+  font-family: var(--f-heading);
+  font-size: clamp(1.10rem, 2.8vw, 1.46rem);
+  line-height: 1.95;
+  color: var(--c-text-1);
+  text-align: center;
+  margin: 0;
+  letter-spacing: 0.012em;
+}
+
+/* ── Emphasized name / phrase ──────────────────────────── */
+.em {
+  color: var(--c-page-accent);
+  font-weight: 700;
+  position: relative;
+}
+
+.em::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c-page-accent);
+  opacity: 0.32;
+}
+
+/* ── Quoted phrase wrapper ──────────────────────────────── */
+.quotePhrase {
+  font-style: italic;
+}
+
+/* ── Nickname ──────────────────────────────────────────── */
+.nickname {
+  color: var(--c-page-accent);
+  font-weight: 700;
+  font-size: 1.08em;
+  letter-spacing: 0.025em;
+}
+
+/* ── Separator ─────────────────────────────────────────── */
+.sep {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.6rem, 1.8vw, 1.1rem);
+  width: 58%;
+}
+
+.sep span:first-child,
+.sep span:last-child {
+  flex: 1;
+  height: 1px;
+  background: var(--c-page-accent-border);
+  border-radius: 1px;
+}
+
+.sepIcon {
+  font-size: clamp(0.82rem, 1.9vw, 0.98rem);
+  opacity: 0.72;
+  user-select: none;
+  flex: 0;
+}
+
+/* ── Closing rule — signals the page is done ───────────── */
+.closingRule {
+  width: 38%;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+  margin-top: clamp(0.3rem, 0.8vh, 0.6rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .quoteCard {
+    max-width: 100%;
+    padding:
+      clamp(1.5rem, 4.5vh, 2.2rem)
+      clamp(1.1rem, 5vw, 1.7rem);
+    gap: clamp(0.85rem, 2.5vh, 1.2rem);
+  }
+
+  .para {
+    font-size: clamp(1.0rem, 4.4vw, 1.18rem);
+    line-height: 1.85;
+  }
+
+  .sep {
+    width: 78%;
+  }
+}

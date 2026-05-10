@@ -1,0 +1,189 @@
+/* ══════════════════════════════════════════════════════════
+   BookLayout — full-screen book stage.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Shell: full viewport amber stage ──────────────────── */
+.shell {
+  width: 100vw;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2svh 2vw;
+  box-sizing: border-box;
+
+  background:
+    /* Noise-like grain for texture depth */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(
+      ellipse 140% 120% at 50% 50%,
+      transparent 32%, rgba(45, 22, 4, 0.45) 100%
+    ),
+    radial-gradient(
+      ellipse at 28% 12%,
+      rgba(255, 246, 210, 0.80) 0%, transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 76% 88%,
+      rgba(195, 148, 68, 0.62) 0%, transparent 48%
+    ),
+    radial-gradient(
+      ellipse at 85% 15%,
+      rgba(230, 200, 140, 0.40) 0%, transparent 42%
+    ),
+    linear-gradient(148deg, #ead6a6 0%, #d4bc7e 38%, #bfa050 72%, #a8833c 100%);
+}
+
+/* ── bookWrapper: fills shell's padded inner area ──────── */
+.bookWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Floating label — hidden (costs vertical space) ─────── */
+.bookLabel { display: none; }
+
+.labelLine  { flex: 1; height: 1px; background: rgba(70, 40, 8, 0.28); }
+.labelText  {
+  font-family: var(--f-heading);
+  font-size: clamp(0.62rem, 0.9vw, 0.78rem);
+  letter-spacing: 0.28em;
+  color: rgba(70, 40, 8, 0.52);
+  white-space: nowrap;
+  font-weight: 400;
+}
+
+/* ══════════════════════════════════════════════════════════
+   LEATHER COVER — fills the wrapper, drives all height
+   ══════════════════════════════════════════════════════════ */
+.cover {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+
+  padding:
+    clamp(14px, 2vh,   28px)   /* top              */
+    clamp(16px, 2vw,   36px)   /* right (open edge) */
+    clamp(10px, 1.4vh, 22px)   /* bottom            */
+    clamp(16px, 2vw,   36px);  /* left  (open edge) */
+
+  border-radius: 14px 5px 5px 14px;
+
+  background:
+    /* Leather texture grain */
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0px,        transparent 3px,
+      rgba(0,0,0,0.018) 3px,  rgba(0,0,0,0.018) 4px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0px,        transparent 5px,
+      rgba(255,255,255,0.008) 5px, rgba(255,255,255,0.008) 6px
+    ),
+    linear-gradient(162deg, var(--c-cover-hi) 0%, var(--c-cover) 52%, var(--c-cover-lo) 100%);
+
+  box-shadow:
+    0 70px 160px rgba(0, 0, 0, 0.70),
+    0 28px  60px rgba(0, 0, 0, 0.48),
+    0  8px  20px rgba(0, 0, 0, 0.32),
+    inset  0  2px  0  rgba(255, 255, 255, 0.10),
+    inset -8px 0 24px rgba(0,   0,   0,   0.36),
+    inset  0 -2px 0 rgba(0, 0, 0, 0.20);
+}
+
+/* gold spine on the right edge (RTL binding) */
+.spineAccent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 9px;
+  height: 100%;
+  border-radius: 0 5px 5px 0;
+  background: linear-gradient(
+    to bottom,
+    var(--c-gold-br)  0%,
+    var(--c-spine-hi) 18%,
+    var(--c-spine)    42%,
+    var(--c-cover-lo) 68%,
+    var(--c-spine)    86%,
+    var(--c-spine-hi) 100%
+  );
+  opacity: 0.72;
+}
+
+/* Warm ambient corner glow inside the cover */
+.cover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 35%;
+  border-radius: 14px 5px 0 14px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 240, 190, 0.07) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+/* ── pageArea: absorbs all height above the nav ─────────── */
+.pageArea {
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+/* ── nav bar fixed at the bottom ────────────────────────── */
+.navArea {
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  (< 768px)  — full-bleed, no chrome
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .shell {
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .cover {
+    border-radius: 0;
+    padding: 10px 12px 8px;
+    box-shadow:
+      0 4px 28px rgba(0, 0, 0, 0.38),
+      inset -2px 0 10px rgba(0, 0, 0, 0.22);
+  }
+
+  .cover::before {
+    border-radius: 0;
+  }
+
+  .spineAccent { display: none; }
+}
+
+/* ── Very small phones (< 390px) ────────────────────────── */
+@media (max-width: 389px) {
+  .cover { padding: 8px 10px 6px; }
+}
+
+/* ── Landscape phone (short viewport) ───────────────────── */
+@media (max-height: 500px) and (orientation: landscape) {
+  .shell { padding: 0; align-items: stretch; }
+  .cover {
+    border-radius: 0;
+    padding: 6px 10px 5px;
+    box-shadow: none;
+  }
+  .spineAccent { display: none; }
+}

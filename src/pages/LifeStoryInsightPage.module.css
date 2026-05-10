@@ -1,0 +1,249 @@
+/* ══════════════════════════════════════════════════════════
+   LifeStoryInsightPage — "תובנה אישית"  ·  פרק 4
+   A single centered reflection about self-discovery.
+   Tone: calm, personal, gentle — a small moment of revelation.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper: breathing room around the content ── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(2.8rem, 7vh, 5rem)
+    clamp(2rem,   7vw, 5.5rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT AURA — a warm rose-peach glow behind the text.
+   The text rests inside something gentle and safe.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -52%);
+  width:     min(560px, 96%);
+  height:    min(320px, 72%);
+
+  border-radius: 55% 45% 60% 40% / 45% 58% 42% 55%;
+
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(192, 136, 136, 0.13) 0%,
+    rgba(220, 180, 160, 0.08) 50%,
+    transparent 74%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 10s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 55% 45% 60% 40% / 45% 58% 42% 55%;
+    transform:     translate(-50%, -52%) scale(1);
+  }
+  to {
+    border-radius: 40% 60% 45% 55% / 58% 40% 60% 42%;
+    transform:     translate(-50%, -52%) scale(1.07);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOATING ICONS — whisper-quiet, never competing with text
+   ══════════════════════════════════════════════════════════ */
+.iconThought,
+.iconBaby,
+.iconHeart {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 💭  top-right (RTL: visual right = CSS left) */
+.iconThought {
+  top:       clamp(0.5rem, 1.8vh, 1.2rem);
+  left:      clamp(0.8rem, 3.5vw, 2.2rem);
+  font-size: clamp(1.3rem, 3.0vw, 2.0rem);
+  opacity:   0.46;
+  animation: floatDrift 6s ease-in-out infinite alternate;
+}
+
+/* 👶  bottom-left (RTL: visual left = CSS right) */
+.iconBaby {
+  bottom:    clamp(0.8rem, 2.5vh, 2rem);
+  right:     clamp(1rem, 4vw, 2.8rem);
+  font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+  opacity:   0.40;
+  animation: floatDrift 8s ease-in-out infinite alternate-reverse;
+}
+
+/* 💛  bottom-right (RTL: visual right = CSS left) */
+.iconHeart {
+  bottom:    clamp(0.4rem, 1.5vh, 1rem);
+  left:      clamp(0.6rem, 2.5vw, 1.8rem);
+  font-size: clamp(0.9rem, 2.1vw, 1.35rem);
+  opacity:   0.35;
+  animation: floatDrift 7s ease-in-out infinite alternate;
+}
+
+@keyframes floatDrift {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-8px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEXT BLOCK — centered, narrow column, above the aura
+   ══════════════════════════════════════════════════════════ */
+.textBlock {
+  position:  relative;
+  z-index:   1;
+  max-width: min(500px, 92%);
+  text-align: center;
+  animation: textRise 0.75s 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   MAIN REFLECTION PARAGRAPH
+   ══════════════════════════════════════════════════════════ */
+.reflection {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.15rem, 2.8vw, 1.48rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.2;
+  margin:         0;
+  letter-spacing: 0.014em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   KEY WORDS — "השתניתי" and "וגיליתי"
+   Rose accent with a soft glow underline — noticed but quiet.
+   ══════════════════════════════════════════════════════════ */
+.keyWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.12em;
+  font-weight:    700;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.02em;
+  position:       relative;
+}
+
+.keyWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--c-page-accent);
+  opacity:       0.38;
+  box-shadow:    0 0 6px var(--c-page-accent);
+}
+
+/* ══════════════════════════════════════════════════════════
+   "אבא" SECTION — the quiet discovery moment
+   A warm, intimate little card — like a memory surfacing.
+   Separated from the main text so it has its own breath.
+   ══════════════════════════════════════════════════════════ */
+.abaSection {
+  margin-top:    clamp(1.6rem, 4.5vh, 2.8rem);
+  padding:
+    clamp(0.85rem, 2.4vh, 1.3rem)
+    clamp(1.2rem,  3.5vw, 2rem);
+  border-radius: var(--r-2xl);
+  background:    rgba(196, 169, 110, 0.10);
+  border:        1.5px solid rgba(196, 169, 110, 0.22);
+  box-shadow:
+    0 4px 22px rgba(196, 169, 110, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.60);
+
+  /* Delayed entry so it appears after the main text, like an afterthought revealed */
+  animation: abaAppear 0.80s 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes abaAppear {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+.abaText {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.08rem, 2.6vw, 1.38rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    1.95;
+  margin:         0;
+  letter-spacing: 0.012em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   "אבא" — THE WORD ITSELF
+   Warm gold, the only word on the page in this color.
+   Slightly larger so it feels like the heart of the sentence.
+   ══════════════════════════════════════════════════════════ */
+.abaWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.22em;
+  font-weight:    800;
+  color:          #c4a96e;
+  letter-spacing: 0.04em;
+  position:       relative;
+}
+
+/* Warm glow underline — like candlelight, not a spotlight */
+.abaWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -3px;
+  left:          0;
+  right:         0;
+  height:        2.5px;
+  border-radius: 2px;
+  background:    #c4a96e;
+  opacity:       0.50;
+  box-shadow:    0 0 8px rgba(196, 169, 110, 0.65);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(2rem, 5.5vh, 3.5rem)
+      clamp(1.2rem, 4vw, 2rem);
+  }
+
+  .reflection {
+    font-size:   clamp(1.02rem, 4.4vw, 1.22rem);
+    line-height: 2.1;
+  }
+
+  .abaText {
+    font-size:   clamp(0.96rem, 4.1vw, 1.14rem);
+    line-height: 1.85;
+  }
+
+  .abaSection {
+    margin-top: clamp(1.2rem, 3.5vh, 1.8rem);
+  }
+
+  /* Fade icons further on small screens */
+  .iconThought { opacity: 0.32; }
+  .iconBaby    { opacity: 0.28; }
+  .iconHeart   { opacity: 0.24; }
+}

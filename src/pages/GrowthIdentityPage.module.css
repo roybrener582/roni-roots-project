@@ -1,0 +1,88 @@
+/* ══════════════════════════════════════════════════════════
+   GrowthIdentityPage — journal-style identity reflection
+   RTL layout: accent bar on inline-start (= right in RTL),
+               cards stack vertically in a centered column.
+   Palette: lavender · soft blue-silver · warm beige · sage · mint
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Sections wrapper ───────────────────────────────────── */
+.sections {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.40rem, 1.1vh, 0.65rem);
+}
+
+/* ── Section card ───────────────────────────────────────── */
+.card {
+  width: 100%;
+  background: var(--sc-bg);
+  border: 1px solid var(--sc-border);
+  border-inline-start: 3px solid var(--sc-accent); /* right edge in RTL */
+  border-radius: var(--r-xl);
+  padding: clamp(0.55rem, 1.5vh, 0.82rem) clamp(0.78rem, 2vw, 1.05rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.30rem;
+  text-align: start;
+  animation: cardEnter 0.50s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.055);
+  transform: translateY(-1px);
+}
+
+@keyframes cardEnter {
+  from { opacity: 0; transform: translateX(12px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+
+/* ── Card header: icon + title ──────────────────────────── */
+.cardHead {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.cardIcon {
+  flex-shrink: 0;
+  font-size: clamp(0.92rem, 2.0vw, 1.10rem);
+  line-height: 1;
+  opacity: 0.90;
+}
+
+.cardTitle {
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  color: var(--sc-accent);
+  letter-spacing: 0.015em;
+  line-height: 1.3;
+}
+
+/* ── Card body text ─────────────────────────────────────── */
+.cardText {
+  font-family: var(--f-body);
+  font-size: var(--t-sm);
+  font-weight: 400;
+  color: var(--c-text-2);
+  line-height: 1.72;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .sections {
+    max-width: 100%;
+  }
+
+  .card {
+    padding: clamp(0.48rem, 1.2vh, 0.68rem) clamp(0.62rem, 1.6vw, 0.80rem);
+  }
+}

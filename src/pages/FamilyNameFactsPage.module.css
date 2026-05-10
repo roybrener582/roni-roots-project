@@ -1,0 +1,64 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyNameFactsPage — פרק 5: עובדות על שם המשפחה שלי
+   Gentle fact blocks, forest accent, personal + clean.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Centered narrow column ─────────────────────────────── */
+.column {
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.55rem, 1.5vh, 0.85rem);
+}
+
+/* ── Base fact block ─────────────────────────────────────── */
+.block {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65em;
+  padding: clamp(0.65rem, 1.7vh, 1.0rem) clamp(0.75rem, 2vw, 1.05rem);
+  background: var(--c-page-accent-faint);
+  border-radius: clamp(0.55rem, 1.2vw, 0.8rem);
+}
+
+/* ── Hero block: the name itself ────────────────────────── */
+.heroBlock {
+  padding-block: clamp(0.9rem, 2.4vh, 1.4rem);
+}
+
+/* ── Icon ────────────────────────────────────────────────── */
+.icon {
+  font-size: clamp(0.95rem, 1.7vw, 1.2rem);
+  flex-shrink: 0;
+  line-height: 1.55;
+}
+
+/* ── Sentence text ──────────────────────────────────────── */
+.sentence {
+  font-family: var(--f-heading);
+  font-size: clamp(0.84rem, 1.45vw, 1.0rem);
+  font-weight: 500;
+  color: var(--c-text-1);
+  line-height: 1.7;
+  margin: 0;
+}
+
+.heroSentence {
+  font-size: clamp(1.0rem, 1.9vw, 1.2rem);
+  font-weight: 600;
+}
+
+/* ── Highlighted name: "ברנר" ───────────────────────────── */
+.highlight {
+  color: var(--c-page-accent);
+  font-weight: 800;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .column {
+    max-width: 100%;
+  }
+}

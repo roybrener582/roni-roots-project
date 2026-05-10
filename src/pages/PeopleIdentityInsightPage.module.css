@@ -1,0 +1,216 @@
+/* ══════════════════════════════════════════════════════════
+   PeopleIdentityInsightPage — "מה זה להיות חלק מהעם שלי?"
+   פרק 10 · Tone: warm, personal, national belonging.
+   Two questions, two honest answers, separated by a quiet rule.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(0.8rem, 2vh, 1.6rem)
+    clamp(1.4rem, 5vw, 4.0rem);
+}
+
+/* ── Soft aura — warm gold ───────────────────────────────── */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(600px, 98%);
+  height:    min(500px, 90%);
+
+  border-radius: 50% 48% 52% 46% / 48% 54% 44% 56%;
+
+  background: radial-gradient(
+    ellipse at 48% 46%,
+    rgba(196, 169, 110, 0.11) 0%,
+    rgba(220, 190, 130, 0.06) 42%,
+    rgba(196, 149,  74, 0.04) 66%,
+    transparent 80%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 14s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 50% 48% 52% 46% / 48% 54% 44% 56%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 48% 52% / 54% 44% 56% 42%;
+    transform:     translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* ── Ambient icons ───────────────────────────────────────── */
+.iconFlag,
+.iconHeart,
+.iconHands {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 🇮🇱  top-left (RTL: visually top-left of the page) */
+.iconFlag {
+  top:       clamp(0.5rem, 1.8vh, 1.2rem);
+  left:      clamp(0.8rem, 3vw,   2.0rem);
+  font-size: clamp(1.1rem, 2.4vw, 1.65rem);
+  opacity:   0.40;
+  animation: floatA 9s ease-in-out infinite alternate;
+}
+
+/* 💛  mid-right edge */
+.iconHeart {
+  top:       44%;
+  right:     clamp(0.5rem, 2.2vw, 1.6rem);
+  transform: translateY(-50%);
+  font-size: clamp(1.0rem, 2.0vw, 1.45rem);
+  opacity:   0.32;
+  animation: floatB 11s ease-in-out infinite alternate-reverse;
+}
+
+/* 🤝  bottom-left */
+.iconHands {
+  bottom:    clamp(0.5rem, 1.8vh, 1.2rem);
+  right:     clamp(0.8rem, 3vw,   2.0rem);
+  font-size: clamp(1.0rem, 2.0vw, 1.45rem);
+  opacity:   0.32;
+  animation: floatA 10s 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes floatA {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+@keyframes floatB {
+  from { transform: translateY(-50%) translateX(0);    }
+  to   { transform: translateY(-50%) translateX(-5px); }
+}
+
+/* ── Flow ────────────────────────────────────────────────── */
+.flow {
+  position:       relative;
+  z-index:        1;
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  gap:            0;
+  max-width:      min(500px, 92%);
+  text-align:     center;
+  animation:      textRise 0.75s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Section ─────────────────────────────────────────────── */
+.section {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  padding:
+    clamp(0.6rem, 1.6vh, 1.1rem)
+    0;
+  width: 100%;
+}
+
+/* Question label */
+.sectionLabel {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.66rem, 1.3vw, 0.80rem);
+  font-weight:    500;
+  letter-spacing: 0.14em;
+  color:          var(--c-page-accent);
+  opacity:        0.70;
+  margin-bottom:  clamp(0.45rem, 1.3vh, 0.80rem);
+}
+
+/* ── Paragraphs ──────────────────────────────────────────── */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.04rem, 2.4vw, 1.32rem);
+  font-weight:    350;
+  color:          var(--c-text-2);
+  line-height:    1.75;
+  margin:         0;
+  letter-spacing: 0.012em;
+}
+
+.paraClosing {
+  font-style: italic;
+  color:      var(--c-text-1, #3a3a3a);
+}
+
+.sectionClosing {
+  padding-top: clamp(0.7rem, 1.8vh, 1.2rem);
+}
+
+/* ── Key word highlight ──────────────────────────────────── */
+.keyWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.06em;
+  font-weight:    700;
+  font-style:     normal;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.018em;
+  position:       relative;
+}
+
+.keyWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--c-page-accent);
+  opacity:       0.28;
+}
+
+/* ── Thin rule ───────────────────────────────────────────── */
+.rule {
+  width:         clamp(32px, 12%, 68px);
+  height:        1px;
+  border-radius: 1px;
+  background:    linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+  flex-shrink: 0;
+}
+
+/* ── Mobile ≤ 540px ──────────────────────────────────────── */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(1.0rem, 3.5vh, 2.0rem)
+      clamp(1.0rem, 4vw,   1.6rem);
+  }
+
+  .para {
+    font-size:   clamp(0.96rem, 4.0vw, 1.10rem);
+    line-height: 2.05;
+  }
+
+  .iconFlag  { opacity: 0.28; }
+  .iconHeart { opacity: 0.22; }
+  .iconHands { opacity: 0.22; }
+}

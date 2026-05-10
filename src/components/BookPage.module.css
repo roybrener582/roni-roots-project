@@ -1,0 +1,140 @@
+/* ══════════════════════════════════════════════════════════
+   BookPage — page chrome: paper surface, binding strip.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Stacked-pages depth effect ────────────────────────── */
+.wrapper {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper::before,
+.wrapper::after {
+  content: '';
+  position: absolute;
+  border-radius: 2px var(--r-md) var(--r-md) 2px;
+  pointer-events: none;
+}
+
+/* Second page peeking — slightly warmer than the first */
+.wrapper::before {
+  inset: 4px -5px 0 5px;
+  background: var(--c-paper-s1);
+  z-index: -1;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Third page, deepest */
+.wrapper::after {
+  inset: 8px -10px 0 10px;
+  background: var(--c-paper-s2);
+  z-index: -2;
+  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.08);
+}
+
+/* ── Main page surface ──────────────────────────────────── */
+.page {
+  position: relative;
+  border-radius: 2px var(--r-md) var(--r-md) 2px;
+
+  flex: 1;
+  min-height: 0;
+
+  padding: var(--page-pad-y) var(--page-pad-x) calc(var(--page-pad-y) + var(--sp-6));
+
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 105, 20, 0.16) transparent;
+
+  /* Warm cream paper — subtle horizontal ruling + top-to-bottom tonal gradient */
+  background-color: var(--c-paper);
+  background-image:
+    /* Faint horizontal page lines */
+    repeating-linear-gradient(
+      transparent 0,
+      transparent 27px,
+      rgba(139, 105, 20, 0.030) 27px,
+      rgba(139, 105, 20, 0.030) 28px
+    ),
+    /* Top highlight — paper catching light */
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.60) 0%,
+      rgba(255, 255, 255, 0.10) 20%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.010) 100%
+    );
+
+  box-shadow:
+    inset 0  1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(139, 105, 20, 0.065),
+    5px 0 28px rgba(0, 0, 0, 0.22),
+    -1px 0 8px rgba(0, 0, 0, 0.07);
+}
+
+.page::-webkit-scrollbar { width: 4px; }
+.page::-webkit-scrollbar-track { background: transparent; }
+.page::-webkit-scrollbar-thumb {
+  background: rgba(139, 105, 20, 0.18);
+  border-radius: 2px;
+}
+
+/* ── Binding strip — right edge = spine in RTL ──────────── */
+.page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  background: linear-gradient(
+    to left,
+    var(--c-gold-br)  0%,
+    var(--c-spine-hi) 20%,
+    var(--c-spine)    45%,
+    #6e5010           70%,
+    var(--c-spine)    100%
+  );
+  opacity: 0.80;
+}
+
+/* Warm ambient glow bleeding off the spine into the page */
+.page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 8px;
+  width: 28px;
+  height: 100%;
+  background: linear-gradient(
+    to left,
+    rgba(139, 105, 20, 0.06),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ── Page number ────────────────────────────────────────── */
+.pageNumber {
+  position: absolute;
+  bottom: var(--sp-3);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--f-heading);
+  font-size: var(--t-xs);
+  color: var(--c-text-3);
+  letter-spacing: 0.12em;
+  user-select: none;
+  pointer-events: none;
+  opacity: 0.70;
+}
+
+/* ── Very narrow screens: reduce stacked-page peek ──────── */
+@media (max-width: 420px) {
+  .wrapper::before { inset: 3px -3px 0 3px; }
+  .wrapper::after  { inset: 5px -5px 0 5px; }
+}

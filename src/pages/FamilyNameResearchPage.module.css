@@ -1,0 +1,258 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyNameResearchPage — "מקור ומשמעות – מחקר קצר"  ·  פרק 5
+   Tone: a quiet discovery note. Informative but never dense.
+   Two sections — research / personal — separated by a soft rule.
+   The word "שורף" gets a warm amber glow: felt, not shouted.
+   ══════════════════════════════════════════════════════════ */
+
+/* Warm amber for fire/burn — one local constant used throughout */
+:root {
+  --c-fire: #c97a38;
+  --c-fire-faint: rgba(201, 122, 56, 0.10);
+  --c-fire-border: rgba(201, 122, 56, 0.30);
+  --c-fire-glow:   rgba(201, 122, 56, 0.22);
+}
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  gap:             clamp(1.1rem, 3.2vh, 2rem);
+  width:           100%;
+  padding:
+    clamp(1.6rem, 4.5vh, 3.2rem)
+    clamp(1.4rem, 5vw,   4rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   AMBIENT ICONS — present at the edges, never competing
+   ══════════════════════════════════════════════════════════ */
+.iconBookAmbient,
+.iconThoughtAmbient {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 📖  top-right corner */
+.iconBookAmbient {
+  top:       clamp(0.5rem, 1.8vh, 1.2rem);
+  left:      clamp(0.8rem, 3vw,   2rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+  opacity:   0.30;
+  animation: floatDrift 8s ease-in-out infinite alternate;
+}
+
+/* 💭  bottom-left corner */
+.iconThoughtAmbient {
+  bottom:    clamp(0.6rem, 1.8vh, 1.4rem);
+  right:     clamp(0.9rem, 3.5vw, 2.4rem);
+  font-size: clamp(1.0rem, 2.2vw, 1.55rem);
+  opacity:   0.26;
+  animation: floatDrift 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatDrift {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-6px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   CARDS — each section lives in its own card
+   ══════════════════════════════════════════════════════════ */
+.card {
+  position:        relative;
+  z-index:         1;
+  width:           100%;
+  max-width:       min(520px, 100%);
+  display:         flex;
+  flex-direction:  column;
+  gap:             clamp(0.55rem, 1.6vh, 0.90rem);
+  padding:
+    clamp(1.0rem, 2.8vh, 1.6rem)
+    clamp(1.1rem, 3.5vw, 1.8rem);
+  border-radius:   var(--r-lg, 14px);
+  background:      var(--c-page-accent-faint);
+  border:          1px solid var(--c-page-accent-border);
+  animation:       cardRise 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Personal card gets slightly warmer background */
+.cardPersonal {
+  background: linear-gradient(
+    135deg,
+    var(--c-page-accent-faint)  60%,
+    var(--c-fire-faint)         100%
+  );
+  border-color: var(--c-fire-border);
+  text-align: center;
+}
+
+.card:nth-child(3) { animation-delay: 0.10s; }
+.card:nth-child(5) { animation-delay: 0.22s; }
+
+@keyframes cardRise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION TITLE — icon + label, like a quiet heading
+   ══════════════════════════════════════════════════════════ */
+.sectionTitle {
+  display:         flex;
+  align-items:     center;
+  gap:             0.42em;
+  font-family:     var(--f-heading);
+  font-size:       clamp(0.82rem, 1.9vw, 0.98rem);
+  font-weight:     700;
+  color:           var(--c-page-accent);
+  letter-spacing:  0.06em;
+  text-transform:  uppercase;
+  margin:          0;
+  padding-bottom:  clamp(0.30rem, 0.85vh, 0.45rem);
+  border-bottom:   1.5px solid var(--c-page-accent-border);
+}
+
+.cardPersonal .sectionTitle {
+  color:        var(--c-fire);
+  border-color: var(--c-fire-border);
+  justify-content: center;
+}
+
+/* ══════════════════════════════════════════════════════════
+   BODY TEXT — comfortable, not dense
+   ══════════════════════════════════════════════════════════ */
+.body {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.05rem, 2.6vw, 1.34rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.05;
+  margin:         0;
+  letter-spacing: 0.010em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   "ברנר" — accent-colored bold, belongs to this chapter
+   ══════════════════════════════════════════════════════════ */
+.nameHighlight {
+  font-family:    var(--f-heading);
+  font-weight:    800;
+  font-size:      1.08em;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.025em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   "שורף" — warm amber: a fire lives in this word.
+   Subtle: warm color + a faint warm underline glow.
+   Readable, slightly surprising — not flashy.
+   ══════════════════════════════════════════════════════════ */
+.fireWord {
+  font-family:    var(--f-heading);
+  font-weight:    800;
+  font-size:      1.08em;
+  color:          var(--c-fire);
+  letter-spacing: 0.022em;
+  position:       relative;
+  display:        inline;
+}
+
+.fireWord::after {
+  content:          '';
+  position:         absolute;
+  bottom:           -2px;
+  left:             0;
+  right:            0;
+  height:           2px;
+  border-radius:    2px;
+  background:       var(--c-fire);
+  opacity:          0.38;
+  box-shadow:       0 0 6px var(--c-fire-glow);
+}
+
+/* ══════════════════════════════════════════════════════════
+   INFO BOX — the "fire jobs" context: cozy, not academic
+   ══════════════════════════════════════════════════════════ */
+.infoBox {
+  display:          flex;
+  align-items:      flex-start;
+  gap:              0.65em;
+  padding:
+    clamp(0.55rem, 1.5vh, 0.80rem)
+    clamp(0.70rem, 2vw,   1.05rem);
+  background:       var(--c-fire-faint);
+  border-inline-end: 3px solid var(--c-fire-border);
+  border-radius:    var(--r-md, 8px);
+}
+
+.infoIcon {
+  font-size:      clamp(1.0rem, 2.3vw, 1.35rem);
+  flex-shrink:    0;
+  line-height:    1.5;
+  opacity:        0.80;
+}
+
+.infoText {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.88rem, 2.0vw, 1.05rem);
+  color:          var(--c-text-3);
+  line-height:    1.88;
+  margin:         0;
+  font-style:     italic;
+}
+
+/* ══════════════════════════════════════════════════════════
+   SEPARATOR — a breath between sections, not a wall
+   ══════════════════════════════════════════════════════════ */
+.sep {
+  width:         clamp(40px, 20%, 100px);
+  height:        1px;
+  border-radius: 1px;
+  background:    linear-gradient(
+    to left,
+    transparent,
+    var(--c-page-accent-border),
+    transparent
+  );
+  flex-shrink:   0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   REFLECTION TEXT — personal, centered, a single thought
+   ══════════════════════════════════════════════════════════ */
+.reflectionText {
+  font-family:    var(--f-heading);
+  font-size:      clamp(1.05rem, 2.7vw, 1.38rem);
+  font-weight:    400;
+  font-style:     italic;
+  color:          var(--c-text-2);
+  line-height:    2.15;
+  margin:         0;
+  letter-spacing: 0.012em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(1.2rem, 4vh,  2.2rem)
+      clamp(0.9rem, 4vw,  1.4rem);
+    gap: clamp(0.9rem, 2.8vh, 1.4rem);
+  }
+
+  .body,
+  .reflectionText {
+    font-size:   clamp(0.98rem, 4.2vw, 1.14rem);
+    line-height: 1.95;
+  }
+
+  .iconBookAmbient,
+  .iconThoughtAmbient { opacity: 0.20; }
+}

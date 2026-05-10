@@ -1,0 +1,326 @@
+/* ══════════════════════════════════════════════════════════
+   MyNamePage — פרק 2: השם שלי
+   Two-column book layout:
+     LEFT  (40%) — large image, fills full column height
+     RIGHT (60%) — three content groups, clean hierarchy
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Outer wrapper ──────────────────────────────────────── */
+.wrapper {
+  width: 100%;
+  padding-inline: clamp(0.3rem, 1.4vw, 0.9rem);
+}
+
+/* ── Main row ───────────────────────────────────────────── */
+.pageRow {
+  display: flex;
+  flex-direction: row;
+  gap: clamp(2rem, 3.5vw, 3rem);   /* 32px – 48px */
+  align-items: center;
+  width: 100%;
+}
+
+/* ══ LEFT COLUMN: image ══════════════════════════════════
+   Can shrink if space is tight — text always wins          */
+.leftCol {
+  width: 38%;
+  max-width: 420px;
+  flex-shrink: 1;   /* shrink before rightCol does */
+  flex-grow: 0;
+}
+
+.imageWrap {
+  width: 100%;
+  padding: clamp(0.3rem, 0.8vw, 0.55rem);   /* image never touches edges */
+  border-radius: var(--r-xl);
+  border: 1.5px solid var(--c-page-accent-border);
+  box-shadow:
+    0 6px 26px rgba(138, 112, 192, 0.14),
+    0 2px 8px rgba(0, 0, 0, 0.07);
+  background: var(--c-paper-s1);
+  animation: frameIn 0.55s 0.10s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes frameIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.img {
+  width: 100%;
+  height: auto;          /* preserve natural aspect ratio */
+  object-fit: contain;   /* show full image, no cropping */
+  display: block;
+}
+
+.imgFallback {
+  font-size: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: clamp(140px, 24vh, 200px);
+  color: var(--c-text-3);
+}
+
+/* ══ RIGHT COLUMN: content ═══════════════════════════════
+   Always gets remaining space — text is the primary focus */
+.rightCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.90rem, 2.5vh, 1.25rem);
+  padding-inline-start: clamp(0.2rem, 0.6vw, 0.4rem);
+}
+
+/* ── Shared section heading ─────────────────────────────── */
+.sectionHeading {
+  font-family: var(--f-heading);
+  font-size: var(--t-sm);
+  font-weight: 700;
+  color: var(--c-page-accent);
+  margin: 0;
+  padding-bottom: clamp(0.12rem, 0.34vh, 0.20rem);
+  border-bottom: 1.5px solid var(--c-page-accent-border);
+  text-align: start;
+}
+
+/* ══ Group 1: Intro text + idioms ════════════════════════ */
+.introGroup {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.42rem, 1.2vh, 0.60rem);
+  padding-bottom: clamp(0.65rem, 1.8vh, 0.95rem);
+  border-bottom: 1px solid var(--c-page-accent-border);
+}
+
+.introText {
+  font-family: var(--f-body);
+  font-size: var(--t-sm);
+  font-weight: 400;
+  color: var(--c-text-2);
+  line-height: 1.85;
+  text-align: start;
+  margin: 0;
+}
+
+.poemTitle {
+  font-family: var(--f-heading);
+  font-style: italic;
+  font-weight: 700;
+  color: var(--c-page-accent);
+}
+
+/* Idioms: phrase — def, one per line */
+.idiomList {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.15rem, 0.42vh, 0.24rem);
+}
+
+.idiomEntry {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  line-height: 1.55;
+}
+
+.idiomPhrase {
+  font-family: var(--f-heading);
+  font-size: clamp(0.72rem, 1.22vw, 0.83rem);
+  font-weight: 800;
+  color: var(--c-page-accent);
+  flex-shrink: 0;
+}
+
+.idiomSep {
+  font-size: 0.82em;
+  color: var(--c-text-3);
+  flex-shrink: 0;
+}
+
+.idiomDef {
+  font-family: var(--f-body);
+  font-size: clamp(0.63rem, 1.06vw, 0.73rem);
+  color: var(--c-text-2);
+}
+
+/* ══ Group 2: Sources | Keywords ════════════════════════= */
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(0.6rem, 1.7vw, 0.95rem);
+}
+
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.28rem, 0.80vh, 0.44rem);
+}
+
+/* Sources — icon · bold label · muted items */
+.sourceList {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.18rem, 0.50vh, 0.28rem);
+}
+
+.sourceEntry {
+  display: flex;
+  align-items: baseline;
+  gap: 0.38em;
+  line-height: 1.52;
+}
+
+.srcIcon {
+  font-size: 0.78em;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.srcLabel {
+  font-family: var(--f-heading);
+  font-size: clamp(0.63rem, 1.05vw, 0.73rem);
+  font-weight: 700;
+  color: var(--c-text-1);
+  flex-shrink: 0;
+}
+
+.srcItems {
+  font-family: var(--f-body);
+  font-size: clamp(0.57rem, 0.94vw, 0.65rem);
+  color: var(--c-text-3);
+}
+
+/* Keywords — accent term — light definition */
+.kwList {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.18rem, 0.50vh, 0.28rem);
+}
+
+.kwEntry {
+  display: flex;
+  align-items: baseline;
+  gap: 0.38em;
+  line-height: 1.52;
+}
+
+.kwTerm {
+  font-family: var(--f-heading);
+  font-size: clamp(0.63rem, 1.05vw, 0.73rem);
+  font-weight: 700;
+  color: var(--c-page-accent);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.kwTerm::after {
+  content: ' —';
+  font-weight: 400;
+  color: var(--c-text-3);
+}
+
+.kwDef {
+  font-family: var(--f-body);
+  font-size: clamp(0.57rem, 0.94vw, 0.65rem);
+  color: var(--c-text-2);
+}
+
+/* ══ Group 3: Control comparison ════════════════════════= */
+.controlGroup {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.28rem, 0.80vh, 0.44rem);
+}
+
+.controlCols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(0.65rem, 1.8vw, 1.0rem);
+}
+
+.controlSide {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.16rem, 0.44vh, 0.24rem);
+}
+
+.controlSideTitle {
+  font-family: var(--f-heading);
+  font-size: clamp(0.66rem, 1.08vw, 0.76rem);
+  font-weight: 800;
+  margin: 0;
+  padding-bottom: clamp(0.08rem, 0.22vh, 0.14rem);
+  border-bottom: 1px solid var(--c-page-accent-border);
+}
+
+.controlSideTitle[data-tone='muted']  { color: var(--c-text-2); }
+.controlSideTitle[data-tone='accent'] { color: var(--c-page-accent); }
+
+.controlList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.08rem, 0.22vh, 0.14rem);
+}
+
+.controlList li {
+  font-family: var(--f-body);
+  font-size: clamp(0.62rem, 1.02vw, 0.72rem);
+  color: var(--c-text-2);
+  line-height: 1.55;
+  display: flex;
+  align-items: baseline;
+  gap: 0.30em;
+}
+
+.controlList li::before {
+  content: '·';
+  color: var(--c-page-accent);
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.controlListAccent li {
+  color: var(--c-text-1);
+  font-weight: 500;
+}
+
+/* ── Mobile: title → image → content stack ─────────────── */
+@media (max-width: 600px) {
+  .pageRow {
+    flex-direction: column;
+    gap: clamp(1.0rem, 3vw, 1.4rem);
+    align-items: stretch;
+  }
+
+  .leftCol {
+    width: 100%;
+    max-width: none;
+  }
+
+  .imageWrap {
+    max-height: clamp(180px, 52vw, 260px);
+    overflow: hidden;
+  }
+
+  .img {
+    max-height: clamp(180px, 52vw, 260px);
+    object-fit: contain;
+  }
+
+  .rightCol {
+    padding-inline-start: 0;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .controlCols {
+    grid-template-columns: 1fr;
+  }
+}

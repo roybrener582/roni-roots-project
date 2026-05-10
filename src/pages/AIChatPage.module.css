@@ -1,0 +1,362 @@
+/* ══════════════════════════════════════════════════════════
+   AIChatPage — premium chat UI, RTL Hebrew, soft pastels
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Page shell ──────────────────────────────────────────── */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  height: 100vh; /* fallback */
+  background:
+    linear-gradient(
+      160deg,
+      #fdf8ff 0%,
+      #f7f0fb 35%,
+      #eef4ff 70%,
+      #f0fbf8 100%
+    );
+  font-family: var(--f-body, 'Heebo', sans-serif);
+  overflow: hidden;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.header {
+  flex-shrink: 0;
+  background:
+    linear-gradient(
+      135deg,
+      #d4aaee 0%,
+      #b0c8f5 60%,
+      #9dd4ea 100%
+    );
+  padding: 0.95rem 1.2rem 0.85rem;
+  box-shadow:
+    0 3px 18px rgba(150, 90, 210, 0.22),
+    0 1px 4px  rgba(150, 90, 210, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle inner glow at top of header */
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.28) 0%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.headerInner {
+  display: flex;
+  align-items: center;
+  gap: 0.80rem;
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.headerIcon {
+  font-size: 2.1rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.14));
+}
+
+.headerTitle {
+  margin: 0;
+  font-family: var(--f-heading, 'Frank Ruhl Libre', serif);
+  font-size: 1.18rem;
+  font-weight: 700;
+  color: #2e1250;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.headerSub {
+  margin: 0.12rem 0 0;
+  font-size: 0.78rem;
+  color: rgba(46, 18, 80, 0.62);
+  line-height: 1.4;
+}
+
+/* ── Suggestion chips ────────────────────────────────────── */
+.suggestions {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.48rem;
+  padding: 0.85rem 1.1rem 0.55rem;
+  justify-content: center;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  animation: suggestIn 0.45s var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1)) both;
+}
+
+@keyframes suggestIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+
+.chip {
+  background: rgba(210, 175, 240, 0.20);
+  border: 1.5px solid rgba(185, 145, 225, 0.50);
+  border-radius: 24px;
+  padding: 0.36rem 0.95rem;
+  font-size: 0.78rem;
+  color: #5a2a8a;
+  cursor: pointer;
+  transition:
+    background  var(--dur-fast, 0.15s) ease,
+    border-color var(--dur-fast, 0.15s) ease,
+    transform   var(--dur-fast, 0.15s) ease,
+    box-shadow  var(--dur-fast, 0.15s) ease;
+  white-space: nowrap;
+  font-family: inherit;
+  direction: rtl;
+  font-weight: 400;
+}
+
+.chip:hover,
+.chip:focus-visible {
+  background: rgba(210, 175, 240, 0.38);
+  border-color: rgba(165, 115, 205, 0.75);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(165, 115, 205, 0.20);
+  outline: none;
+}
+
+.chip:active {
+  transform: translateY(0) scale(0.97);
+}
+
+/* ── Chat area ───────────────────────────────────────────── */
+.chatArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.1rem 1.1rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(185, 145, 225, 0.32) transparent;
+}
+
+.chatArea::-webkit-scrollbar {
+  width: 5px;
+}
+.chatArea::-webkit-scrollbar-track { background: transparent; }
+.chatArea::-webkit-scrollbar-thumb {
+  background: rgba(185, 145, 225, 0.32);
+  border-radius: 3px;
+}
+
+/* ── Message row ─────────────────────────────────────────── */
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.52rem;
+  animation: msgIn 0.35s var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1)) both;
+}
+
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.rowUser {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+.rowAI {
+  justify-content: flex-start;
+}
+
+/* ── Avatar ──────────────────────────────────────────────── */
+.avatar {
+  font-size: 1.45rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.10));
+}
+
+/* ── Bubbles ─────────────────────────────────────────────── */
+.bubble {
+  max-width: min(72%, 480px);
+  padding: 0.72rem 1.05rem;
+  border-radius: 20px;
+  line-height: 1.70;
+  font-size: 0.93rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  direction: rtl;
+  text-align: right;
+  transition: box-shadow var(--dur-fast, 0.15s) ease;
+}
+
+.bubbleUser {
+  background: linear-gradient(
+    145deg,
+    #c4a0ec 0%,
+    #9abcf2 100%
+  );
+  color: #fff;
+  border-bottom-left-radius: 6px;
+  box-shadow:
+    0 3px 12px rgba(150, 100, 210, 0.32),
+    0 1px 4px  rgba(150, 100, 210, 0.18);
+  font-weight: 400;
+}
+
+.bubbleAI {
+  background: #fff;
+  color: #2a1640;
+  border-bottom-right-radius: 6px;
+  box-shadow:
+    0 3px 14px rgba(165, 130, 210, 0.14),
+    0 0 0 1px rgba(185, 155, 225, 0.20);
+  font-weight: 300;
+}
+
+/* ── Typing indicator ────────────────────────────────────── */
+.typing {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+  padding: 0.65rem 1.05rem;
+  min-width: 56px;
+}
+
+.typing span {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(165, 115, 205, 0.60);
+  animation: bounce 1.25s infinite ease-in-out;
+}
+
+.typing span:nth-child(1) { animation-delay: 0s; }
+.typing span:nth-child(2) { animation-delay: 0.20s; }
+.typing span:nth-child(3) { animation-delay: 0.40s; }
+
+@keyframes bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-7px); }
+}
+
+/* ── Input bar ───────────────────────────────────────────── */
+.inputBar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.80rem 1.1rem 1.0rem;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(185, 155, 225, 0.24);
+  max-width: 720px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input {
+  flex: 1;
+  padding: 0.68rem 1.1rem;
+  border: 1.5px solid rgba(185, 155, 225, 0.48);
+  border-radius: 26px;
+  background: #faf7ff;
+  font-size: 0.93rem;
+  font-family: inherit;
+  color: #2a1640;
+  outline: none;
+  transition:
+    border-color var(--dur-fast, 0.15s) ease,
+    box-shadow   var(--dur-fast, 0.15s) ease,
+    background   var(--dur-fast, 0.15s) ease;
+  direction: rtl;
+}
+
+.input::placeholder {
+  color: rgba(100, 60, 150, 0.38);
+}
+
+.input:focus {
+  border-color: rgba(165, 115, 205, 0.80);
+  box-shadow: 0 0 0 3.5px rgba(185, 145, 225, 0.16);
+  background: #fff;
+}
+
+.input:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+/* ── Send button ─────────────────────────────────────────── */
+.sendBtn {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(
+    145deg,
+    #c4a0ec 0%,
+    #9abcf2 100%
+  );
+  color: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    opacity   var(--dur-fast, 0.15s) ease,
+    transform var(--dur-fast, 0.15s) ease,
+    box-shadow var(--dur-fast, 0.15s) ease;
+  box-shadow:
+    0 3px 12px rgba(150, 100, 210, 0.35),
+    0 1px 4px  rgba(150, 100, 210, 0.18);
+}
+
+.sendBtn:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: scale(1.07) translateY(-1px);
+  box-shadow:
+    0 5px 18px rgba(150, 100, 210, 0.45),
+    0 2px 6px  rgba(150, 100, 210, 0.22);
+}
+
+.sendBtn:active:not(:disabled) {
+  transform: scale(0.94);
+  transition-duration: 0.08s;
+}
+
+.sendBtn:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+}
+
+/* ── Responsive tweaks ───────────────────────────────────── */
+@media (max-width: 480px) {
+  .headerTitle { font-size: 1.02rem; }
+  .bubble      { font-size: 0.88rem; max-width: 83%; }
+  .chip        { font-size: 0.74rem; padding: 0.30rem 0.80rem; }
+  .input       { font-size: 0.88rem; }
+}

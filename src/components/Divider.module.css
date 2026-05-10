@@ -1,0 +1,44 @@
+/* ══════════════════════════════════════════════════════════
+   Divider — ornamental horizontal rule
+   ══════════════════════════════════════════════════════════ */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+/* Width variants */
+.wsm { width: min(42%, 200px); }
+.wmd { width: min(56%, 260px); } /* default */
+.wlg { width: min(70%, 330px); }
+
+.line {
+  flex: 1;
+  height: 1px;
+}
+.line:first-child {
+  background: linear-gradient(
+    to left,
+    var(--c-page-accent) 0%,
+    rgba(196, 169, 110, 0.25) 60%,
+    transparent 100%
+  );
+}
+.line:last-child {
+  background: linear-gradient(
+    to right,
+    var(--c-page-accent) 0%,
+    rgba(196, 169, 110, 0.25) 60%,
+    transparent 100%
+  );
+}
+
+.diamond {
+  color: var(--c-page-accent);
+  font-size: 0.44rem;
+  opacity: 0.65;
+  flex-shrink: 0;
+  /* Subtle glow around the diamond center piece */
+  filter: drop-shadow(0 0 2px var(--c-page-accent));
+}

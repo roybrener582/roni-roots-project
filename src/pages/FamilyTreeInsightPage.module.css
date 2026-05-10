@@ -1,0 +1,224 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyTreeInsightPage — "מהו עץ משפחה בשבילי?"  ·  פרק 7
+   Tone: calm, reflective, personal — a small but meaningful
+   understanding of what a family tree is.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(3rem, 8vh, 6rem)
+    clamp(2rem, 7vw, 5.5rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   AURA — warm amber at the center (heritage) bleeding into
+   sage green at the edges (the living tree).
+   The two tones together create the "connection to the past"
+   feeling without being heavy.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(560px, 97%);
+  height:    min(360px, 78%);
+
+  border-radius: 50% 48% 52% 46% / 46% 54% 44% 56%;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(178, 148, 102, 0.14) 0%,
+    rgba(122, 149, 110, 0.09) 52%,
+    transparent 72%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 13s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 50% 48% 52% 46% / 46% 54% 44% 56%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 44% 56% 47% 53% / 54% 44% 58% 42%;
+    transform:     translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOATING ICONS — barely visible, ambient atmosphere
+   ══════════════════════════════════════════════════════════ */
+.iconTree,
+.iconBook {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 🌳  top-left (RTL: visual right) */
+.iconTree {
+  top:       clamp(0.7rem, 2vh, 1.4rem);
+  left:      clamp(0.9rem, 3vw, 2.2rem);
+  font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+  opacity:   0.38;
+  animation: floatDrift 8s ease-in-out infinite alternate;
+}
+
+/* 📖  bottom-right (RTL: visual left) */
+.iconBook {
+  bottom:    clamp(0.8rem, 2.5vh, 1.8rem);
+  right:     clamp(1rem,   3.8vw, 2.6rem);
+  font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+  opacity:   0.32;
+  animation: floatDrift 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatDrift {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-8px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEXT BLOCK — centered narrow column
+   ══════════════════════════════════════════════════════════ */
+.textBlock {
+  position:       relative;
+  z-index:        1;
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  max-width:      min(480px, 92%);
+  text-align:     center;
+  animation:      textRise 0.85s 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PARAGRAPHS — open, comfortable, RTL
+   ══════════════════════════════════════════════════════════ */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.14rem, 2.8vw, 1.46rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.2;
+  margin:         0;
+  letter-spacing: 0.014em;
+  padding:
+    clamp(1.2rem, 3vh, 2rem)
+    0;
+}
+
+/* The second paragraph carries the insight — give it
+   slightly more presence and a breath of space above */
+.paraInsight {
+  padding-top: clamp(1.4rem, 3.5vh, 2.4rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   HERITAGE WORDS — "הדורות שלפניי" and "ההיסטוריה"
+   Warm sepia-amber: the color of old photographs and roots.
+   ══════════════════════════════════════════════════════════ */
+.heritageWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.08em;
+  font-weight:    700;
+  color:          #9e7040;
+  letter-spacing: 0.022em;
+  position:       relative;
+}
+
+.heritageWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    #b08850;
+  opacity:       0.40;
+  box-shadow:    0 0 5px rgba(176, 136, 80, 0.45);
+}
+
+/* ══════════════════════════════════════════════════════════
+   "סיפור" — the closing word, the whole insight.
+   Slightly larger so it lands with quiet weight.
+   Same heritage amber as the other keywords — one family.
+   ══════════════════════════════════════════════════════════ */
+.storyWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.22em;
+  font-weight:    700;
+  color:          #9e7040;
+  letter-spacing: 0.028em;
+  position:       relative;
+}
+
+.storyWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -3px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    #b08850;
+  opacity:       0.50;
+  box-shadow:    0 0 8px rgba(176, 136, 80, 0.55);
+}
+
+/* ══════════════════════════════════════════════════════════
+   THIN RULE — a breath between the two paragraphs
+   ══════════════════════════════════════════════════════════ */
+.rule {
+  width:         clamp(40px, 16%, 80px);
+  height:        1px;
+  border-radius: 1px;
+  background:    linear-gradient(
+    to left,
+    transparent,
+    rgba(122, 149, 110, 0.35),
+    transparent
+  );
+  flex-shrink:   0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(2rem, 5.5vh, 3.5rem)
+      clamp(1.2rem, 4.5vw, 2rem);
+  }
+
+  .para {
+    font-size:   clamp(1.04rem, 4.5vw, 1.22rem);
+    line-height: 2.1;
+    padding:
+      clamp(0.9rem, 2.5vh, 1.5rem)
+      0;
+  }
+
+  .iconTree { opacity: 0.28; }
+  .iconBook { opacity: 0.24; }
+}

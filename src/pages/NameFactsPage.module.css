@@ -1,0 +1,110 @@
+/* ══════════════════════════════════════════════════════════
+   NameFactsPage — פרק 2: עובדות על השם שלי
+   Vertical fact rows, warm rose accent, personal feel.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Centered narrow column ─────────────────────────────── */
+.column {
+  width: 100%;
+  max-width: 500px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Base fact row ──────────────────────────────────────── */
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.18rem, 0.5vh, 0.28rem);
+  padding-block: clamp(0.65rem, 1.9vh, 1.0rem);
+  border-bottom: 1px solid var(--c-page-accent-border);
+}
+
+.lastRow {
+  border-bottom: none;
+}
+
+/* ── Row meta: icon + label ─────────────────────────────── */
+.rowMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.42em;
+}
+
+.icon {
+  font-size: 0.95rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.label {
+  font-family: var(--f-body);
+  font-size: clamp(0.62rem, 1.05vw, 0.72rem);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--c-text-3);
+  text-transform: uppercase;
+}
+
+/* ── Answer text ────────────────────────────────────────── */
+.answer {
+  font-family: var(--f-heading);
+  font-size: clamp(0.88rem, 1.55vw, 1.05rem);
+  font-weight: 600;
+  color: var(--c-text-1);
+  line-height: 1.6;
+  margin: 0;
+  text-align: start;
+}
+
+/* ══ Hero row: "רוני ברנר" ══════════════════════════════= */
+.heroRow {
+  background: var(--c-page-accent-faint);
+  border-radius: clamp(0.5rem, 1.2vw, 0.8rem);
+  padding-inline: clamp(0.8rem, 2.2vw, 1.2rem);
+  border-bottom: none;
+  margin-bottom: clamp(0.3rem, 0.8vh, 0.5rem);
+}
+
+.heroAnswer {
+  font-size: clamp(1.55rem, 3.2vw, 2.1rem);
+  font-weight: 900;
+  color: var(--c-page-accent);
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+}
+
+/* ══ Nickname row: "רונצ׳ו" ═════════════════════════════= */
+.nicknameRow {
+  background: var(--c-page-accent-faint);
+  border-radius: clamp(0.5rem, 1.2vw, 0.8rem);
+  padding-inline: clamp(0.8rem, 2.2vw, 1.2rem);
+  border-bottom: none;
+  margin-top: clamp(0.3rem, 0.8vh, 0.5rem);
+}
+
+.nicknameAnswer {
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  font-weight: 800;
+  font-style: italic;
+  color: var(--c-page-accent);
+}
+
+/* ── Nickname footnote ──────────────────────────────────── */
+.note {
+  font-family: var(--f-body);
+  font-size: clamp(0.60rem, 1.0vw, 0.70rem);
+  font-style: italic;
+  color: var(--c-text-3);
+  margin: 0;
+  padding-top: 0.1rem;
+}
+
+/* ── Mobile ─────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .column {
+    max-width: 100%;
+  }
+}

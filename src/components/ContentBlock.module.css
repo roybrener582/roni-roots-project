@@ -1,0 +1,87 @@
+/* ══════════════════════════════════════════════════════════
+   ContentBlock — text content variants
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Shared base ─────────────────────────────────────────── */
+.block {
+  width: 100%;
+  max-width: 490px;
+}
+
+/* ── Variant: body ──────────────────────────────────────── */
+.body {
+  font-family: var(--f-body);
+  font-size: var(--t-md);
+  font-weight: 300;
+  color: var(--c-text-2);
+  line-height: 2.0;
+  text-align: center;
+  letter-spacing: 0.005em;
+}
+
+/* ── Variant: highlight ─────────────────────────────────── */
+.highlight {
+  font-family: var(--f-body);
+  font-size: var(--t-base);
+  font-weight: 400;
+  color: var(--c-text-2);
+  line-height: 1.95;
+  text-align: start;
+  padding: var(--sp-4) var(--sp-5) var(--sp-4) var(--sp-6);
+  /* Warm parchment tint */
+  background:
+    linear-gradient(
+      to left,
+      var(--c-page-accent-faint) 0%,
+      rgba(255, 255, 255, 0.25) 100%
+    );
+  border-radius: var(--r-md);
+  border-inline-start: 3.5px solid var(--c-page-accent);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle shimmer strip at the top */
+.highlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    to left,
+    transparent,
+    rgba(255, 255, 255, 0.50) 50%,
+    transparent
+  );
+}
+
+/* ── Variant: quote ─────────────────────────────────────── */
+.quote {
+  font-family: var(--f-heading);
+  font-size: var(--t-lg);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--c-text-2);
+  line-height: 1.82;
+  text-align: center;
+  padding: var(--sp-4) var(--sp-3);
+  border-top:    1.5px solid var(--c-page-accent-border);
+  border-bottom: 1.5px solid var(--c-page-accent-border);
+  position: relative;
+}
+
+/* Decorative large open-quote mark */
+.quote::before {
+  content: '❝';
+  position: absolute;
+  top: -0.2em;
+  right: 0;
+  font-size: 1.8em;
+  color: var(--c-page-accent);
+  opacity: 0.18;
+  font-style: normal;
+  line-height: 1;
+  pointer-events: none;
+}

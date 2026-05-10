@@ -1,0 +1,169 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyNameStoryPage — "הסיפור מאחורי השם"  ·  פרק 5
+   Tone: honest, calm, simple, personal.
+   Two sentences. Lots of air. Nothing extra.
+   Simplicity is earned by what is *not* here.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Outer wrapper ───────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(3rem, 8vh, 6rem)
+    clamp(1.8rem, 6vw, 5rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT AURA — a barely-there rose wash.
+   Intentionally faint: it gives the page warmth, not drama.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(560px, 96%);
+  height:    min(320px, 72%);
+
+  border-radius: 54% 46% 50% 50% / 48% 52% 46% 54%;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(192, 136, 136, 0.09) 0%,
+    rgba(192, 136, 136, 0.04) 50%,
+    transparent 72%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 13s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 54% 46% 50% 50% / 48% 52% 46% 54%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 52% 48% / 54% 44% 56% 42%;
+    transform:     translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOATING ICONS — quiet witnesses, not ornaments.
+   Low opacity so they register as feeling, not feature.
+   ══════════════════════════════════════════════════════════ */
+.iconThought,
+.iconHeart {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 💭  top-left (RTL visual-right) */
+.iconThought {
+  top:       clamp(0.7rem, 2.2vh, 1.6rem);
+  left:      clamp(1rem, 3.5vw, 2.6rem);
+  font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+  opacity:   0.32;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+
+/* 🤍  bottom-right (RTL visual-left) */
+.iconHeart {
+  bottom:    clamp(0.8rem, 2.4vh, 1.8rem);
+  right:     clamp(1rem, 4vw, 2.8rem);
+  font-size: clamp(0.95rem, 2.2vw, 1.45rem);
+  opacity:   0.28;
+  animation: drift 10s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from { transform: translateY(0);     }
+  to   { transform: translateY(-6px);  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEXT BLOCK — narrow, centered, above the aura layer.
+   Wide max-width is intentional: each line should breathe,
+   not feel cramped. The short sentences do the work.
+   ══════════════════════════════════════════════════════════ */
+.textBlock {
+  position:        relative;
+  z-index:         1;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  max-width:       min(500px, 90%);
+  text-align:      center;
+  gap:             0;
+  animation:       rise 0.7s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   PARAGRAPHS — the page's full content.
+   Larger font + generous line-height gives each short
+   sentence the weight it deserves. Vertical padding is
+   the only separator — no rules, no dividers. Space speaks.
+   ══════════════════════════════════════════════════════════ */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.18rem, 2.85vw, 1.52rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.2;
+  letter-spacing: 0.014em;
+  margin:         0;
+  padding:
+    clamp(1.4rem, 3.5vh, 2.4rem)
+    0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   EMPHASIS — "אין לי סיפור מיוחד" · "לא מרגישה צורך"
+   Color + weight only. No glow, no underline, no box.
+   The phrases feel *chosen*, not shouted.
+   ══════════════════════════════════════════════════════════ */
+.emphasis {
+  font-family: var(--f-heading);
+  font-size:   1.06em;
+  font-weight: 700;
+  color:       var(--c-page-accent);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px — full width, slightly tighter padding
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(2rem, 6vh, 3.5rem)
+      clamp(1.1rem, 4vw, 1.8rem);
+  }
+
+  .textBlock {
+    max-width: 100%;
+  }
+
+  .para {
+    font-size:   clamp(1.05rem, 4.6vw, 1.22rem);
+    line-height: 2.1;
+    padding:
+      clamp(1rem, 2.8vh, 1.6rem)
+      0;
+  }
+
+  .iconThought { opacity: 0.22; }
+  .iconHeart   { opacity: 0.18; }
+}

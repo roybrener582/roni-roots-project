@@ -1,0 +1,164 @@
+/* ══════════════════════════════════════════════════════════
+   PersonalInsightPage
+   Desktop:  two-column grid — quote (RTL right) | illustration (RTL left)
+   Mobile:   single column   — illustration → quote
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Two-column layout ──────────────────────────────────── */
+/*   RTL: column-1 → physical right (quote), column-2 → left (illustration) */
+.layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 52fr 48fr;
+  gap: clamp(0.8rem, 2.8vw, 2.2rem);
+  align-items: center;
+  padding-inline: clamp(0.4rem, 1.6vw, 1.2rem);
+}
+
+/* ── Quote column ───────────────────────────────────────── */
+.quoteCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeUp 0.55s 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Quote box — the proud statement card ───────────────── */
+.quoteBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.35rem, 1.1vh, 0.65rem);
+  padding:
+    clamp(1.1rem, 3.2vh, 1.9rem)
+    clamp(1.1rem, 3.2vw, 1.8rem);
+  border-radius: var(--r-2xl);
+  background: var(--c-page-accent-faint);
+  border: 1.5px solid var(--c-page-accent-border);
+  box-shadow:
+    0 6px 30px rgba(122, 170, 192, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Soft inner radial shimmer */
+.quoteBox::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--r-2xl);
+  background: radial-gradient(
+    ellipse 90% 70% at 50% 20%,
+    rgba(122, 170, 192, 0.10),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* ── Quote marks ────────────────────────────────────────── */
+.quoteMark,
+.quoteMarkClose {
+  font-family: var(--f-heading);
+  font-size: clamp(2.2rem, 6.5vw, 3.8rem);
+  line-height: 0.75;
+  color: var(--c-page-accent);
+  opacity: 0.38;
+  user-select: none;
+  display: block;
+}
+
+.quoteMarkClose {
+  align-self: flex-end;
+}
+
+/* ── The main sentence ──────────────────────────────────── */
+.quoteText {
+  font-family: var(--f-heading);
+  font-size: clamp(1.10rem, 3.0vw, 1.58rem);
+  font-weight: 700;
+  color: var(--c-text-1);
+  line-height: 1.72;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+/* ── AI emphasis ────────────────────────────────────────── */
+.aiHighlight {
+  display: inline-block;
+  position: relative;
+  color: var(--c-page-accent);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 1.10em;
+  letter-spacing: 0.06em;
+}
+
+/* Glowing underline beneath "AI" */
+.aiHighlight::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  border-radius: 2px;
+  background: var(--c-page-accent);
+  opacity: 0.60;
+  box-shadow: 0 0 6px var(--c-page-accent);
+}
+
+/* ── Illustration column ────────────────────────────────── */
+.illustrationCol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: popIn 0.60s 0.08s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+
+/* SVG scales to fill its column */
+.svgIllustration {
+  width: 100%;
+  height: auto;
+  max-height: clamp(240px, 52vh, 360px);
+  filter: drop-shadow(0 6px 28px rgba(122, 170, 192, 0.22));
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px — single column, illustration first
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .layout {
+    grid-template-columns: 1fr;
+    gap: clamp(0.65rem, 2.8vh, 1.1rem);
+  }
+
+  /* Image appears first (above the quote) */
+  .illustrationCol { order: 1; }
+  .quoteCol        { order: 2; }
+
+  .svgIllustration {
+    max-height: clamp(200px, 50vw, 260px);
+    max-width: clamp(180px, 64%, 260px);
+  }
+
+  .quoteText {
+    font-size: clamp(1.00rem, 4.2vw, 1.25rem);
+  }
+
+  .quoteMark,
+  .quoteMarkClose {
+    font-size: clamp(1.8rem, 5.5vw, 2.6rem);
+  }
+}

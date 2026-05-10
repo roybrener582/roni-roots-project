@@ -1,0 +1,217 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyJourneyPage — "מסלול הנדודים של משפחתי"  ·  פרק 8
+   Tone: personal, warm, moving. A journey across continents
+   told in three short paragraphs.
+   Accent: sky — chosen because it speaks of travel and horizons.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Outer wrapper ───────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  height:          100%;
+  padding:
+    clamp(1.2rem, 3vh, 2.4rem)
+    clamp(1.4rem, 5vw, 4rem);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.wrapper::-webkit-scrollbar { display: none; }
+
+/* ── Ambient aura — a barely-there sky-blue wash ─────────── */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(700px, 110%);
+  height:    min(520px, 92%);
+
+  border-radius: 52% 48% 46% 54% / 50% 52% 46% 52%;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(122, 170, 192, 0.08) 0%,
+    rgba(122, 170, 192, 0.04) 48%,
+    transparent 68%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 14s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 52% 48% 46% 54% / 50% 52% 46% 52%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 52% 46% / 54% 46% 54% 44%;
+    transform:     translate(-50%, -50%) scale(1.04);
+  }
+}
+
+/* ── Floating icons — quiet presences, not ornaments ─────── */
+.iconGlobe,
+.iconCompass {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+.iconGlobe {
+  top:       clamp(0.6rem, 2vh, 1.4rem);
+  right:     clamp(0.8rem, 3vw, 2.2rem);
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  opacity:   0.28;
+  animation: drift 9s ease-in-out infinite alternate;
+}
+
+.iconCompass {
+  bottom:    clamp(0.7rem, 2.2vh, 1.6rem);
+  left:      clamp(0.8rem, 3.5vw, 2.4rem);
+  font-size: clamp(0.9rem, 2vw, 1.3rem);
+  opacity:   0.24;
+  animation: drift 11s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   STORY BLOCK — the three paragraphs
+   ══════════════════════════════════════════════════════════ */
+.story {
+  position:        relative;
+  z-index:         1;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     flex-start;
+  width:           min(660px, 100%);
+  gap:             0;
+  animation:       rise 0.65s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+  text-align:      start;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ── Paragraphs ─────────────────────────────────────────── */
+.para {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.02rem, 2.1vw, 1.22rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.05;
+  letter-spacing: 0.012em;
+  margin:         0;
+  padding:        clamp(0.7rem, 1.6vh, 1.2rem) 0;
+}
+
+/* ── Place names — sky accent, weighted ─────────────────── */
+.place {
+  font-weight: 600;
+  color:       var(--c-page-accent);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SECTION DIVIDER — thin horizontal line + diamond
+   ══════════════════════════════════════════════════════════ */
+.divider {
+  display:         flex;
+  align-items:     center;
+  gap:             clamp(0.5rem, 1.5vw, 0.9rem);
+  width:           min(280px, 68%);
+  align-self:      center;
+  margin:          clamp(0.2rem, 0.6vh, 0.5rem) 0;
+}
+
+.divider span:not(.dividerDot) {
+  flex:         1;
+  height:       1px;
+  background:   var(--c-page-accent-border);
+  border-radius: 1px;
+}
+
+.dividerDot {
+  font-size: clamp(0.55rem, 1.1vw, 0.70rem);
+  color:     var(--c-page-accent);
+  opacity:   0.50;
+  flex-shrink: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   INSIGHT — the closing personal sentence
+   Sits apart: softer background, italic, centered
+   ══════════════════════════════════════════════════════════ */
+.insight {
+  display:        flex;
+  align-items:    flex-start;
+  gap:            clamp(0.55rem, 1.4vw, 0.80rem);
+  align-self:     stretch;
+  margin-top:     clamp(0.8rem, 2vh, 1.4rem);
+  padding:
+    clamp(0.7rem, 1.6vh, 1.1rem)
+    clamp(0.9rem, 2.2vw, 1.4rem);
+  background:     var(--c-page-accent-faint);
+  border-inline-end: 3px solid var(--c-page-accent-border);
+  border-radius:  var(--r-xl, 14px);
+}
+
+.insightMark {
+  flex-shrink:    0;
+  font-size:      clamp(0.75rem, 1.5vw, 0.90rem);
+  color:          var(--c-page-accent);
+  opacity:        0.65;
+  margin-top:     0.38em;
+  line-height:    1;
+}
+
+.insightText {
+  font-family:    var(--f-body);
+  font-size:      clamp(0.96rem, 2vw, 1.12rem);
+  font-weight:    400;
+  font-style:     italic;
+  color:          var(--c-text-2);
+  line-height:    1.85;
+  letter-spacing: 0.014em;
+  margin:         0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(1rem, 3vh, 1.8rem)
+      clamp(1rem, 4.5vw, 1.6rem);
+    justify-content: flex-start;
+  }
+
+  .story {
+    width: 100%;
+  }
+
+  .para {
+    font-size:   clamp(0.98rem, 4.2vw, 1.12rem);
+    line-height: 1.95;
+  }
+
+  .insightText {
+    font-size: clamp(0.92rem, 3.8vw, 1.05rem);
+  }
+
+  .iconGlobe  { opacity: 0.18; }
+  .iconCompass { opacity: 0.16; }
+}

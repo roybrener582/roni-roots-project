@@ -1,0 +1,150 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyJourneyInsightPage — "תובנה אישית"  ·  פרק 8
+   Tone: personal, warm, simple — a 12-year-old's quiet
+   reflection on courage and new beginnings.
+   Accent: sky — horizon, travel, hope.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper: generous breathing room, centered ────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(3.5rem, 10vh, 7rem)
+    clamp(2rem,   7vw,  5.5rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   AURA — soft sky-blue wash, like light through open air.
+   Evokes the feeling of arriving somewhere new.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(560px, 96%);
+  height:    min(340px, 72%);
+
+  border-radius: 50% 50% 54% 46% / 48% 52% 46% 54%;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(122, 170, 192, 0.14) 0%,
+    rgba(164, 200, 218, 0.07) 52%,
+    transparent 72%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 14s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 50% 50% 54% 46% / 48% 52% 46% 54%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 48% 52% / 54% 46% 56% 44%;
+    transform:     translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOATING ICON — 🌱 growth and new beginnings
+   Placed top-right (RTL: visual left), barely visible
+   ══════════════════════════════════════════════════════════ */
+.iconSprout {
+  position:       absolute;
+  top:            clamp(0.8rem, 2.2vh, 1.6rem);
+  right:          clamp(1rem,   3.5vw, 2.4rem);
+  font-size:      clamp(1.3rem, 3.0vw, 2.0rem);
+  opacity:        0.35;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+  animation:      floatDrift 9s ease-in-out infinite alternate;
+}
+
+@keyframes floatDrift {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEXT BLOCK — centered, narrow, RTL
+   ══════════════════════════════════════════════════════════ */
+.textBlock {
+  position:   relative;
+  z-index:    1;
+  max-width:  min(500px, 92%);
+  text-align: center;
+  animation:  textRise 0.9s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   REFLECTION PARAGRAPH
+   Warm and open, natural like a child's voice.
+   ══════════════════════════════════════════════════════════ */
+.reflection {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.12rem, 2.6vw, 1.40rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.25;
+  margin:         0;
+  letter-spacing: 0.015em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   KEY WORDS — "אומץ" and "ולהמשיך קדימה"
+   Sky-blue: the color of horizons and open air.
+   ══════════════════════════════════════════════════════════ */
+.keyWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.08em;
+  font-weight:    700;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.022em;
+  position:       relative;
+}
+
+.keyWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--c-page-accent);
+  opacity:       0.35;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(2.5rem, 6.5vh, 4.5rem)
+      clamp(1.4rem, 4.5vw, 2.4rem);
+  }
+
+  .reflection {
+    font-size:   clamp(1.02rem, 4.5vw, 1.22rem);
+    line-height: 2.1;
+  }
+
+  .iconSprout { opacity: 0.25; }
+}

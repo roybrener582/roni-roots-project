@@ -1,0 +1,190 @@
+/* ══════════════════════════════════════════════════════════
+   FamilyNamePersonalInsightPage — "תובנה אישית"  ·  פרק 5
+   Tone: calm, informative, personal.
+   One sentence, wide open space — a small discovery, not a lecture.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Wrapper ─────────────────────────────────────────────── */
+.wrapper {
+  position:        relative;
+  display:         flex;
+  flex-direction:  column;
+  align-items:     center;
+  justify-content: center;
+  width:           100%;
+  padding:
+    clamp(3rem, 8vh, 6rem)
+    clamp(1.8rem, 6vw, 5rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   SOFT AURA — quiet mint glow, atmospheric not decorative.
+   ══════════════════════════════════════════════════════════ */
+.aura {
+  position:  absolute;
+  top:       50%;
+  left:      50%;
+  transform: translate(-50%, -50%);
+  width:     min(540px, 96%);
+  height:    min(320px, 75%);
+
+  border-radius: 52% 48% 50% 50% / 48% 52% 46% 54%;
+
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(94, 172, 146, 0.10) 0%,
+    rgba(94, 172, 146, 0.05) 50%,
+    transparent 74%
+  );
+
+  pointer-events: none;
+  animation: auraBreath 12s ease-in-out infinite alternate;
+}
+
+@keyframes auraBreath {
+  from {
+    border-radius: 52% 48% 50% 50% / 48% 52% 46% 54%;
+    transform:     translate(-50%, -50%) scale(1);
+  }
+  to {
+    border-radius: 46% 54% 54% 46% / 54% 44% 56% 44%;
+    transform:     translate(-50%, -50%) scale(1.05);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FLOATING ICONS — present but never competing with the text
+   ══════════════════════════════════════════════════════════ */
+.iconFire,
+.iconBook {
+  position:       absolute;
+  line-height:    1;
+  user-select:    none;
+  pointer-events: none;
+}
+
+/* 🔥  top-right (RTL: visual right = CSS left) */
+.iconFire {
+  top:       clamp(0.7rem, 2.2vh, 1.5rem);
+  left:      clamp(1rem,   3.5vw, 2.4rem);
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  opacity:   0.42;
+  animation: floatDrift 7s ease-in-out infinite alternate;
+}
+
+/* 📖  bottom-left (RTL: visual left = CSS right) */
+.iconBook {
+  bottom:    clamp(0.8rem, 2.5vh, 1.8rem);
+  right:     clamp(1rem,   4vw,   2.8rem);
+  font-size: clamp(1.1rem, 2.5vw, 1.65rem);
+  opacity:   0.36;
+  animation: floatDrift 9s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes floatDrift {
+  from { transform: translateY(0);    }
+  to   { transform: translateY(-7px); }
+}
+
+/* ══════════════════════════════════════════════════════════
+   TEXT BLOCK — narrow centered column, above the aura
+   ══════════════════════════════════════════════════════════ */
+.textBlock {
+  position:   relative;
+  z-index:    1;
+  max-width:  min(460px, 90%);
+  text-align: center;
+  animation:  textRise 0.72s 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* ══════════════════════════════════════════════════════════
+   INSIGHT PARAGRAPH — one sentence, comfortable and open
+   ══════════════════════════════════════════════════════════ */
+.insight {
+  font-family:    var(--f-body);
+  font-size:      clamp(1.14rem, 2.75vw, 1.46rem);
+  font-weight:    300;
+  color:          var(--c-text-2);
+  line-height:    2.25;
+  margin:         0;
+  letter-spacing: 0.014em;
+}
+
+/* ══════════════════════════════════════════════════════════
+   "שורף" — the star of the sentence.
+   Warm fire-orange so it reads like the flame it names.
+   Slightly larger and heavier than the language words.
+   ══════════════════════════════════════════════════════════ */
+.fireWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.22em;
+  font-weight:    800;
+  color:          #d9612a;
+  letter-spacing: 0.03em;
+  position:       relative;
+}
+
+.fireWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -3px;
+  left:          0;
+  right:         0;
+  height:        2.5px;
+  border-radius: 2px;
+  background:    #d9612a;
+  opacity:       0.45;
+  box-shadow:    0 0 8px rgba(217, 97, 42, 0.55);
+}
+
+/* ══════════════════════════════════════════════════════════
+   "יידיש" / "גרמנית" — the source languages.
+   Mint accent — noticed, not shouted.
+   ══════════════════════════════════════════════════════════ */
+.langWord {
+  display:        inline;
+  font-family:    var(--f-heading);
+  font-size:      1.08em;
+  font-weight:    700;
+  color:          var(--c-page-accent);
+  letter-spacing: 0.02em;
+  position:       relative;
+}
+
+.langWord::after {
+  content:       '';
+  position:      absolute;
+  bottom:        -2px;
+  left:          0;
+  right:         0;
+  height:        2px;
+  border-radius: 2px;
+  background:    var(--c-page-accent);
+  opacity:       0.34;
+  box-shadow:    0 0 5px var(--c-page-accent);
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .wrapper {
+    padding:
+      clamp(2rem, 5.5vh, 3.5rem)
+      clamp(1.1rem, 4vw, 1.8rem);
+  }
+
+  .insight {
+    font-size:   clamp(1.02rem, 4.4vw, 1.2rem);
+    line-height: 2.1;
+  }
+
+  .iconFire { opacity: 0.32; }
+  .iconBook { opacity: 0.26; }
+}

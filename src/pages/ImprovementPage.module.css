@@ -1,0 +1,203 @@
+/* ══════════════════════════════════════════════════════════
+   ImprovementPage — "מה הייתי רוצה לשפר בעצמי"
+   Three growth cards, vertical stack, soft pastel tones.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Outer stack ────────────────────────────────────────── */
+.stack {
+  display:        flex;
+  flex-direction: column;
+  gap:            clamp(0.65rem, 2.0vh, 1.1rem);
+  width:          100%;
+  padding-inline: clamp(0.4rem, 1.8vw, 1.1rem);
+}
+
+/* ══════════════════════════════════════════════════════════
+   CARD SHELL
+   ══════════════════════════════════════════════════════════ */
+.card {
+  position:       relative;
+  display:        flex;
+  flex-direction: column;
+  align-items:    flex-start;
+  gap:            clamp(0.28rem, 0.8vh, 0.45rem);
+  padding:
+    clamp(0.75rem, 2.2vh, 1.2rem)
+    clamp(1.0rem,  2.8vw, 1.6rem)
+    clamp(0.65rem, 1.8vh, 1.0rem);
+
+  background:    var(--tc-faint);
+  border:        1px solid var(--tc-border);
+  border-radius: var(--r-2xl);
+  overflow:      hidden;
+
+  /* Staggered entrance — delay set via inline style */
+  animation: cardUp 0.48s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.card:hover {
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.07);
+  transform:  translateY(-2px);
+}
+
+/* Soft top-edge shimmer */
+.card::before {
+  content:       '';
+  position:      absolute;
+  inset-inline:  0;
+  top:           0;
+  height:        3px;
+  border-radius: var(--r-2xl) var(--r-2xl) 0 0;
+  background:    var(--tc);
+  opacity:       0.35;
+}
+
+@keyframes cardUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Per-card color palettes ─────────────────────────────── */
+.amber {
+  --tc:        #b8963e;
+  --tc-faint:  rgba(184, 150, 62, 0.09);
+  --tc-border: rgba(184, 150, 62, 0.22);
+}
+
+.rose {
+  --tc:        #c08080;
+  --tc-faint:  rgba(192, 128, 128, 0.09);
+  --tc-border: rgba(192, 128, 128, 0.22);
+}
+
+.lavender {
+  --tc:        #8888c0;
+  --tc-faint:  rgba(136, 136, 192, 0.09);
+  --tc-border: rgba(136, 136, 192, 0.22);
+}
+
+/* ── Number badge (top-left corner) ─────────────────────── */
+.number {
+  position:    absolute;
+  inset-inline-end: clamp(0.9rem, 2.4vw, 1.4rem);
+  top:         clamp(0.7rem, 2.0vh, 1.1rem);
+  font-family: var(--f-heading);
+  font-size:   clamp(1.4rem, 3.5vw, 2.0rem);
+  font-weight: 900;
+  color:       var(--tc);
+  opacity:     0.13;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ── Header row: icon + trait name ──────────────────────── */
+.header {
+  display:     flex;
+  align-items: center;
+  gap:         0.5rem;
+}
+
+.icon {
+  font-size:   clamp(1.15rem, 2.8vw, 1.55rem);
+  line-height: 1;
+  user-select: none;
+}
+
+.traitName {
+  font-family: var(--f-heading);
+  font-size:   var(--t-xl);
+  font-weight: 700;
+  color:       var(--c-text-1);
+  line-height: 1.2;
+  margin:      0;
+}
+
+/* ── Accent rule ─────────────────────────────────────────── */
+.rule {
+  width:         2.0rem;
+  height:        2.5px;
+  border-radius: 2px;
+  background:    var(--tc);
+  opacity:       0.65;
+  margin-block:  0.05rem;
+}
+
+/* ── Description ─────────────────────────────────────────── */
+.desc {
+  font-family: var(--f-body);
+  font-size:   clamp(0.84rem, 1.9vw, 0.98rem);
+  font-weight: 300;
+  color:       var(--c-text-2);
+  line-height: 1.90;
+  margin:      0;
+  text-align:  start;
+}
+
+/* Highlighted key words */
+.highlight {
+  background:    transparent;
+  color:         var(--tc);
+  font-weight:   700;
+  font-style:    normal;
+  border-bottom: 1.5px solid var(--tc);
+  padding-bottom: 0.5px;
+  border-radius: 0;
+}
+
+/* ── Growth hint row ─────────────────────────────────────── */
+.growthHint {
+  display:     flex;
+  align-items: center;
+  gap:         0.35rem;
+  margin-top:  clamp(0.15rem, 0.5vh, 0.3rem);
+  padding:
+    clamp(0.28rem, 0.8vh, 0.4rem)
+    clamp(0.5rem,  1.2vw, 0.7rem);
+  border-radius: var(--r-lg);
+  background:    rgba(255, 255, 255, 0.42);
+  border:        1px solid var(--tc-border);
+  align-self:    flex-start;
+}
+
+.arrow {
+  font-size:   0.90rem;
+  color:       var(--tc);
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+}
+
+.growthIcon {
+  font-size:   0.90rem;
+  line-height: 1;
+  user-select: none;
+}
+
+.growthText {
+  font-family: var(--f-body);
+  font-size:   clamp(0.74rem, 1.6vw, 0.84rem);
+  font-weight: 500;
+  color:       var(--tc);
+  line-height: 1.3;
+  opacity:     0.82;
+}
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE  ≤ 540px
+   ══════════════════════════════════════════════════════════ */
+@media (max-width: 540px) {
+  .stack {
+    padding-inline: 0;
+    gap: clamp(0.55rem, 1.8vh, 0.85rem);
+  }
+
+  .card {
+    padding:
+      clamp(0.65rem, 1.9vh, 1.0rem)
+      clamp(0.9rem,  4.5vw, 1.2rem)
+      clamp(0.55rem, 1.6vh, 0.85rem);
+  }
+
+  .growthHint { align-self: stretch; }
+}
