@@ -87,7 +87,7 @@
 }
 
 /* ── Mobile ─────────────────────────────────────────────── */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .block {
     max-width: 100%;
   }

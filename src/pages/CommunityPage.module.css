@@ -221,7 +221,7 @@
 /* ══════════════════════════════════════════════════════════
    MOBILE ≤ 540px
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .wrapper   { padding: 0.6rem 0.9rem; }
   .qaRow     { grid-template-columns: 1fr; }
   .answer    { font-size: clamp(0.82rem, 3.5vw, 0.94rem); }

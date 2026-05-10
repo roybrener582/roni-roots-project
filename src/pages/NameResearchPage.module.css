@@ -255,7 +255,7 @@
 /* ══════════════════════════════════════════════════════════
    MOBILE  ≤ 580px — single column
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 580px) {
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: 1fr;
     gap: clamp(0.9rem, 3vh, 1.3rem);

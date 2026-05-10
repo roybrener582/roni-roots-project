@@ -155,7 +155,7 @@
 /* ══════════════════════════════════════════════════════════
    MOBILE  ≤ 540px
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .reflections {
     max-width: 100%;
     padding-inline: clamp(0.6rem, 4vw, 1.2rem);

@@ -227,7 +227,7 @@
 }
 
 /* ── Mobile: tighten up, hide labels ───────────────────── */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .btnLabel   { display: none; }
   .btn        { min-width: 44px; min-height: 44px; padding: 6px 8px; }
   .jumpInput  { width: 44px; font-size: 16px; height: 38px; }

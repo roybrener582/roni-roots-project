@@ -70,7 +70,7 @@
    MOBILE  ≤ 540px
    Single column: image first (order 1), rings below (order 2)
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
   }

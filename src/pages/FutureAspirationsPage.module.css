@@ -157,7 +157,7 @@
    MOBILE  ≤ 540px
    Order: title → image 1 → image 2 → sections (stacked)
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .imageRow {
     flex-direction: column;
     align-items: center;

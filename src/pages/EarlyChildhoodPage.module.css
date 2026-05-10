@@ -276,7 +276,7 @@
 /* ══════════════════════════════════════════════════════════
    MOBILE  ≤ 520px — stack everything vertically
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 520px) {
+@media (max-width: 768px) {
   .topRow {
     grid-template-columns: 1fr;
   }

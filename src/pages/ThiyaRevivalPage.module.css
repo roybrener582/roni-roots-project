@@ -286,7 +286,7 @@
 /* ══════════════════════════════════════════════════════════
    MOBILE ≤ 600px — stack vertically
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .labelsRow {
     flex-direction: column;
     align-items: center;
@@ -354,7 +354,7 @@
 /* ══════════════════════════════════════════════════════════
    NARROW DESKTOP 601–800px
    ══════════════════════════════════════════════════════════ */
-@media (min-width: 601px) and (max-width: 800px) {
+@media (min-width: 769px) and (max-width: 900px) {
   .card      { max-width: 175px; }
   .labelSlot { max-width: 175px; }
   .arrowSpacer,

@@ -148,7 +148,7 @@
 /* ══════════════════════════════════════════════════════════
    MOBILE  ≤ 540px — full width, slightly smaller text
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .wrapper {
     padding:
       clamp(2.5rem, 6.5vh, 4.5rem)

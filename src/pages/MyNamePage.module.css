@@ -290,7 +290,7 @@
 }
 
 /* ── Mobile: title → image → content stack ─────────────── */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .pageRow {
     flex-direction: column;
     gap: clamp(1.0rem, 3vw, 1.4rem);

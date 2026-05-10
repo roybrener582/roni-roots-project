@@ -85,7 +85,7 @@
 }
 
 /* ── Mobile ─────────────────────────────────────────────── */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .card {
     padding: var(--sp-3) var(--sp-4);
     min-width: 0;

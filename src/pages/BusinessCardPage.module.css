@@ -374,7 +374,7 @@
 /* ══════════════════════════════════════════════════════════
    Mobile — stack: label → front → label → back
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .cardPair {
     flex-direction: column;
     align-items: center;

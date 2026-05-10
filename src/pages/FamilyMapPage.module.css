@@ -238,7 +238,7 @@
 /* ══════════════════════════════════════════════════════════
    TABLET  ≤ 680px  — 2 + 1 layout or tighten spacing
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .grid {
     grid-template-columns: repeat(2, 1fr);
     width: min(520px, 100%);

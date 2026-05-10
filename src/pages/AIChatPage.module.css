@@ -363,7 +363,7 @@
 }
 
 /* ── Responsive tweaks ───────────────────────────────────── */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .header      { padding: 0.75rem 1rem 0.65rem; }
   .headerTitle { font-size: 1.02rem; }
   .bubble      { font-size: 0.90rem; max-width: 85%; }

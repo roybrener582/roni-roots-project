@@ -68,7 +68,7 @@
 /* ══════════════════════════════════════════════════════════
    MOBILE  ≤ 540px — video fills the full viewport width
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .wrapper {
     padding:
       clamp(0.6rem, 2vh, 1rem)

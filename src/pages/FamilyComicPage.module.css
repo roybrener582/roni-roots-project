@@ -235,7 +235,7 @@
 /* ══════════════════════════════════════════════════════════
    MOBILE ≤ 600px — full-width image, adjusted bubble
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .stage {
     max-width: 100%;
     gap: clamp(0.45rem, 1.1vh, 0.7rem);
@@ -253,7 +253,7 @@
 /* ══════════════════════════════════════════════════════════
    NARROW DESKTOP 601–800px
    ══════════════════════════════════════════════════════════ */
-@media (min-width: 601px) and (max-width: 800px) {
+@media (min-width: 769px) and (max-width: 900px) {
   .stage {
     max-width: min(400px, 100%);
   }

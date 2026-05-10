@@ -198,7 +198,7 @@
 }
 
 /* ── Mobile ≤ 540px ──────────────────────────────────────── */
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .wrapper {
     padding:
       clamp(0.8rem, 3vh, 1.8rem)

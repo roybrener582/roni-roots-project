@@ -192,9 +192,9 @@
 .deco2 { bottom: 10%; inset-inline-end: 10%; }
 
 /* ══════════════════════════════════════════════════════════
-   MOBILE  ≤ 540px
+   MOBILE  ≤ 768px — icon stacks above title (column layout)
    ══════════════════════════════════════════════════════════ */
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .card,
   .reversed {
     flex-direction: column;
