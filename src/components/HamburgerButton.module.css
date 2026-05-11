@@ -40,15 +40,17 @@
     box-shadow    var(--dur-fast, 0.15s) ease;
 }
 
-.btn:hover {
-  background: rgba(55, 33, 8, 0.86);
-  border-color: rgba(196, 169, 110, 0.78);
-  box-shadow:
-    0 4px 18px rgba(0, 0, 0, 0.40),
-    0 1px 5px  rgba(0, 0, 0, 0.25),
-    0 0 0 3px rgba(196, 169, 110, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.09);
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .btn:hover {
+    background: rgba(55, 33, 8, 0.86);
+    border-color: rgba(196, 169, 110, 0.78);
+    box-shadow:
+      0 4px 18px rgba(0, 0, 0, 0.40),
+      0 1px 5px  rgba(0, 0, 0, 0.25),
+      0 0 0 3px rgba(196, 169, 110, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.09);
+    transform: translateY(-1px);
+  }
 }
 
 .btn:active {

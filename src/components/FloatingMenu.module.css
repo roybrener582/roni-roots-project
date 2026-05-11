@@ -116,11 +116,13 @@
     transform     var(--dur-fast, 0.15s) ease;
 }
 
-.closeBtn:hover {
-  background: rgba(196, 169, 110, 0.18);
-  border-color: rgba(196, 169, 110, 0.32);
-  color: var(--c-text-1);
-  transform: scale(1.05);
+@media (hover: hover) {
+  .closeBtn:hover {
+    background: rgba(196, 169, 110, 0.18);
+    border-color: rgba(196, 169, 110, 0.32);
+    color: var(--c-text-1);
+    transform: scale(1.05);
+  }
 }
 
 /* ── Divider ─────────────────────────────────────────────── */
@@ -183,11 +185,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-.downloadBtn:hover {
-  background: rgba(196, 169, 110, 0.14);
-  border-color: rgba(196, 169, 110, 0.28);
-  color: var(--c-text-1);
-  transform: translateX(-2px);
+@media (hover: hover) {
+  .downloadBtn:hover {
+    background: rgba(196, 169, 110, 0.14);
+    border-color: rgba(196, 169, 110, 0.28);
+    color: var(--c-text-1);
+    transform: translateX(-2px);
+  }
 }
 
 .downloadBtn:active {

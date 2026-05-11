@@ -36,9 +36,11 @@
   transition: box-shadow 0.22s ease, transform 0.22s ease;
 }
 
-.card:hover {
-  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.07);
-  transform:  translateY(-2px);
+@media (hover: hover) {
+  .card:hover {
+    box-shadow: 0 5px 22px rgba(0, 0, 0, 0.07);
+    transform:  translateY(-2px);
+  }
 }
 
 /* Soft top-edge shimmer */

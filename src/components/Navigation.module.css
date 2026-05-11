@@ -60,10 +60,12 @@
   white-space: nowrap;
 }
 
-.btn:hover:not(:disabled) {
-  background: rgba(196, 169, 110, 0.16);
-  color: rgba(196, 169, 110, 1);
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .btn:hover:not(:disabled) {
+    background: rgba(196, 169, 110, 0.16);
+    color: rgba(196, 169, 110, 1);
+    transform: translateY(-1px);
+  }
 }
 
 .btn:active:not(:disabled) {

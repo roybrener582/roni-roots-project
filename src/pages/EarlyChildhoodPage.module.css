@@ -72,9 +72,11 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.block:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+@media (hover: hover) {
+  .block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+  }
 }
 
 @keyframes blockIn {
@@ -210,9 +212,11 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.blockFunny:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 22px rgba(200, 155, 35, 0.13);
+@media (hover: hover) {
+  .blockFunny:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 22px rgba(200, 155, 35, 0.13);
+  }
 }
 
 /* Warm radial glow behind the funny block */

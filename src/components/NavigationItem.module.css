@@ -29,10 +29,12 @@
 }
 
 /* Hover: warm amber background with gentle slide */
-.item:hover {
-  background: rgba(196, 169, 110, 0.14);
-  color: var(--c-text-1);
-  transform: translateX(-2px);
+@media (hover: hover) {
+  .item:hover {
+    background: rgba(196, 169, 110, 0.14);
+    color: var(--c-text-1);
+    transform: translateX(-2px);
+  }
 }
 
 .item:active {

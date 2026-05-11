@@ -351,10 +351,6 @@
     width: clamp(22px, 3.5vh, 32px);
     height: auto;
   }
-
-  .arrow:hover {
-    transform: rotate(-90deg) scaleX(1.15);
-  }
 }
 
 /* ══════════════════════════════════════════════════════════
