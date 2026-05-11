@@ -241,6 +241,11 @@
     min-height: 0;      /* override the 680px base floor */
     aspect-ratio: auto; /* release fixed ratio; canvas fills actual space */
   }
+
+  .ssm .ring { width: 72px;  height: 72px;  }
+  .smd .ring { width: 88px;  height: 88px;  }
+  .slg .ring { width: 106px; height: 106px; }
+  .sxl .ring { width: 124px; height: 124px; }
 }
 
 /* ── Mobile ──────────────────────────────────────────────────── */
