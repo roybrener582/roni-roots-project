@@ -242,10 +242,10 @@
     aspect-ratio: auto; /* release fixed ratio; canvas fills actual space */
   }
 
-  .ssm .ring { width: 72px;  height: 72px;  }
-  .smd .ring { width: 88px;  height: 88px;  }
-  .slg .ring { width: 106px; height: 106px; }
-  .sxl .ring { width: 124px; height: 124px; }
+  .ssm .ring { width:  72px !important; height:  72px !important; }
+  .smd .ring { width:  88px !important; height:  88px !important; }
+  .slg .ring { width: 106px !important; height: 106px !important; }
+  .sxl .ring { width: 124px !important; height: 124px !important; }
 }
 
 /* ── Mobile ──────────────────────────────────────────────────── */
