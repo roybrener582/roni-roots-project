@@ -23,14 +23,16 @@
     transform  var(--dur-md, 0.24s) var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1));
 }
 
-.frame:hover {
-  box-shadow:
-    inset 0 0 0 5px rgba(255, 255, 255, 0.80),
-    inset 0 0 0 6px var(--c-page-accent-border),
-    0 14px 44px rgba(0, 0, 0, 0.15),
-    0 5px 14px  rgba(0, 0, 0, 0.09),
-    0 2px 5px   rgba(0, 0, 0, 0.06);
-  transform: translateY(-2px);
+@media (hover: hover) {
+  .frame:hover {
+    box-shadow:
+      inset 0 0 0 5px rgba(255, 255, 255, 0.80),
+      inset 0 0 0 6px var(--c-page-accent-border),
+      0 14px 44px rgba(0, 0, 0, 0.15),
+      0 5px 14px  rgba(0, 0, 0, 0.09),
+      0 2px 5px   rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+  }
 }
 
 /* ── Real image ─────────────────────────────────────────── */
@@ -44,8 +46,10 @@
   transition: filter var(--dur-md, 0.24s) ease;
 }
 
-.frame:hover .img {
-  filter: sepia(0.04) contrast(1.03) brightness(1.02);
+@media (hover: hover) {
+  .frame:hover .img {
+    filter: sepia(0.04) contrast(1.03) brightness(1.02);
+  }
 }
 
 /* ── Placeholder ────────────────────────────────────────── */
@@ -72,4 +76,16 @@
   font-weight: 400;
   color: var(--c-text-3);
   opacity: 0.55;
+}
+
+/* ── Mobile: constrain height so images don't dominate the page ── */
+@media (max-width: 768px) {
+  .frame {
+    max-height: clamp(180px, 38vh, 260px);
+  }
+
+  .img {
+    max-height: clamp(180px, 38vh, 260px);
+    object-fit: cover;
+  }
 }

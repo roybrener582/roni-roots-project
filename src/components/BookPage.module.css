@@ -147,7 +147,12 @@
       0 0 0 1px rgba(139, 105, 20, 0.05),
       3px 0 14px rgba(0, 0, 0, 0.14),
       -1px 0 4px rgba(0, 0, 0, 0.05);
+    touch-action: pan-y;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+
+  .page::-webkit-scrollbar { display: none; }
 
   /* Hide stacked-pages effect on mobile — reduces visual noise and side overflow */
   .wrapper::before,

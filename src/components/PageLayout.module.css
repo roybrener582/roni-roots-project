@@ -220,13 +220,13 @@
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
   .header {
-    gap: 0.20rem;
-    padding-top: 0.40rem;
-    padding-bottom: 0.22rem;
+    gap: 0.18rem;
+    padding-top: 0.35rem;
+    padding-bottom: 0.20rem;
   }
 
   .ornament {
-    letter-spacing: 0.28rem;
+    display: none;
   }
 
   .title {

@@ -45,17 +45,6 @@
   pointer-events: none;
 }
 
-.card:hover {
-  box-shadow:
-    0 8px 28px rgba(0, 0, 0, 0.12),
-    0 3px 8px  rgba(0, 0, 0, 0.07);
-  transform: translateY(-3px);
-  border-color: var(--tc);
-}
-
-.card:hover::after {
-  right: 120%;
-}
 
 /* Swap sides — illustration on right (reading-start in RTL) */
 .reversed { flex-direction: row-reverse; }
@@ -111,10 +100,6 @@
   transition: width var(--dur-md, 0.24s) ease;
 }
 
-.card:hover .rule {
-  width: 2.8rem;
-  opacity: 0.92;
-}
 
 .description {
   font-family:  var(--f-body);
@@ -148,12 +133,6 @@
     transform  var(--dur-md, 0.24s) ease;
 }
 
-.card:hover .illustration {
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
-  transform: scale(1.04);
-}
 
 /* Soft glow circle behind the emoji */
 .illustration::before {
@@ -175,9 +154,6 @@
   transition: transform var(--dur-md, 0.24s) var(--ease-spring, cubic-bezier(0.22, 1, 0.36, 1));
 }
 
-.card:hover .mainEmoji {
-  transform: scale(1.08) rotate(3deg);
-}
 
 /* Floating accent decorations */
 .deco1,
@@ -208,5 +184,36 @@
 
   .illustration {
     width: clamp(56px, 18vw, 80px);
+  }
+}
+
+/* ── Hover effects — pointer devices only (not touch) ───── */
+@media (hover: hover) {
+  .card:hover {
+    box-shadow:
+      0 8px 28px rgba(0, 0, 0, 0.12),
+      0 3px 8px  rgba(0, 0, 0, 0.07);
+    transform: translateY(-3px);
+    border-color: var(--tc);
+  }
+
+  .card:hover::after {
+    right: 120%;
+  }
+
+  .card:hover .rule {
+    width: 2.8rem;
+    opacity: 0.92;
+  }
+
+  .card:hover .illustration {
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.16),
+      inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    transform: scale(1.04);
+  }
+
+  .card:hover .mainEmoji {
+    transform: scale(1.08) rotate(3deg);
   }
 }

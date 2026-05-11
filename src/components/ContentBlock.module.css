@@ -92,12 +92,16 @@
     max-width: 100%;
   }
 
+  .body {
+    line-height: 1.72;
+  }
+
   .highlight {
-    padding: var(--sp-3) var(--sp-4) var(--sp-3) var(--sp-5);
+    padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-4);
     font-size: var(--t-sm);
   }
 
-  .body {
-    line-height: 1.85;
+  .quote {
+    padding: var(--sp-3) var(--sp-2);
   }
 }
