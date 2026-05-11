@@ -249,7 +249,9 @@
   transition:      transform 0.13s ease, opacity 0.13s ease;
 }
 
-.playBtn:hover  { transform: scale(1.10); opacity: 0.87; }
+@media (hover: hover) {
+  .playBtn:hover { transform: scale(1.10); opacity: 0.87; }
+}
 .playBtn:active { transform: scale(0.93); }
 
 /* ── Track area ──────────────────────────────────────────── */
@@ -290,7 +292,9 @@
   transition:         transform 0.12s;
 }
 
-.seekBar::-webkit-slider-thumb:hover { transform: scale(1.30); }
+@media (hover: hover) {
+  .seekBar::-webkit-slider-thumb:hover { transform: scale(1.30); }
+}
 
 .seekBar::-moz-range-thumb {
   width:        13px;

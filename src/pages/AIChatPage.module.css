@@ -128,13 +128,21 @@
   font-weight: 400;
 }
 
-.chip:hover,
 .chip:focus-visible {
   background: rgba(210, 175, 240, 0.38);
   border-color: rgba(165, 115, 205, 0.75);
-  transform: translateY(-2px);
   box-shadow: 0 3px 10px rgba(165, 115, 205, 0.20);
   outline: none;
+}
+
+@media (hover: hover) {
+  .chip:hover {
+    background: rgba(210, 175, 240, 0.38);
+    border-color: rgba(165, 115, 205, 0.75);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(165, 115, 205, 0.20);
+    outline: none;
+  }
 }
 
 .chip:active {
@@ -344,12 +352,14 @@
     0 1px 4px  rgba(150, 100, 210, 0.18);
 }
 
-.sendBtn:hover:not(:disabled) {
-  opacity: 0.92;
-  transform: scale(1.07) translateY(-1px);
-  box-shadow:
-    0 5px 18px rgba(150, 100, 210, 0.45),
-    0 2px 6px  rgba(150, 100, 210, 0.22);
+@media (hover: hover) {
+  .sendBtn:hover:not(:disabled) {
+    opacity: 0.92;
+    transform: scale(1.07) translateY(-1px);
+    box-shadow:
+      0 5px 18px rgba(150, 100, 210, 0.45),
+      0 2px 6px  rgba(150, 100, 210, 0.22);
+  }
 }
 
 .sendBtn:active:not(:disabled) {

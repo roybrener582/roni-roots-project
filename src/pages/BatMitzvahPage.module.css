@@ -210,7 +210,8 @@
     line-height: 1.95;
   }
 
-  .iconParty { opacity: 0.30; }
-  .iconHeart { opacity: 0.26; }
-  .iconGlobe { opacity: 0.22; }
+  .iconParty    { opacity: 0.30; }
+  .iconHeart    { opacity: 0.26; }
+  .iconGlobe    { opacity: 0.22; }
+  .sectionLabel { font-size: 0.72rem; }
 }

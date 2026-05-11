@@ -226,4 +226,7 @@
   .qaRow     { grid-template-columns: 1fr; }
   .answer    { font-size: clamp(0.82rem, 3.5vw, 0.94rem); }
   .imageFrame { height: clamp(160px, 42vw, 240px); }
+  .locationTag  { font-size: 0.72rem; }
+  .question     { font-size: 0.72rem; }
+  .imageCaption { font-size: 0.70rem; }
 }

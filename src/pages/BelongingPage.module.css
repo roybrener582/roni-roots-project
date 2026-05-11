@@ -138,9 +138,11 @@
   animation: ringIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.ring:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .ring:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    transform: translateY(-1px);
+  }
 }
 
 @keyframes ringIn {

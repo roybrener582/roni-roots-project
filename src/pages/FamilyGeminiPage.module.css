@@ -337,7 +337,8 @@
     line-height: 1.70;
   }
 
-  .iconFamily { opacity: 0.22; }
-  .iconMom    { opacity: 0.20; }
-  .iconGrowth { opacity: 0.20; }
+  .iconFamily   { opacity: 0.22; }
+  .iconMom      { opacity: 0.20; }
+  .iconGrowth   { opacity: 0.20; }
+  .sectionLabel { font-size: 0.72rem; }
 }

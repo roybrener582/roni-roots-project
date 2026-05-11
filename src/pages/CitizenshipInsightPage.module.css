@@ -210,7 +210,8 @@
     line-height: 2.05;
   }
 
-  .iconFlag  { opacity: 0.28; }
-  .iconHands { opacity: 0.22; }
-  .iconLeaf  { opacity: 0.24; }
+  .iconFlag     { opacity: 0.28; }
+  .iconHands    { opacity: 0.22; }
+  .iconLeaf     { opacity: 0.24; }
+  .sectionLabel { font-size: 0.72rem; }
 }

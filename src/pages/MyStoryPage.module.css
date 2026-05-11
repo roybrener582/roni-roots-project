@@ -72,9 +72,11 @@
   transition:        box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.section:hover {
-  box-shadow: 0 3px 14px rgba(0, 0, 0, 0.055);
-  transform:  translateY(-1px);
+@media (hover: hover) {
+  .section:hover {
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.055);
+    transform:  translateY(-1px);
+  }
 }
 
 @keyframes sectionEnter {

@@ -36,9 +36,11 @@
   cursor: default;
   transition: transform 0.18s ease, z-index 0s;
 }
-.node:hover {
-  transform: translateX(-50%) scale(1.08);
-  z-index: 10;
+@media (hover: hover) {
+  .node:hover {
+    transform: translateX(-50%) scale(1.08);
+    z-index: 10;
+  }
 }
 
 /* ── Photo ring ─────────────────────────────────────────────── */

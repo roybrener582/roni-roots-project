@@ -226,4 +226,5 @@
   .iconHeart { opacity: 0.22; }
   .iconHands { opacity: 0.18; }
   .iconStar  { opacity: 0.20; }
+  .qLabel    { font-size: 0.70rem; }
 }

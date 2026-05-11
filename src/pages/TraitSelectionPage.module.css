@@ -31,9 +31,11 @@
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.block:hover {
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
-  transform:  translateY(-1px);
+@media (hover: hover) {
+  .block:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.07);
+    transform:  translateY(-1px);
+  }
 }
 
 @keyframes blockIn {

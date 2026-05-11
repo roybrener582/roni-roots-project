@@ -188,4 +188,5 @@
   .iconMap   { opacity: 0.22; }
   .iconHands { opacity: 0.18; }
   .iconLeaf  { opacity: 0.20; }
+  .qLabel    { font-size: 0.70rem; }
 }

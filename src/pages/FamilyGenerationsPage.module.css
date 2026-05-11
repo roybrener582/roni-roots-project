@@ -151,12 +151,14 @@
   transition: transform 0.20s ease, box-shadow 0.20s ease;
 }
 
-.card:hover {
-  transform:  translateY(-3px);
-  box-shadow:
-    0 3px 10px rgba(0, 0, 0, 0.08),
-    0 6px 18px rgba(0, 0, 0, 0.055),
-    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+@media (hover: hover) {
+  .card:hover {
+    transform:  translateY(-3px);
+    box-shadow:
+      0 3px 10px rgba(0, 0, 0, 0.08),
+      0 6px 18px rgba(0, 0, 0, 0.055),
+      inset 0 1px 0 rgba(255, 255, 255, 0.76);
+  }
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -340,6 +342,10 @@
       clamp(0.1rem, 0.4vh, 0.3rem)
       clamp(0.35rem, 2.8vw, 0.7rem);
   }
+
+  .genLabel  { font-size: 0.74rem; }
+  .meBadge   { font-size: 0.70rem; }
+  .relation  { font-size: 0.70rem; }
 
   .tree  { width: 100%; }
 

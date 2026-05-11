@@ -203,11 +203,13 @@
   will-change: transform;
 }
 
-.card:hover .frame {
-  box-shadow:
-    0 8px 28px rgba(192, 136, 136, 0.22),
-    0 3px 10px rgba(0, 0, 0, 0.09);
-  transform: translateY(-4px) scale(1.028);
+@media (hover: hover) {
+  .card:hover .frame {
+    box-shadow:
+      0 8px 28px rgba(192, 136, 136, 0.22),
+      0 3px 10px rgba(0, 0, 0, 0.09);
+    transform: translateY(-4px) scale(1.028);
+  }
 }
 
 /* Life frame — warm gold glow that breathes */
@@ -220,12 +222,14 @@
   animation: lifeGlow 5s ease-in-out infinite alternate;
 }
 
-.cardLife:hover .frameLife {
-  box-shadow:
-    0 8px 28px rgba(196, 169, 110, 0.26),
-    0 3px 10px rgba(0, 0, 0, 0.09);
-  transform: translateY(-4px) scale(1.028);
-  animation-play-state: paused;
+@media (hover: hover) {
+  .cardLife:hover .frameLife {
+    box-shadow:
+      0 8px 28px rgba(196, 169, 110, 0.26),
+      0 3px 10px rgba(0, 0, 0, 0.09);
+    transform: translateY(-4px) scale(1.028);
+    animation-play-state: paused;
+  }
 }
 
 @keyframes lifeGlow {
@@ -272,9 +276,11 @@
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.arrow:hover {
-  opacity: 0.95;
-  transform: scaleX(1.15);
+@media (hover: hover) {
+  .arrow:hover {
+    opacity: 0.95;
+    transform: scaleX(1.15);
+  }
 }
 
 .arrow svg {
