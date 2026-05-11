@@ -139,6 +139,41 @@
   background: var(--c-paper);
 }
 
+/* ── Desktop: footer printed on the paper ── */
+@media (min-width: 769px) {
+  /* Push scrollable content up so it clears the footer */
+  .page {
+    padding-bottom: 3.5rem;
+  }
+
+  /* Absolute inside .wrapper (position:relative) → overlays the paper bottom */
+  .pageNumber {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding-top: 0.45rem;
+    padding-bottom: 0.60rem;
+    background: var(--c-paper);
+    border-radius: 0 0 var(--r-md) 2px; /* match .page bottom corners */
+  }
+
+  .pageNumber::before {
+    content: '✦   ✦   ✦';
+    font-size: var(--t-xs);
+    letter-spacing: 0.40rem;
+    color: var(--c-spine-hi);
+    opacity: 0.50;
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
 /* ── Mobile: contained scroll, lighter shadow ───────────── */
 @media (max-width: 768px) {
   .page {
@@ -154,6 +189,8 @@
       0 0 0 1px rgba(139, 105, 20, 0.05),
       3px 0 14px rgba(0, 0, 0, 0.14),
       -1px 0 4px rgba(0, 0, 0, 0.05);
+    /* Extra bottom padding so content clears the fixed footer */
+    padding-bottom: calc(3.2rem + env(safe-area-inset-bottom, 0px));
   }
 
   .page::-webkit-scrollbar { display: none; }
@@ -162,8 +199,31 @@
   .wrapper::before,
   .wrapper::after  { display: none; }
 
+  /* ── Fixed footer: ornament above, page number below ─── */
   .pageNumber {
-    padding-bottom: calc(var(--sp-2) + env(safe-area-inset-bottom, 0px));
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.18rem;
+    padding-top: 0.42rem;
+    padding-bottom: calc(0.42rem + env(safe-area-inset-bottom, 0px));
+    background: var(--c-paper);
+    border-top: 1px solid rgba(139, 105, 20, 0.10);
+  }
+
+  .pageNumber::before {
+    content: '✦   ✦   ✦';
+    font-size: var(--t-xs);
+    letter-spacing: 0.40rem;
+    color: var(--c-spine-hi);
+    opacity: 0.50;
+    user-select: none;
+    pointer-events: none;
   }
 }
 

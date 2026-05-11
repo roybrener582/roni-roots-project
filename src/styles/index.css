@@ -119,6 +119,14 @@ body {
   min-height: 100svh;
 }
 
+/* ── Mobile scroll: let the document scroll naturally ──── */
+@media (max-width: 767px) {
+  html, body {
+    height: auto;
+    min-height: 100%;
+  }
+}
+
 /* ── Mobile token overrides (≤ 768px) ─────────────────── */
 @media (max-width: 768px) {
   :root {

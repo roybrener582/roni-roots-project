@@ -168,6 +168,15 @@
 }
 
 /* ══════════════════════════════════════════════════════════
+   DESKTOP ≥ 769px — footer ornament is owned by BookPage
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 769px) {
+  .footer {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
    MOBILE  ≤ 768px — tighter header, smaller title, less gap
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
@@ -210,9 +219,9 @@
     padding-bottom: 0.12rem;
   }
 
+  /* Hidden on mobile — the fixed footer in BookPage shows ornament + page number */
   .footer {
-    padding-bottom: 0.20rem;
-    letter-spacing: 0.40rem;
+    display: none;
   }
 
   .header::after {
@@ -277,8 +286,7 @@
   }
 
   .footer {
-    padding-bottom: 0.18rem;
-    letter-spacing: 0.38rem;
+    display: none;
   }
 
   .header::after {
