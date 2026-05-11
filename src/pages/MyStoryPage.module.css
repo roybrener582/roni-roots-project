@@ -16,17 +16,17 @@
 /* ── Image column (right side in RTL) ───────────────────── */
 .imageCol {
   flex:            0 0 auto;
-  width:           clamp(170px, 38%, 270px);
+  width:           clamp(170px, 38%, 300px);
   display:         flex;
-  align-items:     center;
-  justify-content: center;
+  align-items:     stretch;
+  justify-content: stretch;
   overflow:        hidden;
   border-radius:   var(--r-xl);
 }
 
 .imageFrame {
   width:         100%;
-  aspect-ratio:  4 / 5;
+  height:        100%;
   margin:        0;
   overflow:      hidden;
   border-radius: var(--r-xl);
