@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Header Design Options</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #1a1410;
+    color: #e8dcc8;
+    min-height: 100vh;
+    padding: 32px 20px 48px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #e8dcc8;
+    margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 0.875rem;
+    color: #9c8a78;
+    margin-bottom: 36px;
+  }
+
+  .phones {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .phone-wrap:hover { transform: translateY(-3px); }
+  .phone-wrap.selected .phone-frame { outline: 3px solid #c4a96e; outline-offset: 4px; }
+  .phone-wrap.selected .label { color: #c4a96e; }
+
+  .phone-frame {
+    width: 200px;
+    height: 390px;
+    background: #2c1f0e;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 20px 50px rgba(0,0,0,0.6),
+      0 8px 20px rgba(0,0,0,0.4),
+      inset 0 0 0 2px rgba(255,255,255,0.08);
+  }
+
+  /* ── Phone status bar ── */
+  .status-bar {
+    height: 20px;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.6);
+    flex-shrink: 0;
+    position: relative;
+    z-index: 20;
+  }
+
+  /* ── Phone content wrapper ── */
+  .phone-screen {
+    width: 100%;
+    height: calc(100% - 20px);
+    background: linear-gradient(148deg, #ead6a6 0%, #d4bc7e 38%, #bfa050 72%, #a8833c 100%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* The leather book cover area (outer container) */
+  .book-cover {
+    flex: 1;
+    margin: 8px 8px 8px 8px;
+    background: linear-gradient(162deg, #5a3a10 0%, #3b2408 52%, #2e1c06 100%);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ── Page surface ── */
+  .page-surface {
+    flex: 1;
+    background: #faf7f0;
+    background-image:
+      repeating-linear-gradient(transparent 0, transparent 18px, rgba(139,105,20,0.03) 18px, rgba(139,105,20,0.03) 19px),
+      linear-gradient(to bottom, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.1) 20%, transparent 50%);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Page content below header */
+  .page-content {
+    flex: 1;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+  }
+
+  .content-line {
+    height: 8px;
+    background: rgba(44, 31, 14, 0.10);
+    border-radius: 3px;
+  }
+  .content-line.w80 { width: 80%; }
+  .content-line.w60 { width: 60%; }
+  .content-line.w90 { width: 90%; }
+  .content-line.w70 { width: 70%; }
+  .content-line.w50 { width: 50%; }
+
+  .content-block {
+    height: 52px;
+    background: rgba(196, 169, 110, 0.08);
+    border: 1px solid rgba(196, 169, 110, 0.18);
+    border-radius: 6px;
+  }
+
+  /* ───────────────────────────────────────────────
+     OPTION A — Current state (the problem)
+  ─────────────────────────────────────────────── */
+  .header-current {
+    position: relative;
+    z-index: 5;
+    background: #faf7f0;
+    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
+    padding: 10px 52px 8px 14px; /* right padding reserves space for burger */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .header-current .ornament {
+    font-size: 0.45rem;
+    letter-spacing: 0.3rem;
+    color: #c4a96e;
+    opacity: 0.5;
+  }
+  .header-current .title {
+    font-family: Georgia, serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #2c1f0e;
+    text-align: center;
+  }
+  .header-current .divider {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(to left, transparent, #c4a96e, transparent);
+    opacity: 0.4;
+    margin-top: 2px;
+  }
+
+  /* Floating dark leather hamburger over the header */
+  .hamburger-floating {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 20;
+    width: 34px;
+    height: 34px;
+    background: rgba(36, 20, 5, 0.80);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(196, 169, 110, 0.48);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.35);
+  }
+  .hamburger-floating .bar {
+    width: 13px;
+    height: 1.5px;
+    background: rgba(210, 182, 118, 0.92);
+    border-radius: 1px;
+  }
+  .hamburger-floating .bar:nth-child(2) { width: 10px; opacity: 0.7; }
+
+  /* ───────────────────────────────────────────────
+     OPTION B — Warm Paper Bar (CSS only)
+  ─────────────────────────────────────────────── */
+  .header-paper {
+    position: relative;
+    z-index: 5;
+    background: #faf7f0;
+    border-bottom: 1px solid rgba(196, 169, 110, 0.22);
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+    flex-shrink: 0;
+  }
+  .header-paper .title {
+    font-family: Georgia, serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #2c1f0e;
+    text-align: center;
+    line-height: 1.3;
+  }
+  /* Paper-style hamburger embedded in bar */
+  .hamburger-paper {
+    position: absolute;
+    top: 50%;
+    right: 9px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    background: #faf7f0;
+    border: 1px solid rgba(196, 169, 110, 0.38);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-shadow: 0 1px 4px rgba(44, 31, 14, 0.10);
+  }
+  .hamburger-paper .bar {
+    width: 13px;
+    height: 1.5px;
+    background: rgba(139, 105, 20, 0.72);
+    border-radius: 1px;
+  }
+  .hamburger-paper .bar:nth-child(2) { width: 10px; opacity: 0.65; }
+
+  /* ───────────────────────────────────────────────
+     OPTION C — Gold-Accented Bar (slightly richer)
+  ─────────────────────────────────────────────── */
+  .header-gold {
+    position: relative;
+    z-index: 5;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.55) 0%, #faf7f0 100%);
+    border-bottom: 2px solid rgba(196, 169, 110, 0.42);
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px;
+    flex-shrink: 0;
+  }
+  .header-gold .title-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+  }
+  .header-gold .chapter-label {
+    font-family: -apple-system, sans-serif;
+    font-size: 0.44rem;
+    letter-spacing: 0.22em;
+    color: #c4a96e;
+    text-transform: uppercase;
+    opacity: 0.88;
+  }
+  .header-gold .title {
+    font-family: Georgia, serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #2c1f0e;
+    text-align: center;
+    line-height: 1.3;
+  }
+  /* Gold-accent hamburger */
+  .hamburger-gold {
+    position: absolute;
+    top: 50%;
+    right: 9px;
+    transform: translateY(-50%);
+    width: 34px;
+    height: 34px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    background-color: #f5edda;
+    border: 1px solid rgba(196, 169, 110, 0.55);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    box-shadow:
+      0 1px 4px rgba(44, 31, 14, 0.08),
+      inset 0 1px 0 rgba(255,255,255,0.6);
+  }
+  .hamburger-gold .bar {
+    width: 13px;
+    height: 1.5px;
+    background: #8b6914;
+    border-radius: 1px;
+    opacity: 0.85;
+  }
+  .hamburger-gold .bar:nth-child(2) { width: 10px; opacity: 0.6; }
+
+  /* ── Labels and descriptions ── */
+  .label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #c4a96e;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  .desc {
+    font-size: 0.78rem;
+    color: #8a7866;
+    text-align: center;
+    max-width: 190px;
+    line-height: 1.55;
+  }
+
+  .badge-problem {
+    display: inline-block;
+    font-size: 0.64rem;
+    background: rgba(180, 60, 40, 0.18);
+    color: #c4714a;
+    border: 1px solid rgba(180, 60, 40, 0.30);
+    border-radius: 20px;
+    padding: 2px 8px;
+    margin-bottom: 4px;
+  }
+  .badge-option {
+    display: inline-block;
+    font-size: 0.64rem;
+    background: rgba(196, 169, 110, 0.14);
+    color: #a08840;
+    border: 1px solid rgba(196, 169, 110, 0.30);
+    border-radius: 20px;
+    padding: 2px 8px;
+    margin-bottom: 4px;
+  }
+
+  /* Bottom nav bar (shared) */
+  .nav-bar {
+    height: 32px;
+    background: rgba(0,0,0,0.22);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(196,169,110,0.15);
+  }
+  .nav-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(196, 169, 110, 0.40);
+  }
+  .nav-dot.active {
+    background: rgba(196, 169, 110, 0.85);
+    width: 16px;
+    border-radius: 3px;
+  }
+
+  /* Spine accent */
+  .spine {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #e0c87a 0%, #c4a96e 20%, #8b6914 42%, #5a3a10 68%, #8b6914 100%);
+    opacity: 0.7;
+  }
+</style>
+<script>
+  function selectPhone(el) {
+    document.querySelectorAll('.phone-wrap').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    const choice = el.dataset.choice;
+    // Send event
+    if (window.sendEvent) window.sendEvent({ type: 'click', choice, text: el.querySelector('.label')?.textContent?.trim() });
+  }
+</script>
+</head>
+<body>
+<h1>Mobile Header Design</h1>
+<p class="subtitle">Three directions — click to select your preference</p>
+
+<div class="phones">
+
+  <!-- ── CURRENT STATE ── -->
+  <div class="phone-wrap" data-choice="current" onclick="selectPhone(this)">
+    <div class="phone-frame">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>●●●</span>
+      </div>
+      <div class="phone-screen">
+        <div class="book-cover">
+          <div class="page-surface">
+            <!-- Floating dark hamburger OVER the header — the problem -->
+            <div style="position:relative">
+              <div class="header-current">
+                <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+                <div class="title">ספר השורשים שלי</div>
+                <div class="divider"></div>
+              </div>
+              <div class="hamburger-floating">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+            </div>
+            <div class="page-content">
+              <div class="content-line w80"></div>
+              <div class="content-line w60"></div>
+              <div class="content-block"></div>
+              <div class="content-line w90"></div>
+              <div class="content-line w70"></div>
+              <div class="content-line w50"></div>
+            </div>
+          </div>
+          <div class="spine"></div>
+          <div class="nav-bar">
+            <div class="nav-dot"></div>
+            <div class="nav-dot active"></div>
+            <div class="nav-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="badge-problem">Current state</span>
+    <div class="label">Floating / Disconnected</div>
+    <div class="desc">Dark leather button floats over the cream header — two separate visual systems</div>
+  </div>
+
+  <!-- ── OPTION B: WARM PAPER BAR ── -->
+  <div class="phone-wrap" data-choice="B" onclick="selectPhone(this)">
+    <div class="phone-frame">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>●●●</span>
+      </div>
+      <div class="phone-screen">
+        <div class="book-cover">
+          <div class="page-surface">
+            <div class="header-paper">
+              <div class="title">ספר השורשים שלי</div>
+              <div class="hamburger-paper">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+            </div>
+            <div class="page-content">
+              <div class="content-line w80"></div>
+              <div class="content-line w60"></div>
+              <div class="content-block"></div>
+              <div class="content-line w90"></div>
+              <div class="content-line w70"></div>
+              <div class="content-line w50"></div>
+            </div>
+          </div>
+          <div class="spine"></div>
+          <div class="nav-bar">
+            <div class="nav-dot"></div>
+            <div class="nav-dot active"></div>
+            <div class="nav-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="badge-option">Option A</span>
+    <div class="label">Warm Paper Bar</div>
+    <div class="desc">Hamburger matches the page surface — one cohesive bar, minimal and clean</div>
+  </div>
+
+  <!-- ── OPTION C: GOLD-ACCENTED BAR ── -->
+  <div class="phone-wrap" data-choice="C" onclick="selectPhone(this)">
+    <div class="phone-frame">
+      <div class="status-bar">
+        <span>9:41</span>
+        <span>●●●</span>
+      </div>
+      <div class="phone-screen">
+        <div class="book-cover">
+          <div class="page-surface">
+            <div class="header-gold">
+              <div class="title-row">
+                <div class="chapter-label">פרק א׳</div>
+                <div class="title">ספר השורשים שלי</div>
+              </div>
+              <div class="hamburger-gold">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+              </div>
+            </div>
+            <div class="page-content">
+              <div class="content-line w80"></div>
+              <div class="content-line w60"></div>
+              <div class="content-block"></div>
+              <div class="content-line w90"></div>
+              <div class="content-line w70"></div>
+              <div class="content-line w50"></div>
+            </div>
+          </div>
+          <div class="spine"></div>
+          <div class="nav-bar">
+            <div class="nav-dot"></div>
+            <div class="nav-dot active"></div>
+            <div class="nav-dot"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="badge-option">Option B</span>
+    <div class="label">Gold-Accented Bar</div>
+    <div class="desc">Subtle gold bottom border, chapter label above title — richer, more "book-reader" feel</div>
+  </div>
+
+</div>
+
+<script>
+// Wire up sendEvent for selection tracking
+window.sendEvent = function(data) {
+  fetch('/event', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  }).catch(() => {});
+};
+</script>
+</body>
+</html>

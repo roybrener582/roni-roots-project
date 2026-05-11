@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Header — New Directions</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #14100c;
+    color: #e8dcc8;
+    min-height: 100vh;
+    padding: 32px 20px 56px;
+  }
+
+  h1 { text-align: center; font-size: 1.2rem; font-weight: 600; color: #e8dcc8; margin-bottom: 6px; }
+  .subtitle { text-align: center; font-size: 0.84rem; color: #9c8a78; margin-bottom: 40px; line-height: 1.6; }
+
+  .phones {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .phone-wrap:hover { transform: translateY(-4px); }
+  .phone-wrap.selected .frame { outline: 3px solid #c4a96e; outline-offset: 5px; }
+  .phone-wrap.selected .pname { color: #c4a96e; }
+
+  .frame {
+    width: 200px;
+    height: 420px;
+    border-radius: 30px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.70), inset 0 0 0 2px rgba(255,255,255,0.06);
+    background: #1a0f05;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Status bar */
+  .sbar {
+    height: 22px;
+    background: rgba(0,0,0,0.5);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 14px;
+    font-size: 0.5rem; color: rgba(255,255,255,0.5);
+    flex-shrink: 0;
+    position: relative; z-index: 20;
+  }
+
+  /* Shared nav pill at bottom */
+  .navpill {
+    height: 30px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 12px; flex-shrink: 0;
+  }
+  .ndot { width: 4px; height: 4px; border-radius: 50%; background: rgba(196,169,110,0.35); }
+  .ndot.a { width: 14px; border-radius: 2px; background: rgba(196,169,110,0.78); }
+
+  /* ── Labels ── */
+  .badge {
+    font-size: 0.62rem;
+    padding: 2px 10px; border-radius: 20px;
+    border: 1px solid rgba(196,169,110,0.30);
+    background: rgba(196,169,110,0.12); color: #a08840;
+    display: inline-block;
+  }
+  .badge.rec { background: rgba(90,160,90,0.14); color: #72a868; border-color: rgba(90,160,90,0.30); }
+  .pname { font-size: 0.9rem; font-weight: 600; color: #d0c4a8; text-align: center; }
+  .pdesc { font-size: 0.76rem; color: #8a7866; text-align: center; max-width: 192px; line-height: 1.55; }
+
+  /* ─────────────────────────────────────────
+     OPTION D — Dark leather bar
+     Bar uses the leather cover color.
+     Feels like the cover's own top strip.
+  ───────────────────────────────────────── */
+  .d-body {
+    flex: 1; display: flex; flex-direction: column; min-height: 0;
+    background: linear-gradient(148deg, #ead6a6 0%, #c4a050 100%);
+  }
+  .d-bar {
+    flex-shrink: 0;
+    height: 50px;
+    background: linear-gradient(162deg, #5a3a10 0%, #3b2408 60%, #2e1c06 100%);
+    border-bottom: 2px solid rgba(196,169,110,0.50);
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 46px;
+    position: relative;
+  }
+  .d-title {
+    font-family: Georgia, serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: #e8d8a8;
+    direction: rtl;
+    text-align: center;
+    letter-spacing: 0.01em;
+  }
+  .d-hamburger {
+    position: absolute; top: 50%; right: 9px; transform: translateY(-50%);
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(196,169,110,0.42);
+    border-radius: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px;
+  }
+  .d-hbar { width: 12px; height: 1.5px; background: rgba(210,182,118,0.88); border-radius: 1px; }
+  .d-hbar:nth-child(2) { width: 9px; opacity: 0.6; }
+  .d-cover {
+    flex: 1; min-height: 0;
+    background: linear-gradient(162deg, #5a3a10 0%, #3b2408 52%, #2e1c06 100%);
+    padding: 5px 6px 0;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .d-page {
+    flex: 1; min-height: 0;
+    background: #faf7f0;
+    background-image:
+      repeating-linear-gradient(transparent 0, transparent 16px, rgba(139,105,20,0.028) 16px, rgba(139,105,20,0.028) 17px);
+    border-radius: 2px 6px 0 2px;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .d-spine {
+    position: absolute; top: 0; right: 0; width: 4px; height: 100%;
+    background: linear-gradient(to bottom, #e0c87a 0%, #c4a96e 20%, #8b6914 42%, #5a3a10 68%, #8b6914 100%);
+    opacity: 0.7;
+  }
+  .d-nav {
+    background: rgba(0,0,0,0.22);
+    border-top: 1px solid rgba(196,169,110,0.12);
+  }
+
+  /* ─────────────────────────────────────────
+     OPTION E — Full cream page, bar = top of page
+     Page fills entire screen, bar is just
+     the top portion of the page surface.
+  ───────────────────────────────────────── */
+  .e-body {
+    flex: 1; display: flex; flex-direction: column; min-height: 0;
+    background: #faf7f0;  /* page color fills everything */
+    background-image:
+      repeating-linear-gradient(transparent 0, transparent 16px, rgba(139,105,20,0.028) 16px, rgba(139,105,20,0.028) 17px),
+      linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, transparent 30%);
+  }
+  .e-bar {
+    flex-shrink: 0;
+    height: 50px;
+    background: #faf7f0;
+    border-bottom: 2px solid rgba(196,169,110,0.40);
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 46px;
+    position: relative;
+  }
+  .e-title {
+    font-family: Georgia, serif;
+    font-size: 0.66rem; font-weight: 700;
+    color: #2c1f0e;
+    direction: rtl; text-align: center;
+  }
+  .e-hamburger {
+    position: absolute; top: 50%; right: 9px; transform: translateY(-50%);
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.0);
+    border: 1px solid rgba(196,169,110,0.38);
+    border-radius: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px;
+  }
+  .e-hbar { width: 12px; height: 1.5px; background: rgba(139,105,20,0.75); border-radius: 1px; }
+  .e-hbar:nth-child(2) { width: 9px; opacity: 0.55; }
+  .e-content { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 10px 12px 6px; gap: 7px; overflow: hidden; }
+  .e-nav { background: rgba(196,169,110,0.08); border-top: 1px solid rgba(196,169,110,0.18); }
+
+  /* ─────────────────────────────────────────
+     OPTION F — Warm parchment bar (bridge)
+     Bar uses a warm parchment tone sitting
+     between the amber shell and the page.
+  ───────────────────────────────────────── */
+  .f-body {
+    flex: 1; display: flex; flex-direction: column; min-height: 0;
+    background: linear-gradient(148deg, #ead6a6 0%, #c4a050 100%);
+  }
+  .f-bar {
+    flex-shrink: 0;
+    height: 50px;
+    background: linear-gradient(to bottom, #f5ecda 0%, #ede0c4 100%);
+    border-bottom: 2px solid rgba(196,169,110,0.45);
+    box-shadow: 0 2px 10px rgba(44,31,14,0.10);
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 46px;
+    position: relative;
+  }
+  .f-title {
+    font-family: Georgia, serif;
+    font-size: 0.66rem; font-weight: 700;
+    color: #2c1f0e;
+    direction: rtl; text-align: center;
+  }
+  .f-hamburger {
+    position: absolute; top: 50%; right: 9px; transform: translateY(-50%);
+    width: 32px; height: 32px;
+    background: rgba(255,255,255,0.30);
+    border: 1px solid rgba(196,169,110,0.48);
+    border-radius: 8px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+  }
+  .f-hbar { width: 12px; height: 1.5px; background: rgba(100,74,20,0.80); border-radius: 1px; }
+  .f-hbar:nth-child(2) { width: 9px; opacity: 0.58; }
+  .f-cover {
+    flex: 1; min-height: 0;
+    background: linear-gradient(162deg, #5a3a10 0%, #3b2408 52%, #2e1c06 100%);
+    padding: 6px 6px 0;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+  }
+  .f-page {
+    flex: 1; min-height: 0;
+    background: #faf7f0;
+    background-image: repeating-linear-gradient(transparent 0, transparent 16px, rgba(139,105,20,0.028) 16px, rgba(139,105,20,0.028) 17px);
+    border-radius: 2px 6px 0 2px;
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+  .f-spine {
+    position: absolute; top: 0; right: 0; width: 4px; height: 100%;
+    background: linear-gradient(to bottom, #e0c87a 0%, #c4a96e 20%, #8b6914 42%, #5a3a10 68%, #8b6914 100%);
+    opacity: 0.7;
+  }
+  .f-nav { background: rgba(0,0,0,0.20); border-top: 1px solid rgba(196,169,110,0.12); }
+
+  /* ─── Shared book header (inside page) ─── */
+  .book-hdr {
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 9px 10px 5px; flex-shrink: 0;
+  }
+  .orn { font-size: 0.40rem; letter-spacing: 0.26rem; color: #c4a96e; opacity: 0.5; direction: ltr; }
+  .ch-lbl { font-size: 0.42rem; letter-spacing: 0.2em; color: #c4a96e; text-transform: uppercase; direction: rtl; opacity: 0.85; }
+  .pg-title { font-family: Georgia, serif; font-size: 0.70rem; font-weight: 700; color: #2c1f0e; direction: rtl; text-align: center; line-height: 1.3; }
+  .pg-sub { font-size: 0.42rem; color: #5c4a3a; font-style: italic; opacity: 0.78; direction: rtl; text-align: center; }
+  .div-ln { width: 34px; height: 1px; background: linear-gradient(to left, transparent, #c4a96e, transparent); opacity: 0.36; margin-top: 2px; }
+
+  .clines { padding: 6px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; overflow: hidden; }
+  .cl { height: 6px; background: rgba(44,31,14,0.09); border-radius: 2px; }
+  .cl.w80 { width: 80%; } .cl.w60 { width: 60%; } .cl.w90 { width: 90%; } .cl.w70 { width: 70%; }
+  .cblk { height: 40px; background: rgba(196,169,110,0.07); border: 1px solid rgba(196,169,110,0.15); border-radius: 5px; }
+</style>
+<script>
+  function sel(el) {
+    document.querySelectorAll('.phone-wrap').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    const c = el.dataset.choice;
+    if (window.fetch) fetch('/event', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({type:'click', choice:c, text: el.querySelector('.pname')?.textContent?.trim()}) }).catch(()=>{});
+  }
+</script>
+</head>
+<body>
+
+<h1>Three new directions</h1>
+<p class="subtitle">Different materials / relationships — click what feels right</p>
+
+<div class="phones">
+
+  <!-- ── D: Dark leather bar ── -->
+  <div class="phone-wrap" data-choice="D" onclick="sel(this)">
+    <div class="frame">
+      <div class="sbar"><span>9:41</span><span>●●●</span></div>
+      <div class="d-body">
+        <div class="d-bar">
+          <div class="d-title">עבודת השורשים של רוני</div>
+          <div class="d-hamburger">
+            <div class="d-hbar"></div><div class="d-hbar"></div><div class="d-hbar"></div>
+          </div>
+        </div>
+        <div class="d-cover">
+          <div class="d-page">
+            <div class="book-hdr">
+              <div class="orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+              <div class="ch-lbl">פרק א׳</div>
+              <div class="pg-title">ספר השורשים שלי</div>
+              <div class="pg-sub">הסיפור שלי, השורשים שלי</div>
+              <div class="div-ln"></div>
+            </div>
+            <div class="clines">
+              <div class="cl w80"></div><div class="cl w60"></div>
+              <div class="cblk"></div>
+              <div class="cl w90"></div><div class="cl w70"></div>
+            </div>
+          </div>
+          <div class="d-spine"></div>
+          <div class="navpill d-nav"><div class="ndot"></div><div class="ndot a"></div><div class="ndot"></div></div>
+        </div>
+      </div>
+    </div>
+    <span class="badge">Option D</span>
+    <div class="pname">Dark Leather Bar</div>
+    <div class="pdesc">Bar uses the cover's dark leather tone — gold title, gold-ringed hamburger. Bar feels like the book cover's own header.</div>
+  </div>
+
+  <!-- ── E: Full cream page ── -->
+  <div class="phone-wrap" data-choice="E" onclick="sel(this)">
+    <div class="frame">
+      <div class="sbar"><span>9:41</span><span>●●●</span></div>
+      <div class="e-body">
+        <div class="e-bar">
+          <div class="e-title">עבודת השורשים של רוני</div>
+          <div class="e-hamburger">
+            <div class="e-hbar"></div><div class="e-hbar"></div><div class="e-hbar"></div>
+          </div>
+        </div>
+        <div class="e-content">
+          <div class="book-hdr" style="padding:8px 0 4px">
+            <div class="orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+            <div class="ch-lbl">פרק א׳</div>
+            <div class="pg-title">ספר השורשים שלי</div>
+            <div class="pg-sub">הסיפור שלי, השורשים שלי</div>
+            <div class="div-ln"></div>
+          </div>
+          <div class="cl w80"></div><div class="cl w60"></div>
+          <div class="cblk"></div>
+          <div class="cl w90"></div><div class="cl w70"></div>
+        </div>
+        <div class="navpill e-nav"><div class="ndot" style="background:rgba(44,31,14,0.15)"></div><div class="ndot a" style="background:rgba(44,31,14,0.55);width:14px"></div><div class="ndot" style="background:rgba(44,31,14,0.15)"></div></div>
+      </div>
+    </div>
+    <span class="badge rec">Minimal</span>
+    <div class="pname">Full Cream Page</div>
+    <div class="pdesc">Page surface fills the entire screen. Bar is the top of the page — pure paper, no leather visible at all.</div>
+  </div>
+
+  <!-- ── F: Warm parchment bar ── -->
+  <div class="phone-wrap" data-choice="F" onclick="sel(this)">
+    <div class="frame">
+      <div class="sbar"><span>9:41</span><span>●●●</span></div>
+      <div class="f-body">
+        <div class="f-bar">
+          <div class="f-title">עבודת השורשים של רוני</div>
+          <div class="f-hamburger">
+            <div class="f-hbar"></div><div class="f-hbar"></div><div class="f-hbar"></div>
+          </div>
+        </div>
+        <div class="f-cover">
+          <div class="f-page">
+            <div class="book-hdr">
+              <div class="orn">✦ &nbsp; ✦ &nbsp; ✦</div>
+              <div class="ch-lbl">פרק א׳</div>
+              <div class="pg-title">ספר השורשים שלי</div>
+              <div class="pg-sub">הסיפור שלי, השורשים שלי</div>
+              <div class="div-ln"></div>
+            </div>
+            <div class="clines">
+              <div class="cl w80"></div><div class="cl w60"></div>
+              <div class="cblk"></div>
+              <div class="cl w90"></div><div class="cl w70"></div>
+            </div>
+          </div>
+          <div class="f-spine"></div>
+          <div class="navpill f-nav"><div class="ndot"></div><div class="ndot a"></div><div class="ndot"></div></div>
+        </div>
+      </div>
+    </div>
+    <span class="badge">Option F</span>
+    <div class="pname">Warm Parchment Bar</div>
+    <div class="pdesc">Bar uses a warm aged-parchment tone — between the cream page and the leather cover. Bridges both worlds.</div>
+  </div>
+
+</div>
+
+</body>
+</html>

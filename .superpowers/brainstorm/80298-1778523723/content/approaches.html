@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Implementation Approaches</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #1a1410;
+    color: #e8dcc8;
+    min-height: 100vh;
+    padding: 32px 20px 48px;
+  }
+
+  h1 { text-align: center; font-size: 1.2rem; font-weight: 600; color: #e8dcc8; margin-bottom: 6px; }
+  .subtitle { text-align: center; font-size: 0.85rem; color: #9c8a78; margin-bottom: 36px; }
+
+  .phones {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .phone-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .phone-wrap:hover { transform: translateY(-3px); }
+  .phone-wrap.selected .phone-frame { outline: 3px solid #c4a96e; outline-offset: 4px; }
+  .phone-wrap.selected .pname { color: #c4a96e; }
+
+  .phone-frame {
+    width: 195px;
+    height: 400px;
+    background: #1a0f05;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+    box-shadow:
+      0 20px 50px rgba(0,0,0,0.65),
+      inset 0 0 0 2px rgba(255,255,255,0.07);
+  }
+
+  /* ─── Status bar ─── */
+  .status {
+    height: 20px;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    font-size: 0.5rem;
+    color: rgba(255,255,255,0.55);
+    position: relative;
+    z-index: 100;
+    flex-shrink: 0;
+  }
+
+  /* ─── Overall phone content below status bar ─── */
+  .phone-body {
+    width: 100%;
+    height: calc(100% - 20px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ─── Amber shell background ─── */
+  .amber-shell {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(148deg, #ead6a6 0%, #d4bc7e 38%, #bfa050 72%, #a8833c 100%);
+  }
+
+  /* ─── Fixed App Bar ─── */
+  .app-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 48px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 44px;
+    flex-shrink: 0;
+  }
+  .app-bar-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #2c1f0e;
+    text-align: center;
+    direction: rtl;
+    line-height: 1.25;
+  }
+  .app-bar-sub {
+    font-size: 0.44rem;
+    letter-spacing: 0.2em;
+    color: #c4a96e;
+    text-transform: uppercase;
+    direction: rtl;
+    display: block;
+    margin-bottom: 1px;
+    opacity: 0.9;
+  }
+  .hamburger-in-bar {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border-radius: 7px;
+    border: 1px solid rgba(196, 169, 110, 0.45);
+  }
+  .hbar {
+    width: 12px;
+    height: 1.5px;
+    border-radius: 1px;
+    background: #8b6914;
+    opacity: 0.82;
+  }
+  .hbar:nth-child(2) { width: 9px; opacity: 0.58; }
+
+  /* ─── Scrollable area below app bar ─── */
+  .scroll-area {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ─── Leather cover ─── */
+  .leather-cover {
+    flex: 1;
+    background: linear-gradient(162deg, #5a3a10 0%, #3b2408 52%, #2e1c06 100%);
+    display: flex;
+    flex-direction: column;
+    padding: 6px 6px 0;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+  }
+  .spine {
+    position: absolute;
+    top: 0; right: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(to bottom, #e0c87a 0%, #c4a96e 20%, #8b6914 42%, #5a3a10 68%, #8b6914 100%);
+    opacity: 0.7;
+  }
+
+  /* ─── Page surface ─── */
+  .page-surface {
+    flex: 1;
+    min-height: 0;
+    background: #faf7f0;
+    background-image:
+      repeating-linear-gradient(transparent 0, transparent 16px, rgba(139,105,20,0.028) 16px, rgba(139,105,20,0.028) 17px),
+      linear-gradient(to bottom, rgba(255,255,255,0.5) 0%, transparent 40%);
+    border-radius: 2px 6px 0 2px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ─── Book header zone (scrollable content) ─── */
+  .book-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 10px 12px 6px;
+    flex-shrink: 0;
+  }
+  .ornament {
+    font-size: 0.42rem;
+    letter-spacing: 0.28rem;
+    color: #c4a96e;
+    opacity: 0.5;
+    direction: ltr;
+  }
+  .chapter-lbl {
+    font-size: 0.44rem;
+    letter-spacing: 0.22em;
+    color: #c4a96e;
+    text-transform: uppercase;
+    direction: rtl;
+    opacity: 0.85;
+  }
+  .page-title {
+    font-family: Georgia, serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #2c1f0e;
+    direction: rtl;
+    text-align: center;
+    line-height: 1.3;
+  }
+  .page-subtitle {
+    font-size: 0.44rem;
+    color: #5c4a3a;
+    font-style: italic;
+    opacity: 0.8;
+    direction: rtl;
+    text-align: center;
+  }
+  .divider-line {
+    width: 36px;
+    height: 1px;
+    background: linear-gradient(to left, transparent, #c4a96e, transparent);
+    opacity: 0.38;
+    margin-top: 2px;
+  }
+
+  /* ─── Content lines ─── */
+  .content-area {
+    flex: 1;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    overflow: hidden;
+  }
+  .cline {
+    height: 7px;
+    background: rgba(44,31,14,0.09);
+    border-radius: 2px;
+  }
+  .cline.w80 { width: 80%; }
+  .cline.w60 { width: 60%; }
+  .cline.w90 { width: 90%; }
+  .cline.w70 { width: 70%; }
+  .cblock {
+    height: 44px;
+    background: rgba(196,169,110,0.07);
+    border: 1px solid rgba(196,169,110,0.16);
+    border-radius: 5px;
+  }
+
+  /* ─── Nav bar ─── */
+  .nav-bar {
+    height: 28px;
+    background: rgba(0,0,0,0.20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-shrink: 0;
+    border-top: 1px solid rgba(196,169,110,0.12);
+  }
+  .ndot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(196,169,110,0.38);
+  }
+  .ndot.a { background: rgba(196,169,110,0.82); width: 14px; border-radius: 2px; }
+
+  /* ─── VARIANT STYLES ─── */
+
+  /* Approach A: Gap between app bar and cover (book framed in leather) */
+  .var-a .app-bar {
+    background: #faf7f0;
+    border-bottom: 2px solid rgba(196,169,110,0.42);
+  }
+  .var-a .hamburger-in-bar { background: rgba(245, 237, 218, 0.6); }
+  .var-a .scroll-area { top: 48px; }
+
+  /* Approach B: Page surface starts directly below app bar (tighter) */
+  .var-b .app-bar {
+    background: #faf7f0;
+    border-bottom: 2px solid rgba(196,169,110,0.42);
+    box-shadow: 0 1px 8px rgba(44,31,14,0.08);
+  }
+  .var-b .hamburger-in-bar { background: rgba(245, 237, 218, 0.6); }
+  .var-b .scroll-area { top: 48px; }
+  .var-b .leather-cover { padding-top: 0; }
+  .var-b .page-surface { border-radius: 0; }
+  .var-b .spine { display: none; }
+  /* No leather frame between app bar and page */
+  .var-b .leather-cover { padding: 0; }
+
+  /* Approach C: Blur/frosted glass bar (premium) */
+  .var-c .app-bar {
+    background: rgba(250, 247, 240, 0.82);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid rgba(196,169,110,0.35);
+    box-shadow: 0 2px 12px rgba(44,31,14,0.07);
+  }
+  .var-c .hamburger-in-bar { background: rgba(245, 237, 218, 0.55); }
+  .var-c .scroll-area { top: 0; padding-top: 0; }
+  .var-c .leather-cover { padding-top: 52px; }
+
+  /* ── Labels ── */
+  .pname { font-size: 0.88rem; font-weight: 600; color: #c4a96e; text-align: center; }
+  .pdesc { font-size: 0.76rem; color: #8a7866; text-align: center; max-width: 185px; line-height: 1.5; }
+  .badge {
+    display: inline-block; font-size: 0.62rem;
+    background: rgba(196,169,110,0.14); color: #a08840;
+    border: 1px solid rgba(196,169,110,0.28); border-radius: 20px;
+    padding: 2px 8px; margin-bottom: 2px;
+  }
+  .badge.rec {
+    background: rgba(100,160,100,0.15); color: #6a9a60;
+    border-color: rgba(100,160,100,0.28);
+  }
+</style>
+<script>
+  function sel(el) {
+    document.querySelectorAll('.phone-wrap').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+    const c = el.dataset.choice;
+    if (window.fetch) fetch('/event', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({type:'click', choice:c, text: el.querySelector('.pname')?.textContent?.trim()}) }).catch(()=>{});
+  }
+</script>
+</head>
+<body>
+
+<h1>How should the app bar sit relative to the page?</h1>
+<p class="subtitle">All three use the gold-accented paper bar — difference is the gap/frame between bar and book</p>
+
+<div class="phones">
+
+  <!-- ── VARIANT A: Leather frame visible ── -->
+  <div class="phone-wrap var-a" data-choice="A" onclick="sel(this)">
+    <div class="phone-frame">
+      <div class="status"><span>9:41</span><span>●●●</span></div>
+      <div class="phone-body">
+        <div class="amber-shell"></div>
+        <div class="app-bar">
+          <div>
+            <div class="app-bar-title">עבודת השורשים של רוני</div>
+          </div>
+          <div class="hamburger-in-bar">
+            <div class="hbar"></div><div class="hbar"></div><div class="hbar"></div>
+          </div>
+        </div>
+        <div class="scroll-area" style="top:48px;bottom:0">
+          <div class="leather-cover" style="padding:6px 6px 0">
+            <div class="page-surface">
+              <div class="book-header">
+                <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+                <div class="chapter-lbl">פרק א׳</div>
+                <div class="page-title">ספר השורשים שלי</div>
+                <div class="page-subtitle">הסיפור שלי, השורשים שלי</div>
+                <div class="divider-line"></div>
+              </div>
+              <div class="content-area">
+                <div class="cline w80"></div>
+                <div class="cline w60"></div>
+                <div class="cblock"></div>
+                <div class="cline w90"></div>
+                <div class="cline w70"></div>
+              </div>
+            </div>
+            <div class="spine"></div>
+            <div class="nav-bar">
+              <div class="ndot"></div><div class="ndot a"></div><div class="ndot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="badge rec">Recommended</span>
+    <div class="pname">App shell + Book frame</div>
+    <div class="pdesc">Gold bar sits above the leather cover. Small leather gap visible — book feels framed inside the app shell.</div>
+  </div>
+
+  <!-- ── VARIANT B: Page flush with bar ── -->
+  <div class="phone-wrap var-b" data-choice="B" onclick="sel(this)">
+    <div class="phone-frame">
+      <div class="status"><span>9:41</span><span>●●●</span></div>
+      <div class="phone-body">
+        <div class="amber-shell"></div>
+        <div class="app-bar">
+          <div>
+            <div class="app-bar-title">עבודת השורשים של רוני</div>
+          </div>
+          <div class="hamburger-in-bar">
+            <div class="hbar"></div><div class="hbar"></div><div class="hbar"></div>
+          </div>
+        </div>
+        <div class="scroll-area" style="top:48px;bottom:0">
+          <div class="leather-cover" style="padding:0;border-radius:0">
+            <div class="page-surface" style="border-radius:0;flex:1">
+              <div class="book-header">
+                <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+                <div class="chapter-lbl">פרק א׳</div>
+                <div class="page-title">ספר השורשים שלי</div>
+                <div class="page-subtitle">הסיפור שלי, השורשים שלי</div>
+                <div class="divider-line"></div>
+              </div>
+              <div class="content-area">
+                <div class="cline w80"></div>
+                <div class="cline w60"></div>
+                <div class="cblock"></div>
+                <div class="cline w90"></div>
+                <div class="cline w70"></div>
+              </div>
+            </div>
+            <div class="nav-bar">
+              <div class="ndot"></div><div class="ndot a"></div><div class="ndot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="badge">Option B</span>
+    <div class="pname">Page flush to bar</div>
+    <div class="pdesc">Page surface meets the bar directly. Tighter, more "reader app" style. Leather frame disappears on top.</div>
+  </div>
+
+  <!-- ── VARIANT C: Frosted glass ── -->
+  <div class="phone-wrap var-c" data-choice="C" onclick="sel(this)">
+    <div class="phone-frame">
+      <div class="status"><span>9:41</span><span>●●●</span></div>
+      <div class="phone-body">
+        <div class="amber-shell"></div>
+        <div class="scroll-area" style="top:0;bottom:0">
+          <div class="leather-cover" style="padding-top:52px;padding-left:6px;padding-right:6px">
+            <div class="page-surface" style="flex:1">
+              <div class="book-header">
+                <div class="ornament">✦ &nbsp; ✦ &nbsp; ✦</div>
+                <div class="chapter-lbl">פרק א׳</div>
+                <div class="page-title">ספר השורשים שלי</div>
+                <div class="page-subtitle">הסיפור שלי, השורשים שלי</div>
+                <div class="divider-line"></div>
+              </div>
+              <div class="content-area">
+                <div class="cline w80"></div>
+                <div class="cline w60"></div>
+                <div class="cblock"></div>
+                <div class="cline w90"></div>
+                <div class="cline w70"></div>
+              </div>
+            </div>
+            <div class="spine"></div>
+            <div class="nav-bar">
+              <div class="ndot"></div><div class="ndot a"></div><div class="ndot"></div>
+            </div>
+          </div>
+        </div>
+        <div class="app-bar var-c" style="position:absolute;top:0;left:0;right:0">
+          <div>
+            <div class="app-bar-title">עבודת השורשים של רוני</div>
+          </div>
+          <div class="hamburger-in-bar" style="background:rgba(245,237,218,0.5)">
+            <div class="hbar"></div><div class="hbar"></div><div class="hbar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="badge">Option C</span>
+    <div class="pname">Frosted glass bar</div>
+    <div class="pdesc">Bar floats over the leather cover with blur — most premium, but content scrolls under it requiring extra top padding.</div>
+  </div>
+
+</div>
+
+</body>
+</html>
