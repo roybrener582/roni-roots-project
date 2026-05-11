@@ -172,10 +172,16 @@
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   .header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--c-paper);
+    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
     gap: 0.25rem;
-    padding-top: max(70px, calc(env(safe-area-inset-top, 0px) + 62px));
+    padding-top: 0.65rem;
     padding-bottom: 0.28rem;
-    padding-right: max(68px, calc(env(safe-area-inset-right, 0px) + 60px));
+    padding-right: max(60px, calc(env(safe-area-inset-right, 0px) + 52px));
+    padding-left: 60px;
   }
 
   .ornament {
@@ -213,10 +219,17 @@
     margin-top: 0.12rem;
   }
 
-  /* Compact pages need the same hamburger clearance — higher specificity requires explicit override */
   .compact .header {
-    padding-top: max(70px, calc(env(safe-area-inset-top, 0px) + 62px));
-    padding-right: max(68px, calc(env(safe-area-inset-right, 0px) + 60px));
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--c-paper);
+    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
+    padding-top: 0.50rem;
+    padding-bottom: 0.18rem;
+    padding-right: max(60px, calc(env(safe-area-inset-right, 0px) + 52px));
+    padding-left: 60px;
+    gap: clamp(0.10rem, 0.35vh, 0.20rem);
   }
 }
 
@@ -225,10 +238,16 @@
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
   .header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--c-paper);
+    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
     gap: 0.18rem;
-    padding-top: max(70px, calc(env(safe-area-inset-top, 0px) + 62px));
+    padding-top: 0.55rem;
     padding-bottom: 0.20rem;
-    padding-right: max(68px, calc(env(safe-area-inset-right, 0px) + 60px));
+    padding-right: max(60px, calc(env(safe-area-inset-right, 0px) + 52px));
+    padding-left: 60px;
   }
 
   .ornament {
@@ -266,9 +285,16 @@
     margin-top: 0.10rem;
   }
 
-  /* Compact pages need the same hamburger clearance — higher specificity requires explicit override */
   .compact .header {
-    padding-top: max(70px, calc(env(safe-area-inset-top, 0px) + 62px));
-    padding-right: max(68px, calc(env(safe-area-inset-right, 0px) + 60px));
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--c-paper);
+    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
+    padding-top: 0.45rem;
+    padding-bottom: 0.15rem;
+    padding-right: max(60px, calc(env(safe-area-inset-right, 0px) + 52px));
+    padding-left: 60px;
+    gap: clamp(0.10rem, 0.35vh, 0.20rem);
   }
 }

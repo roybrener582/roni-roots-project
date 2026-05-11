@@ -5,8 +5,8 @@ export default function BookPage({ children, pageNumber }) {
     <div className={styles.wrapper}>
       <article className={styles.page}>
         {children}
-        {pageNumber && <span className={styles.pageNumber}>{pageNumber}</span>}
       </article>
+      {pageNumber && <span className={styles.pageNumber}>{pageNumber}</span>}
     </div>
   );
 }

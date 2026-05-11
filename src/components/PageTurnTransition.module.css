@@ -174,6 +174,7 @@
    small screen where the full 1800px depth feels flat.
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 767px) {
+  /* Snappier flip on small screens — structural layout stays same as desktop */
   .outgoingNext {
     animation-name: flipOutNextMobile;
     animation-duration: var(--flip-ms-mobile, 520ms);
