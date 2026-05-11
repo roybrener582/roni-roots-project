@@ -233,6 +233,16 @@
   background: rgba(255, 255, 255, 0.32);
 }
 
+/* ── Desktop: stretch to fill full available space ── */
+@media (min-width: 769px) {
+  .wrap {
+    width: 100%;        /* full content-area width */
+    flex: 1;            /* fill all vertical space in .main */
+    min-height: 0;      /* override the 680px base floor */
+    aspect-ratio: auto; /* release fixed ratio; canvas fills actual space */
+  }
+}
+
 /* ── Mobile ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .wrap {
