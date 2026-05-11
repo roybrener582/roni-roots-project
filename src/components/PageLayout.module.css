@@ -173,8 +173,9 @@
 @media (max-width: 768px) {
   .header {
     gap: 0.25rem;
-    padding-top: 0.50rem;
+    padding-top: max(70px, calc(env(safe-area-inset-top, 0px) + 62px));
     padding-bottom: 0.28rem;
+    padding-right: max(68px, calc(env(safe-area-inset-right, 0px) + 60px));
   }
 
   .ornament {
@@ -210,6 +211,12 @@
 
   .header::after {
     margin-top: 0.12rem;
+  }
+
+  /* Compact pages need the same hamburger clearance — higher specificity requires explicit override */
+  .compact .header {
+    padding-top: max(70px, calc(env(safe-area-inset-top, 0px) + 62px));
+    padding-right: max(68px, calc(env(safe-area-inset-right, 0px) + 60px));
   }
 }
 
