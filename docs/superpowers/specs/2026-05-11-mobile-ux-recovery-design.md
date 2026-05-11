@@ -9,6 +9,12 @@
 
 Transform the mobile experience from "desktop squeezed into a phone" to a **premium mobile digital book**: vertical, scrollable, calm, touch-friendly, with comfortable reading rhythm throughout.
 
+**Design priorities (in order):**
+1. **Readability over density** — never compress content just to reduce scrolling; comfortable reading is the goal
+2. **Preserve the emotional "digital book" feeling** — soft vertical rhythm, storytelling feel, not app-like or dashboard-like
+3. **Mobile naturalness** — vertical, scrollable, touch-friendly; layouts stack and simplify rather than squeezing
+4. **Shared consistency** — spacing scale, typography scale, card behavior, media sizing all unified globally
+
 **Hard constraints:**
 - Do not change data, text content, stories, app logic, or routing
 - Do not change desktop/web visual design — desktop must remain pixel-identical
@@ -227,6 +233,68 @@ The existing mobile stacking (column direction) is good. No structural change ne
 
 ---
 
+## Phase 2b — Media Safety (`ImageBlock`, `VideoBlock`, audio, embeds)
+
+All media elements must scale correctly inside narrow screens without overflow or giant empty regions.
+
+**Rules applied globally:**
+- Images: `max-height: clamp(180px, 38vh, 260px)` on mobile prevents any single image from consuming most of the screen
+- Videos/iframes: `width: 100%; height: auto; aspect-ratio: 16/9` — never fixed pixel widths on mobile
+- Audio players: `width: 100%` — no fixed widths; native controls scale
+- Embedded content: `max-width: 100%; overflow: hidden` on any wrapper element
+
+The `ImageBlock` component fix in Phase 2 covers the shared image frame. Per-page image elements that bypass `ImageBlock` must be audited in Phase 3.
+
+---
+
+## Phase 2c — Animation Safety
+
+Expensive CSS effects on mobile can cause jank on lower-powered devices. The book aesthetic is preserved; only performance-heavy effects are reduced.
+
+**Rules:**
+- Large `backdrop-filter: blur()` values: reduce from `18px → 12px` on mobile for `.pill` (Navigation) and `14px → 10px` on `.btn` (HamburgerButton) inside `≤768px` blocks
+- `box-shadow` with 4+ layers: reduce to 2 layers on mobile for heavy shadow stacks (BookPage, TraitCard illustration, etc.)
+- `transform` transitions: preserve smoothness — these are cheap on GPU and must stay
+- Page-turn transition animations: unchanged — these are the core UX
+- `backdrop-filter` on the FloatingMenu overlay: `blur(4px)` — already modest, keep
+
+**Principle:** Never remove an animation that contributes to the "premium book" feel. Only reduce blur radius and shadow layer count where they add no visible value on a small screen held close.
+
+---
+
+## Phase 2d — Touch UX Safety
+
+**Swipe conflict prevention:**
+- `Book.jsx` swipe detector requires `Math.abs(dx) >= 50` AND `Math.abs(dx) >= Math.abs(dy) * 1.5` before triggering — this already prevents vertical scroll from accidentally triggering page turns
+- `BookPage` gets `touch-action: pan-y` (Phase 2) — tells the browser vertical scrolling is the primary gesture; horizontal swipes bypass `pan-y` and bubble to the swipe detector correctly
+- No additional changes needed; the existing threshold is well-tuned
+
+**Sticky hover prevention:**
+- `@media (hover: hover)` guards on `InfoCard`, `TraitCard`, `ImageBlock` (Phase 2)
+- Any other component with a `transform` or visual state change on `:hover` should receive the same guard during the Phase 3 per-page audit
+
+---
+
+## Phase 2e — AIChatPage Mobile Priority
+
+`AIChatPage` is standalone (outside `BookLayout`). It already has solid mobile CSS. Three specific concerns:
+
+**Keyboard safety on iOS:**
+- The page uses `height: 100dvh` — `dvh` is the dynamic viewport height that shrinks when the iOS keyboard opens. This is the correct unit and must not be changed.
+- The `inputBar` has `padding-bottom: calc(0.85rem + env(safe-area-inset-bottom, 0px))` — correct.
+- The `chatArea` has `overflow-y: auto` — messages scroll up as keyboard opens, keeping the input visible. Already correct.
+- Verify: when keyboard opens on iOS, the input field remains visible and the chat area shrinks (not overflows).
+
+**Input zoom prevention:**
+- `.input` has `font-size: 1rem` on mobile — this is ≥16px and prevents iOS auto-zoom. Must not be reduced below 16px.
+
+**Smooth scroll:**
+- `chatArea` has `-webkit-overflow-scrolling: touch` and `overscroll-behavior-y: contain` — momentum scrolling active, pull-to-refresh blocked. Correct.
+
+If any keyboard/scroll issues are found during Phase 3 audit, the fix is `env(safe-area-inset-bottom)` padding adjustments on `inputBar`, not height changes.
+
+---
+
 ## Phase 3 — Per-Page Audit
 
 ### Scope
@@ -246,6 +314,8 @@ Fix via shared system first. Only add a per-page `@media` block if:
 - The issue cannot be resolved by the token changes in Phase 1
 - The issue cannot be resolved by the shared component changes in Phase 2
 - The issue is a genuine layout breakage, not a minor visual preference
+
+When adding a per-page fix, prefer: **stack vertically → simplify layout → reduce decorative elements → preserve reading comfort**. Never compress content to reduce scroll length.
 
 ### High-risk pages (audit first, most likely to need fixes)
 
@@ -274,16 +344,34 @@ Pages that already have complete `1fr` grid collapse and full vertical stacking:
 
 Before completion, verify all pages at 390px, 430px, and 768px:
 
+**Layout integrity:**
 - [ ] No horizontal scroll on any page
-- [ ] No clipped or hidden content on any page  
-- [ ] Body text comfortable to read (≥14px, good contrast)
+- [ ] No clipped or hidden content on any page
+- [ ] No desktop layout patterns leaking into mobile (side-by-side columns, multi-column grids)
+- [ ] No broken spacing (giant gaps, collapsed gaps)
+
+**Typography and readability:**
+- [ ] Body text comfortable to read (≥14px effective, good contrast, comfortable line-height)
 - [ ] Titles proportionate — not oversized, not undersized
-- [ ] Cards and sections feel spacious but not empty
-- [ ] Touch targets ≥44px on all interactive elements
+- [ ] No text overflow or truncation
+
+**Visual feel:**
+- [ ] Cards and sections feel spacious but not empty — "calm digital book", not "dense dashboard"
+- [ ] Emotional storytelling feel preserved — soft rhythm, not app-like
+- [ ] Decorative elements (ornaments, dividers, accents) present but not overwhelming
+
+**Media:**
 - [ ] Images fit within the page without dominating vertical space
-- [ ] Swipe navigation still works on all book pages
-- [ ] AIChatPage keyboard behavior correct on mobile
-- [ ] Desktop at 1280px: zero visual changes from before
+- [ ] No video/audio/embed overflow on narrow screens
+
+**Interaction:**
+- [ ] Touch targets ≥44px on all interactive elements
+- [ ] No sticky hover states on any component
+- [ ] Swipe navigation still works on all book pages (no scroll/swipe conflict)
+- [ ] AIChatPage: input visible when keyboard opens on iOS
+
+**Desktop regression:**
+- [ ] Desktop at 1280px: zero visual changes from before on all pages
 
 ---
 
@@ -313,6 +401,8 @@ Before completion, verify all pages at 390px, 430px, and 768px:
 | `src/components/InfoCard.module.css` | Wrap hover rules in `@media (hover: hover)` | 2 |
 | `src/components/TraitCard.module.css` | Wrap hover rules in `@media (hover: hover)` | 2 |
 | `src/components/FloatingMenu.module.css` | Add `min-height: 44px` to `.downloadBtn` | 2 |
+| `src/components/Navigation.module.css` | Reduce `backdrop-filter` blur on mobile | 2c |
+| `src/components/HamburgerButton.module.css` | Reduce `backdrop-filter` blur on mobile | 2c |
 | `src/pages/*.module.css` (subset) | Per-page overrides where needed | 3 |
 
-Total files modified: ~8 guaranteed + subset of 59 page files (estimate: 5–12 pages will need targeted fixes after seeing them at 390px).
+Total files modified: ~10 guaranteed + subset of 59 page files (estimate: 5–12 pages will need targeted fixes after seeing them at 390px).
