@@ -180,17 +180,23 @@
    MOBILE  ≤ 768px — tighter header, smaller title, less gap
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  /* Allow .container to shrink so .main can control its own height */
+  .container {
+    min-height: 0;
+  }
+
+  /* Header is a non-scrolling flex item — always visible above .main.
+     No sticky/z-index needed; .main is clipped and can't overflow above it. */
   .header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: relative;
     background: var(--c-paper);
-    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
+    box-shadow: 0 2px 0 rgba(139, 105, 20, 0.12);
     gap: 0.25rem;
     padding-top: 0.65rem;
     padding-bottom: 0.28rem;
     padding-right: max(60px, calc(env(safe-area-inset-right, 0px) + 52px));
     padding-left: 60px;
+    z-index: 1;
   }
 
   .ornament {
@@ -212,11 +218,24 @@
     line-height: 1.78;
   }
 
+  /* .main is now the scroll container on mobile */
   .main {
     justify-content: flex-start;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     gap: clamp(0.48rem, 1.3vh, 0.90rem);
     padding-top: 0.26rem;
-    padding-bottom: 0.12rem;
+    /* Clear the fixed page-number footer at the bottom */
+    padding-bottom: calc(3.2rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .main::-webkit-scrollbar {
+    display: none;
   }
 
   /* Hidden on mobile — the fixed footer in BookPage shows ornament + page number */
@@ -229,16 +248,15 @@
   }
 
   .compact .header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: relative;
     background: var(--c-paper);
-    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
+    box-shadow: 0 2px 0 rgba(139, 105, 20, 0.12);
     padding-top: 0.50rem;
     padding-bottom: 0.18rem;
     padding-right: max(60px, calc(env(safe-area-inset-right, 0px) + 52px));
     padding-left: 60px;
     gap: clamp(0.10rem, 0.35vh, 0.20rem);
+    z-index: 1;
   }
 }
 
@@ -247,16 +265,15 @@
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 480px) {
   .header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: relative;
     background: var(--c-paper);
-    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
+    box-shadow: 0 2px 0 rgba(139, 105, 20, 0.12);
     gap: 0.18rem;
     padding-top: 0.55rem;
     padding-bottom: 0.20rem;
     padding-right: max(60px, calc(env(safe-area-inset-right, 0px) + 52px));
     padding-left: 60px;
+    z-index: 1;
   }
 
   .ornament {
@@ -282,7 +299,7 @@
     justify-content: flex-start;
     gap: clamp(0.42rem, 1.1vh, 0.80rem);
     padding-top: 0.22rem;
-    padding-bottom: 0.10rem;
+    padding-bottom: calc(3.2rem + env(safe-area-inset-bottom, 0px));
   }
 
   .footer {
@@ -294,15 +311,14 @@
   }
 
   .compact .header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    position: relative;
     background: var(--c-paper);
-    box-shadow: 0 1px 0 rgba(139, 105, 20, 0.10);
+    box-shadow: 0 2px 0 rgba(139, 105, 20, 0.12);
     padding-top: 0.45rem;
     padding-bottom: 0.15rem;
     padding-right: max(60px, calc(env(safe-area-inset-right, 0px) + 52px));
     padding-left: 60px;
     gap: clamp(0.10rem, 0.35vh, 0.20rem);
+    z-index: 1;
   }
 }
