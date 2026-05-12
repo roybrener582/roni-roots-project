@@ -87,7 +87,7 @@ export const knowledge = [
     id: 'name-story',
     chapter: 'השם שלי',
     title: 'למה נקראת רוני — הסיפור מאחורי השם',
-    keywords: ['למה', 'נקראת', 'ניר', 'דוד', 'פיגוע', 'מקסים', 'זכר', 'אותיות', 'סיפור השם'],
+    keywords: ['למה', 'נקראת', 'ניר', 'דוד', 'זכר', 'אותיות', 'סיפור השם'],
     entities: {
       people: ['רוני', 'ניר', 'ניר רגב'],
       places: [],
@@ -141,7 +141,7 @@ export const knowledge = [
     id: 'memorial-day',
     chapter: 'ניר ז"ל',
     title: 'יום הזיכרון ודוד ניר',
-    keywords: ['יום הזיכרון', 'צפירה', 'זיכרון', 'נופלים', 'מצ"ח', 'אישי', 'קרוב'],
+    keywords: ['יום הזיכרון', 'צפירה', 'זיכרון', 'נופלים', 'אישי', 'קרוב'],
     entities: {
       people: ['ניר', 'ניר רגב', 'עינת'],
       places: [],
@@ -323,7 +323,7 @@ export const knowledge = [
     entities: {
       people: ['רוני'],
       places: [],
-      relations: ['אחיה'],
+      relations: [],
     },
     content:
       'רוני נולדה ב-20 בספטמבר 2013. ' +
@@ -424,7 +424,7 @@ export const knowledge = [
     id: 'national-identity',
     chapter: 'מעגלי השייכות',
     title: 'מדינה וזהות לאומית',
-    keywords: ['מדינה', 'ישראל', 'גאווה', 'לאומי', 'שייכות', 'דגל', 'המנון', 'תקווה', 'ציון'],
+    keywords: ['מדינה', 'ישראל', 'גאווה', 'לאומי', 'שייכות'],
     entities: {
       people: ['רוני'],
       places: ['ישראל'],
