@@ -14,7 +14,7 @@ export default function OthersViewPage() {
 
         <div className={styles.badge}>
           <span className={styles.badgeIcon} aria-hidden="true">👭</span>
-          <span className={styles.traitWord}>חברתית</span>
+          <span className={styles.traitWord}>חברותית</span>
           <span className={styles.badgeIcon} aria-hidden="true">💛</span>
         </div>
 
@@ -22,7 +22,7 @@ export default function OthersViewPage() {
 
         <div className={styles.reflection}>
           <p className={styles.paragraph}>
-            לא הפתיע אותי שהם אמרו שאני חברתית,{' '}
+            לא הפתיע אותי שהם אמרו שאני חברותית,{' '}
             כי אני יודעת שאני חברה טובה והם בהחלט צדקו.
           </p>
           <p className={styles.paragraph}>
