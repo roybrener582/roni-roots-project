@@ -23,8 +23,8 @@ export default function FamilyNamePersonalPage() {
           {/* Block 1 — comfortable opening */}
           <p className={styles.para}>
             אני מרגישה{' '}
-            <span className={styles.keyWord}>סבבה</span>{' '}
-            עם שם המשפחה שלי.
+            <span className={styles.keyWord}>בסדר</span>{' '}
+            עם שם המשפחה שלי, והוא חלק ממי שאני.
           </p>
 
           <div className={styles.rule} aria-hidden="true" />

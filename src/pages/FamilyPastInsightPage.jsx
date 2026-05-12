@@ -17,7 +17,7 @@ export default function FamilyPastInsightPage() {
 
         <div className={styles.textBlock}>
           <p className={styles.reflection}>
-            למדתי על הדברים שהם היו עושים{' '}
+            למדתי על הדברים שהיו עושים{' '}
             <span className={styles.pastWord}>פעם</span>,
             <br />
             ועל איך החיים שלהם נראו ב<span className={styles.pastWord}>עבר</span>.
