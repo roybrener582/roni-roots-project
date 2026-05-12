@@ -316,6 +316,49 @@
 }
 
 /* ══════════════════════════════════════════════════════════
+   DESKTOP ≥ 769px — tighten spacing so all 4 sections fit
+   inside the book page without scrolling
+   ══════════════════════════════════════════════════════════ */
+@media (min-width: 769px) {
+  .wrapper {
+    padding:
+      clamp(0.7rem, 1.8vh, 1.2rem)
+      clamp(1.4rem, 5vw,   4.0rem);
+  }
+
+  .section {
+    padding:
+      clamp(0.45rem, 1.2vh, 0.8rem)
+      0;
+  }
+
+  .sectionClosing {
+    padding-top: clamp(0.35rem, 0.9vh, 0.6rem);
+  }
+
+  .sectionLabel {
+    margin-bottom: clamp(0.28rem, 0.7vh, 0.45rem);
+  }
+
+  .para {
+    font-size:   clamp(1.02rem, 2.2vw, 1.26rem);
+    line-height: 1.85;
+  }
+
+  .memoryBlock {
+    margin-top: clamp(0.45rem, 1.1vh, 0.75rem);
+    padding:
+      clamp(0.55rem, 1.3vh, 0.85rem)
+      clamp(1.2rem,  3vw,   2.0rem);
+  }
+
+  .memoryText {
+    font-size:   clamp(0.88rem, 1.8vw, 1.08rem);
+    line-height: 1.85;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
    MOBILE  ≤ 540px
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
