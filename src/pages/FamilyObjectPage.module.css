@@ -1,9 +1,10 @@
 /* ══════════════════════════════════════════════════════════
    FamilyObjectPage — "חפץ משפחתי עם משמעות"  ·  פרק 8
-   Tone: warm, gentle, memorial — a memory held in an object.
-   Desktop: guitar (visual LEFT) | story text (visual RIGHT).
+   Tone: warm, personal, ocean-inspired — a surfboard as a
+   vessel of shared memory, courage, and freedom.
+   Desktop: surfboard (visual LEFT) | story text (visual RIGHT).
    In RTL flex-row the first DOM child lands on the right,
-   so text comes first in the markup, guitar comes second.
+   so text comes first in the markup, board comes second.
    ══════════════════════════════════════════════════════════ */
 
 /* ── Outer wrapper ───────────────────────────────────────── */
@@ -15,8 +16,8 @@
 }
 
 /* ══════════════════════════════════════════════════════════
-   AURA — rose warmth, barely visible.
-   Keeps the page feeling like a memory, not a document.
+   AURA — ocean-blue warmth, barely visible.
+   Keeps the page feeling like a sunlit shore, not a document.
    ══════════════════════════════════════════════════════════ */
 .aura {
   position:      absolute;
@@ -28,8 +29,8 @@
   border-radius: 48% 52% 50% 50% / 46% 54% 48% 52%;
   background:    radial-gradient(
     ellipse at 50% 50%,
-    rgba(192, 136, 136, 0.09) 0%,
-    rgba(192, 136, 136, 0.04) 52%,
+    rgba(70, 155, 200, 0.08) 0%,
+    rgba(70, 155, 200, 0.03) 52%,
     transparent 74%
   );
   pointer-events: none;
@@ -77,51 +78,51 @@
   to   { opacity: 1; transform: translateY(0);    }
 }
 
-/* ── Guitar column (visual LEFT on desktop) ──────────────── */
-.guitarCol {
+/* ── Surfboard column (visual LEFT on desktop) ───────────── */
+.boardCol {
   flex:            0 0 auto;
   position:        relative;
   display:         flex;
   align-items:     center;
   justify-content: center;
-  width:           clamp(130px, 20vw, 205px);
+  width:           clamp(110px, 17vw, 175px);
   animation:       rise 0.65s 0.10s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Warm amber glow behind the guitar */
-.guitarGlow {
+/* Ocean-blue glow behind the surfboard */
+.boardGlow {
   position:      absolute;
   top:           50%;
   left:          50%;
   transform:     translate(-50%, -50%);
-  width:         140%;
+  width:         150%;
   height:        140%;
   border-radius: 50%;
   background:    radial-gradient(
     ellipse at 50% 55%,
-    rgba(190, 120, 45, 0.13) 0%,
-    rgba(190, 120, 45, 0.06) 45%,
+    rgba(60, 155, 200, 0.12) 0%,
+    rgba(60, 155, 200, 0.05) 45%,
     transparent 68%
   );
   pointer-events: none;
-  animation:      guitarGlow 7s ease-in-out infinite alternate;
+  animation:      boardGlowPulse 7s ease-in-out infinite alternate;
 }
 
-@keyframes guitarGlow {
+@keyframes boardGlowPulse {
   from { opacity: 0.7; transform: translate(-50%, -50%) scale(1);    }
   to   { opacity: 1;   transform: translate(-50%, -50%) scale(1.07); }
 }
 
 /* The SVG itself */
-.guitarSvg {
+.boardSvg {
   width:      100%;
   height:     auto;
-  max-height: clamp(280px, 52vh, 410px);
-  filter:     drop-shadow(0 5px 18px rgba(80, 38, 8, 0.18));
-  animation:  guitarFloat 9s ease-in-out infinite alternate;
+  max-height: clamp(280px, 52vh, 415px);
+  filter:     drop-shadow(0 6px 18px rgba(25, 85, 130, 0.16));
+  animation:  boardFloat 9s ease-in-out infinite alternate;
 }
 
-@keyframes guitarFloat {
+@keyframes boardFloat {
   from { transform: translateY(0px);  }
   to   { transform: translateY(-7px); }
 }
@@ -155,7 +156,7 @@
 
 /* ══════════════════════════════════════════════════════════
    HIGHLIGHTED WORDS
-   גיטרה · זיכרונות · סיפורים מהעבר
+   גלשן · החופש · אומץ · מרגישים
    Color + weight only. Nothing loud.
    ══════════════════════════════════════════════════════════ */
 .highlight {
@@ -166,14 +167,16 @@
 }
 
 /* ══════════════════════════════════════════════════════════
-   MOBILE  ≤ 620px
-   Stack: title (header) → guitar → text
-   Guitar gets order: -1 to float above text in column flow.
+   MOBILE  ≤ 768px
+   Stack: title (header) → surfboard → text
+   Board gets order: -1 to float above text in column flow.
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  /* Remove wrapper's own padding — BookPage already provides page-level padding */
+  /* Remove wrapper's own padding — BookPage already provides page-level padding.
+     Allow overflow so PageLayout's .main scroll container can scroll the content. */
   .wrapper {
     padding: 0;
+    overflow: visible;
   }
 
   .layout {
@@ -181,9 +184,9 @@
     gap:            clamp(1.2rem, 4vw, 2rem);
   }
 
-  /* Guitar rises above text on mobile */
-  .guitarCol {
-    width: clamp(110px, 46vw, 170px);
+  /* Surfboard rises above text on mobile */
+  .boardCol {
+    width: clamp(90px, 38vw, 145px);
     order: -1;
   }
 
