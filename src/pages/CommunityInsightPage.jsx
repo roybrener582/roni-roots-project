@@ -34,7 +34,7 @@ export default function CommunityInsightPage() {
             <p className={styles.para}>
               כן, אני מרגישה שייכת לקהילה שלי{' '}
               <span className={styles.keyWord}>ברגבה.</span>{' '}
-              אני גרה שם, מכירה את האנשים — ויש תחושה שכולם מכירים את כולם ואכפת להם אחד מהשני.
+              אני גרה שם, מכירה את האנשים ,לוקחת חלק באירועים ובפעיליות.
             </p>
           </div>
 
@@ -42,7 +42,7 @@ export default function CommunityInsightPage() {
           <div className={styles.exampleBlock}>
             <span className={styles.exampleIcon} aria-hidden="true">🪁</span>
             <p className={styles.exampleText}>
-              למשל, אצלנו ברגבה יש מסורת — כל סוכות כולם מכינים עפיפונים ביחד. זה משהו שאני זוכרת מאז שהייתי קטנה, וזה מרגיש ממש כמו קהילה אמיתית.
+              למשל, אצלנו ברגבה יש מסורת  כל סוכות כולם מכינים עפיפונים ביחד. זה משהו שאני זוכרת מאז שהייתי קטנה, וזה מרגיש ממש כמו קהילה אמיתית.
             </p>
           </div>
 
@@ -54,7 +54,7 @@ export default function CommunityInsightPage() {
             <p className={`${styles.para} ${styles.paraClosing}`}>
               לדעתי חשוב להיות חלק מקהילה כי זה נותן תחושת{' '}
               <span className={styles.keyWord}>שייכות וביטחון.</span>{' '}
-              כשיש קהילה, אנחנו לא לבד — יש אנשים שעוזרים לנו וגם שמחים איתנו ברגעים טובים.
+              כשיש קהילה, אנחנו לא לבד  יש אנשים שעוזרים לנו וגם שמחים איתנו ברגעים טובים.
             </p>
           </div>
 

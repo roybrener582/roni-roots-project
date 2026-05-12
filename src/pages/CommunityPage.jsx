@@ -45,7 +45,7 @@ export default function CommunityPage() {
                 <div className={styles.qaItem}>
                   <span className={styles.question}>מה הייתי רוצה לשפר?</span>
                   <p className={styles.answer}>
-                    שיהיו יותר פעילויות לנוער — חוגים או מקומות להיפגש בהם.
+                    שיהיו יותר פעילויות לנוער חוגים או מקומות להיפגש בהם.
                   </p>
                 </div>
               </div>
@@ -86,7 +86,7 @@ export default function CommunityPage() {
                 <div className={styles.qaItem}>
                   <span className={styles.question}>מה היה מיוחד בו פעם?</span>
                   <p className={styles.answer}>
-                    פעם זה היה מקום חקלאי — אנשים עבדו יחד בשדות ובנו את החיים שלהם מחדש.
+                    פעם זה היה מקום חקלאי אנשים עבדו יחד בשדות ובנו את החיים שלהם מחדש.
                   </p>
                 </div>
               </div>

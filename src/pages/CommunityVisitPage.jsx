@@ -34,7 +34,7 @@ export default function CommunityVisitPage() {
           <div className={styles.qaCard}>
             <span className={styles.qLabel}>מה למדתי על קהילה מסוימת שלא ידעתי קודם?</span>
             <p className={styles.answer}>
-              למדתי שלכל קהילה יש סיפור מיוחד ושונה. בלוחמי הגטאות למשל למדתי על אנשים שעברו דברים מאוד קשים ובנו קהילה חזקה למרות הכול.
+              למדתי שלכל קהילה יש סיפור מיוחד ושונה. בלוחמי הגטאות למשל למדתי על אנשים שעברו דברים מאוד קשים בשואה ובנו קהילה חזקה למרות הכול.
             </p>
           </div>
 
@@ -44,7 +44,7 @@ export default function CommunityVisitPage() {
           <div className={styles.qaCard}>
             <span className={styles.qLabel}>מה הפתיע אותי?</span>
             <p className={styles.answer}>
-              הפתיע אותי כמה אנשים היו חזקים והצליחו להמשיך לחיות ולבנות קהילה גם אחרי דברים לא פשוטים.
+              הפתיע אותי כמה אנשים היו חזקים והצליחו להמשיך לחיות ולבנות קהילה גם אחרי שעברו דברים לא פשוטים .
             </p>
           </div>
 
