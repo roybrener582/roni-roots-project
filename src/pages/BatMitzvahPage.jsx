@@ -37,7 +37,7 @@ export default function BatMitzvahPage() {
             <span className={styles.sectionLabel}>איזה ערכים ומסר קיבלתי מהטקס הזה?</span>
             <p className={styles.para}>
               מהבת מצווה הבנתי שאני כבר{' '}
-              <span className={styles.keyWord}>גדלה ולוקחת יותר אחריות</span>{' '}
+              <span className={styles.keyWord}>גדלה וצריכה לוקחת יותר אחריות</span>{' '}
               על עצמי. זה גם לימד אותי{' '}
               <span className={styles.keyWord}>להעריך את המשפחה והחברים שלי,</span>{' '}
               כי הם חלק חשוב מהחיים שלי.

@@ -40,7 +40,7 @@ export default function CitizenshipInsightPage() {
               איזו זכות או אחריות חשובה בעיניי במיוחד?
             </span>
             <p className={`${styles.para} ${styles.paraClosing}`}>
-              בעיניי, אחת האחריות הכי חשובות היא{' '}
+              בעיניי, אחת הזכויות הכי חשובות היא{' '}
               <span className={styles.keyWord}>לעזור לאחרים</span>{' '}
               ולשמור על הסביבה שלנו. חשוב גם{' '}
               <span className={styles.keyWord}>לכבד אחד את השני</span>{' '}
