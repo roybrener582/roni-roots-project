@@ -39,11 +39,11 @@ export function retrieveChunks(question, knowledge, topK = 6) {
     }
 
     // Signal 3: Chapter match — check normalized question words against chapter tokens
-    const chapterTokens = entry.chapter.toLowerCase().split(/\s+/).map(normalizeHebrew)
-    const chapterMatchCount = chapterTokens.filter(
-      ct => ct.length > 1 && qWords.includes(ct)
-    ).length
-    if (chapterMatchCount >= chapterTokens.length) {
+    const chapterTokens = entry.chapter.toLowerCase().split(/\s+/)
+      .map(normalizeHebrew)
+      .filter(ct => ct.length > 1)
+    const chapterMatchCount = chapterTokens.filter(ct => qWords.includes(ct)).length
+    if (chapterMatchCount >= chapterTokens.length && chapterTokens.length > 0) {
       // All chapter words found in question → full chapter match
       score += 3
     }
