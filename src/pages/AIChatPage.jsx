@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from './AIChatPage.module.css';
+import { knowledge } from '../../api/knowledge.js';
+import { retrieveChunks } from '../../api/retrieval.js';
 
 function TypingIndicator() {
   return (
@@ -32,6 +34,38 @@ const SUGGESTIONS = [
   'מאיפה באה המשפחה?',
 ];
 
+const SYNONYMS = {
+  'אימא': 'אמא',
+  'אמי': 'אמא',
+  'אמה': 'אמא',
+  'אבי': 'אבא',
+  'ריקודים': 'ריקוד',
+  'לרקד': 'לרקוד',
+  'חלומות': 'חלום',
+  'עיסוק': 'מקצוע',
+};
+
+function expandQuery(question) {
+  let q = question;
+  for (const [from, to] of Object.entries(SYNONYMS)) {
+    q = q.replace(new RegExp(from, 'g'), to);
+  }
+  return q;
+}
+
+const FALLBACK = 'אני לא מוצא מידע על זה בתוך ספר השורשים.';
+
+function buildAnswer(entries) {
+  if (entries.length === 0) return FALLBACK;
+  const [first, second] = entries;
+  if (!second) return first.content;
+  // Same chapter: both entries are complementary — combine them
+  if (first.chapter === second.chapter) {
+    return `${first.content}\n\n${second.content}`;
+  }
+  return first.content;
+}
+
 export default function AIChatPage() {
   const [messages, setMessages] = useState([
     {
@@ -40,7 +74,6 @@ export default function AIChatPage() {
       text: 'שלום! אני עוזרת הבינה המלאכותית של עבודת השורשים של רוני 🤖\nאני יודעת הכל על העבודה — שאלי אותי כל שאלה!',
     },
   ]);
-  const [conversationHistory, setConversationHistory] = useState([]);
   const [input, setInput] = useState('');
   const [thinking, setThinking] = useState(false);
   const bottomRef = useRef(null);
@@ -50,7 +83,7 @@ export default function AIChatPage() {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, thinking]);
 
-  const sendMessage = async (text) => {
+  const sendMessage = (text) => {
     const question = text.trim();
     if (!question || thinking) return;
 
@@ -59,32 +92,15 @@ export default function AIChatPage() {
     setInput('');
     setThinking(true);
 
-    try {
-      const res = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: question, history: conversationHistory }),
-      });
-      const data = await res.json();
-      const answer = data.answer || 'מצטערת, הייתה שגיאה זמנית. נסה שוב.';
-
+    const delay = 500 + Math.random() * 600;
+    setTimeout(() => {
+      const expanded = expandQuery(question);
+      const entries = retrieveChunks(expanded, knowledge, 2);
+      const answer = buildAnswer(entries);
       const aiMsg = { id: Date.now() + 1, role: 'ai', text: answer };
       setMessages(prev => [...prev, aiMsg]);
-      setConversationHistory(prev => [
-        ...prev,
-        { role: 'user', content: question },
-        { role: 'assistant', content: answer },
-      ]);
-    } catch {
-      const errMsg = {
-        id: Date.now() + 1,
-        role: 'ai',
-        text: 'מצטערת, הייתה שגיאה זמנית. נסה שוב.',
-      };
-      setMessages(prev => [...prev, errMsg]);
-    } finally {
       setThinking(false);
-    }
+    }, delay);
   };
 
   const handleSubmit = (e) => {
