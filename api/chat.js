@@ -2,7 +2,7 @@ import Anthropic from '@anthropic-ai/sdk'
 import { knowledge } from './knowledge.js'
 import { retrieveChunks } from './retrieval.js'
 
-const FALLBACK_NOT_FOUND = 'אני לא מוצא מידע על זה בתוך ספר השורשים.'
+const FALLBACK_NOT_FOUND = 'אני לא מוצאת מידע על זה בתוך ספר השורשים.'
 const FALLBACK_ERROR = 'מצטערת, הייתה שגיאה זמנית. נסה שוב.'
 const FALLBACK_TOO_LONG = 'השאלה ארוכה מדי.'
 const MAX_HISTORY_MESSAGES = 12
@@ -51,7 +51,9 @@ export default async function handler(req, res) {
   const systemPrompt = SYSTEM_PROMPT.replace('{CONTEXT}', context)
 
   const recentHistory = Array.isArray(history)
-    ? history.slice(-MAX_HISTORY_MESSAGES)
+    ? history
+        .filter(m => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string')
+        .slice(-MAX_HISTORY_MESSAGES)
     : []
 
   const messages = [
