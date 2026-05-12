@@ -1,71 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { projectKnowledge } from '../data/projectKnowledge';
 import styles from './AIChatPage.module.css';
-
-// ─────────────────────────────────────────────────────────────
-// Simple knowledge search engine
-// ─────────────────────────────────────────────────────────────
-
-function findRelevantEntries(question) {
-  const q = question.toLowerCase();
-
-  // Score each knowledge entry by keyword matches
-  const scored = projectKnowledge.map((entry) => {
-    let score = 0;
-    for (const kw of entry.keywords) {
-      if (q.includes(kw.toLowerCase())) {
-        score += kw.length > 3 ? 3 : 1; // longer keyword = higher score
-      }
-    }
-    // Also check if any word in the question appears in the content
-    const words = q.split(/[\s,?!.]+/).filter((w) => w.length > 2);
-    for (const w of words) {
-      if (entry.content.includes(w)) score += 1;
-      if (entry.title.includes(w)) score += 2;
-    }
-    return { entry, score };
-  });
-
-  return scored
-    .filter((s) => s.score > 0)
-    .sort((a, b) => b.score - a.score)
-    .slice(0, 3)
-    .map((s) => s.entry);
-}
-
-function buildAnswer(question, entries) {
-  if (entries.length === 0) {
-    return 'אני לא יודעת לפי המידע שקיים בעבודה.';
-  }
-
-  // Combine content from top matches
-  const combined = entries.map((e) => e.content).join(' ');
-
-  // Build a natural answer based on question type
-  const q = question.toLowerCase();
-
-  if (q.includes('מי') || q.includes('מה זה') || q.includes('מה היא')) {
-    return combined;
-  }
-  if (q.includes('למה') || q.includes('מדוע')) {
-    return combined;
-  }
-  if (q.includes('איפה') || q.includes('מאיפה')) {
-    return combined;
-  }
-  if (q.includes('מתי') || q.includes('כמה')) {
-    return combined;
-  }
-  if (q.includes('איך') || q.includes('כיצד')) {
-    return combined;
-  }
-
-  return combined;
-}
-
-// ─────────────────────────────────────────────────────────────
-// Components
-// ─────────────────────────────────────────────────────────────
 
 function TypingIndicator() {
   return (
@@ -106,33 +40,51 @@ export default function AIChatPage() {
       text: 'שלום! אני עוזרת הבינה המלאכותית של עבודת השורשים של רוני 🤖\nאני יודעת הכל על העבודה — שאלי אותי כל שאלה!',
     },
   ]);
+  const [conversationHistory, setConversationHistory] = useState([]);
   const [input, setInput] = useState('');
   const [thinking, setThinking] = useState(false);
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
 
-  // Auto-scroll on new message
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, thinking]);
 
-  const sendMessage = (text) => {
+  const sendMessage = async (text) => {
     const question = text.trim();
-    if (!question) return;
+    if (!question || thinking) return;
 
     const userMsg = { id: Date.now(), role: 'user', text: question };
-    setMessages((prev) => [...prev, userMsg]);
+    setMessages(prev => [...prev, userMsg]);
     setInput('');
     setThinking(true);
 
-    // Simulate "thinking" delay for realism
-    setTimeout(() => {
-      const entries = findRelevantEntries(question);
-      const answer = buildAnswer(question, entries);
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: question, history: conversationHistory }),
+      });
+      const data = await res.json();
+      const answer = data.answer || 'מצטערת, הייתה שגיאה זמנית. נסה שוב.';
+
       const aiMsg = { id: Date.now() + 1, role: 'ai', text: answer };
-      setMessages((prev) => [...prev, aiMsg]);
+      setMessages(prev => [...prev, aiMsg]);
+      setConversationHistory(prev => [
+        ...prev,
+        { role: 'user', content: question },
+        { role: 'assistant', content: answer },
+      ]);
+    } catch {
+      const errMsg = {
+        id: Date.now() + 1,
+        role: 'ai',
+        text: 'מצטערת, הייתה שגיאה זמנית. נסה שוב.',
+      };
+      setMessages(prev => [...prev, errMsg]);
+    } finally {
       setThinking(false);
-    }, 700 + Math.random() * 500);
+    }
   };
 
   const handleSubmit = (e) => {
@@ -159,7 +111,7 @@ export default function AIChatPage() {
         </div>
       </header>
 
-      {/* ── Suggestion chips (show only when just the greeting is there) ── */}
+      {/* ── Suggestion chips ── */}
       {messages.length === 1 && (
         <div className={styles.suggestions} aria-label="שאלות לדוגמה">
           {SUGGESTIONS.map((s) => (
