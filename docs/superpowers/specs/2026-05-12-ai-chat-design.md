@@ -58,7 +58,7 @@ Anthropic API  (ANTHROPIC_API_KEY — Vercel env var, never in frontend)
 | Path | Change |
 |---|---|
 | `/src/pages/AIChatPage.jsx` | Remove local search/answer logic; add `fetch('/api/chat')` + history state; keep UI identical |
-| `vercel.json` | Add `api` to SPA rewrite exclusion so `/api/chat` is not rewritten to `index.html` |
+| `vercel.json` | Add `api` to SPA rewrite exclusion: `(?!api\|assets\|.*\\..*)` so `/api/chat` is not rewritten to `index.html` |
 | `package.json` | Add `@anthropic-ai/sdk` as runtime dependency |
 
 ### Untouched
