@@ -44,7 +44,7 @@ export default function FutureAspirationsPage() {
             <p className={styles.cardText}>
               להרחיב את הידע שלי ב<mark className={styles.hi}>עיצוב פנים</mark> —
               {' '}כי זה מאוד מעניין אותי.
-              {' '}גם ללמוד <mark className={styles.hi}>עיצוב אירועים</mark> 🏡
+              {' '}וגם ללמוד <mark className={styles.hi}>עיצוב אירועים</mark> 🏡
             </p>
           </article>
 
@@ -63,10 +63,10 @@ export default function FutureAspirationsPage() {
               <h2 className={styles.cardTitle}>מה אני רוצה להיות</h2>
             </div>
             <p className={styles.cardText}>
-              כשאהיה גדולה, להיות{' '}
+              אני רוצה להיות{' '}
               <mark className={styles.hi}>אדריכלית</mark>{' '}או{' '}
               <mark className={styles.hi}>מעצבת פנים</mark> ✨{' '}
-              — מקצועות שמחברים יצירה, יופי ועיצוב.
+              — כי אילו מקצועות שמחברים יצירה, יופי ועיצוב.
             </p>
           </article>
 
@@ -85,8 +85,8 @@ export default function FutureAspirationsPage() {
               <h2 className={styles.cardTitle}>מי אני רוצה להיות כאדם</h2>
             </div>
             <p className={styles.cardText}>
-              לא הייתי רוצה לשנות כלום בעצמי 💛{' '}
-              שבסביבה שלי כולם יהיו נחמדים ויהיה לכולם כיף להיות יחד.
+              אני לא רוצה לשנות כלום בעצמי, אני רוצה שהסביבה שלי תהיה נעימה ושלכולם יהיה כיף בלהיות ביחד 💛{' '}
+.
             </p>
           </article>
 

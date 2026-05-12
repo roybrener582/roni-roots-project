@@ -213,7 +213,7 @@ export const pages = [
   {
     id: 'family-name-insight',
     component: FamilyNameInsightPage,
-    title: 'מהו שם משפחה בשבילי?',
+    title: 'מהו שם המשפחה בשבילי?',
     hebrewNumber: 25,
   },
   {

@@ -6,7 +6,7 @@ export default function FamilyNameInsightPage() {
     <PageLayout
       accent="mint"
       chapterLabel="פרק 5 – שם המשפחה שלי"
-      title="מהו שם משפחה בשבילי?"
+      title="מהו שם המשפחה בשבילי?"
     >
       <div className={styles.wrapper}>
 
