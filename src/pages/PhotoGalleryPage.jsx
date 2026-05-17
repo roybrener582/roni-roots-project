@@ -34,7 +34,7 @@ function GalleryItem({ src, onOpen }) {
       onClick={() => onOpen(src)}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onOpen(src)}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onOpen(src)}
       aria-label="הצג תמונה"
     >
       <img
