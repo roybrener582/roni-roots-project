@@ -57,6 +57,7 @@ import MemorialDayInsightPage from '../pages/MemorialDayInsightPage';
 import BatMitzvahPage from '../pages/BatMitzvahPage';
 import PersonalPoemPage from '../pages/PersonalPoemPage';
 import JourneySummaryPage from '../pages/JourneySummaryPage';
+import PhotoGalleryPage from '../pages/PhotoGalleryPage';
 
 // ─────────────────────────────────────────────────────────────
 // Central page registry.
@@ -307,117 +308,123 @@ export const pages = [
     hebrewNumber: 40,
   },
   {
+    id: 'photo-gallery',
+    component: PhotoGalleryPage,
+    title: 'גלריית תמונות',
+    hebrewNumber: 41,
+  },
+  {
     id: 'family-object',
     component: FamilyObjectPage,
     title: 'חפץ משפחתי עם משמעות',
-    hebrewNumber: 41,
+    hebrewNumber: 42,
   },
   {
     id: 'family-journey',
     component: FamilyJourneyPage,
     title: 'מסלול הנדודים של משפחתי',
-    hebrewNumber: 42,
+    hebrewNumber: 43,
   },
   {
     id: 'family-masa',
     component: FamilyMasaPage,
     title: 'ציור מפת הנדודים',
-    hebrewNumber: 43,
+    hebrewNumber: 44,
   },
   {
     id: 'family-migration-narrative',
     component: FamilyMigrationNarrativePage,
     title: 'מסע משפחתי',
-    hebrewNumber: 44,
+    hebrewNumber: 45,
   },
   {
     id: 'family-journey-insight',
     component: FamilyJourneyInsightPage,
     title: 'תובנה אישית',
-    hebrewNumber: 45,
+    hebrewNumber: 46,
   },
   {
     id: 'community-insight',
     component: CommunityInsightPage,
     title: 'מהי קהילה בשבילי',
-    hebrewNumber: 46,
+    hebrewNumber: 47,
   },
   {
     id: 'community',
     component: CommunityPage,
     title: 'הקהילה שבה אני גרה',
-    hebrewNumber: 47,
+    hebrewNumber: 48,
   },
   {
     id: 'community-visit',
     component: CommunityVisitPage,
     title: 'באיזה קהילות כבר ביקרנו?',
-    hebrewNumber: 48,
+    hebrewNumber: 49,
   },
   {
     id: 'community-contribution',
     component: CommunityContributionPage,
     title: 'התרומה שלי לקהילה',
-    hebrewNumber: 49,
+    hebrewNumber: 50,
   },
   {
     id: 'community-venture-idea',
     component: CommunityVentureIdeaPage,
     title: 'רעיון למיזם קהילתי קטן',
-    hebrewNumber: 50,
+    hebrewNumber: 51,
   },
   {
     id: 'community-summary',
     component: CommunitySummaryPage,
     title: 'סיכום',
-    hebrewNumber: 51,
+    hebrewNumber: 52,
   },
   {
     id: 'community-personal-insight',
     component: CommunityPersonalInsightPage,
     title: 'תובנה אישית',
-    hebrewNumber: 52,
+    hebrewNumber: 53,
   },
   {
     id: 'people-identity-insight',
     component: PeopleIdentityInsightPage,
     title: 'מה זה להיות חלק מהעם שלי?',
-    hebrewNumber: 53,
+    hebrewNumber: 54,
   },
   {
     id: 'citizenship-insight',
     component: CitizenshipInsightPage,
     title: 'מה זה להיות אזרח בישראל?',
-    hebrewNumber: 54,
+    hebrewNumber: 55,
   },
   {
     id: 'national-symbols',
     component: NationalSymbolsPage,
     title: 'סמלים לאומיים – הדגל וההמנון',
-    hebrewNumber: 55,
+    hebrewNumber: 56,
   },
   {
     id: 'memorial-day-insight',
     component: MemorialDayInsightPage,
     title: 'טקסים ומשמעותם',
-    hebrewNumber: 56,
+    hebrewNumber: 57,
   },
   {
     id: 'bat-mitzvah',
     component: BatMitzvahPage,
     title: 'בת מצווה – בין אישי ללאומי',
-    hebrewNumber: 57,
+    hebrewNumber: 58,
   },
   {
     id: 'personal-poem',
     component: PersonalPoemPage,
     title: 'שיר אישי על העם והמדינה',
-    hebrewNumber: 58,
+    hebrewNumber: 59,
   },
   {
     id: 'journey-summary',
     component: JourneySummaryPage,
     title: 'סיכום המסע',
-    hebrewNumber: 59,
+    hebrewNumber: 60,
   },
 ];
