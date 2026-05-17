@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { readdirSync } from 'fs';
+import { readdirSync, existsSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { resolve } from 'path';
 
@@ -18,16 +18,16 @@ function galleryImagesPlugin() {
     load(id) {
       if (id !== RESOLVED_ID) return;
       const dir = resolve(__dirname, 'public/pic');
-      const urls = readdirSync(dir)
-        .filter(f => IMAGE_EXT.test(f))
-        .map(f => encodeURI('/pic/' + f));
+      const urls = existsSync(dir)
+        ? readdirSync(dir).filter(f => IMAGE_EXT.test(f)).map(f => encodeURI('/pic/' + f))
+        : [];
       return `export default ${JSON.stringify(urls)};`;
     },
     configureServer(server) {
       const dir = resolve(__dirname, 'public/pic');
       server.watcher.add(dir);
       server.watcher.on('all', (event, file) => {
-        if (file.startsWith(dir)) {
+        if (file.startsWith(dir + '/') || file === dir) {
           const mod = server.moduleGraph.getModuleById(RESOLVED_ID);
           if (mod) server.moduleGraph.invalidateModule(mod);
         }
