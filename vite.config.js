@@ -1,8 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { readdirSync, existsSync } from 'fs';
+import { readdirSync, existsSync, readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { resolve } from 'path';
+import { imageSize } from 'image-size';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 const IMAGE_EXT = /\.(jpe?g|png|webp|gif)$/i;
@@ -18,10 +19,15 @@ function galleryImagesPlugin() {
     load(id) {
       if (id !== RESOLVED_ID) return;
       const dir = resolve(__dirname, 'public/pic');
-      const urls = existsSync(dir)
-        ? readdirSync(dir).filter(f => IMAGE_EXT.test(f)).map(f => encodeURI('/pic/' + f))
+      const images = existsSync(dir)
+        ? readdirSync(dir)
+            .filter(f => IMAGE_EXT.test(f))
+            .map(f => {
+              const { width = 4, height = 3 } = imageSize(readFileSync(resolve(dir, f)));
+              return { url: encodeURI('/pic/' + f), width, height };
+            })
         : [];
-      return `export default ${JSON.stringify(urls)};`;
+      return `export default ${JSON.stringify(images)};`;
     },
     configureServer(server) {
       const dir = resolve(__dirname, 'public/pic');

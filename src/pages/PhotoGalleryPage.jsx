@@ -26,20 +26,22 @@ function Lightbox({ src, onClose }) {
   );
 }
 
-function GalleryItem({ src, onOpen }) {
+function GalleryItem({ url, width, height, onOpen }) {
   const [loaded, setLoaded] = useState(false);
   return (
     <div
-      className={styles.item}
-      onClick={() => onOpen(src)}
+      className={`${styles.item}${loaded ? ` ${styles.itemLoaded}` : ''}`}
+      onClick={() => onOpen(url)}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onOpen(src)}
+      onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && onOpen(url)}
       aria-label="הצג תמונה"
     >
       <img
-        src={src}
+        src={url}
         alt=""
+        width={width}
+        height={height}
         loading="lazy"
         decoding="async"
         className={`${styles.img}${loaded ? ` ${styles.imgLoaded}` : ''}`}
@@ -60,8 +62,8 @@ export default function PhotoGalleryPage() {
       subtitle="רגעים מהחיים"
     >
       <div className={styles.grid}>
-        {images.map((src) => (
-          <GalleryItem key={src} src={src} onOpen={setLightboxSrc} />
+        {images.map(({ url, width, height }) => (
+          <GalleryItem key={url} url={url} width={width} height={height} onOpen={setLightboxSrc} />
         ))}
       </div>
       {lightboxSrc && (
